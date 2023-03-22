@@ -6,6 +6,8 @@
     <style>
         body {
             background-color: #acc6bc;
+            display: flex;
+            justify-content: center;
         }
         .flex-row {
             display: flex;
@@ -13,6 +15,19 @@
         .flex-col {
             display: flex;
             flex-direction: column;
+        }
+        /* for mobile and tablet */
+        @media screen and (max-width: 800px) {
+            .content {
+                width: 100%;
+            }
+        }
+        /* desktop */
+        @media screen and (max-width: 2000px) {
+            .content {
+                width: 70%;
+                min-width: 900px;
+            }
         }
         .nav {
             /* align-items: end;
@@ -87,12 +102,13 @@
     </style>
 </head>
 <body>
-    <div class="content">
+    <div class="content flex-col center">
         <div class="header flex-row">
             <div class="title">
                 <div>Interactive</div>
                 <div>Digital</div>
-                <div class="flex-row">Systems
+                <div class="flex-row">
+                    Systems
                     <div class="cursor"></div>
                 </div>
             </div>
