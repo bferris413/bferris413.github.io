@@ -33,6 +33,10 @@
             width: 25px;
             height: 60px;
             background-color: rgb(30, 30, 30);
+            -webkit-animation: 1s blink step-end infinite;
+            -moz-animation: 1.3s blink step-end infinite;
+            -ms-animation: 1.3s blink step-end infinite;
+            -o-animation: 1.3s blink step-end infinite;
             animation: 1.3s blink step-end infinite;
         }
 
@@ -42,6 +46,41 @@
             }
             50% {
                 background-color: rgb(30, 30, 30);
+            }
+        }
+        @-moz-keyframes blink {
+            from, to {
+                color: transparent;
+            }
+            50% {
+                color: black;
+            }
+        }
+
+        @-webkit-keyframes "blink" {
+            from, to {
+                color: transparent;
+            }
+            50% {
+                color: black;
+            }
+        }
+
+        @-ms-keyframes "blink" {
+            from, to {
+                color: transparent;
+            }
+            50% {
+                color: black;
+            }
+        }
+
+        @-o-keyframes "blink" {
+            from, to {
+                color: transparent;
+            }
+            50% {
+                color: black;
             }
         }
     </style>
