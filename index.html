@@ -1,1 +1,66 @@
-Interactive Digital Systems
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Digital</title>
+    <style>
+        body {
+            background-color: #acc6bc;
+        }
+        .flex-row {
+            display: flex;
+        }
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+        .nav {
+            /* align-items: end;
+            justify-content: end; */
+        }
+        .header {
+            border-left: 3px solid rgb(30, 30, 30);
+            border-top: 3px solid rgb(30, 30, 30);
+            padding: 20px;
+            color: rgb(30, 30, 30);
+        }
+        .title {
+            font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; 
+            font-size: 4em;
+            font-weight: 800;
+        }
+        .cursor {
+            width: 25px;
+            height: 60px;
+            background-color: rgb(30, 30, 30);
+            animation: 1.3s blink step-end infinite;
+        }
+
+        @keyframes "blink" {
+            from, to {
+                background-color: transparent;
+            }
+            50% {
+                background-color: rgb(30, 30, 30);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="header flex-row">
+            <div class="title">
+                <div>Interactive</div>
+                <div>Digital</div>
+                <div class="flex-row">Systems<div class="cursor"></div></div>
+            </div>
+            <!-- <div class="nav flex-col">
+                <div>about</div>&nbsp;
+                <div>projects</div>&nbsp;
+                <div>resume</div>
+            </div> -->
+        </div>
+
+    </div>
+</body>
+</html>
