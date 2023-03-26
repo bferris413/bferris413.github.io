@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Digital</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="content flex-col center blur-move">
+        <div class="header flex-row space-between mb-10px">
+            <div class="title">
+                <div>Interactive</div>
+                <div>Digital</div>
+                <div class="flex-row">
+                    Systems
+                    <div class="cursor"></div>
+                </div>
+            </div>
+            <div class="nav flex-row flex-end">
+                <!-- <a href="./index.html" class="mr-p5em">resume</a> -->
+                <a href="./index.html" class="mr-p5em">resumé</a>
+                <a href="./me.html">recent projects</a>
+            </div>
+        </div>
+        <div class="project-content project-container-size">
+            <div class="page-header">Recent Projects</div>
+            <div class="flex-row wrap">
+                <div class="project project-size">
+                    <div class="project-header">biome</div>
+                    <p>A collection of language/runtime tools to test the concept of an immediate feedback loop.</p>
+                    <p>Consists of:</p>
+                    <div>- incremental parser</div>
+                    <div>- tree-walking interpreter</div>
+                    <div>- <a href="https://microsoft.github.io/language-server-protocol/">LSP</a> server (planned)</div>
+                    <div>- VS Code plugin (planned)</div>
+                    <p>Public release coming soon.</p>
+                </div>
+                <div class="project project-size">
+                    <div class="project-header">spex</div>
+                    <p>An <a href="https://en.wikipedia.org/wiki/SXML">SXML</a> parser (s-expressions to HTML).</p>
+                    <p>Give this:<br>(div (@ (class "greeting")) "Hello!")</p>
+                    <p>Get this:<br>&lt;div class="greeting"&gt;"Hello!"&lt;/div&gt;</p>
+
+                </div>
+                <div class="project project-size">
+                    <div class="project-header">rustwatch</div>
+                    <p>
+                        A cross-platform filesystem watcher using
+                        <a href="https://github.com/notify-rs/notify">notify</a>.
+                    </p>
+                    <p>
+                        I made this to explore
+                        <a href="https://www.man7.org/linux/man-pages/man7/inotify.7.html">inotify</a>
+                        support in Rust while experimenting with live-reloading concepts in another project.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
