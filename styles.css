@@ -30,11 +30,11 @@
         margin-left: 1em;
     }
     .project-container-size {
-        max-width: 90%;
-        min-width: 800px;
+        max-width: 85%;
+        min-width: 700px;
     }
     .project-size {
-        max-width: 40%;
+        width: 100%;
     }
 }
 .page-header {
@@ -132,7 +132,7 @@ a:active {
     font-weight:600;
 }
 .project {
-    border: 2px solid rgb(30, 30, 30);
+    border-bottom: 2px solid rgb(30, 30, 30);
     margin-right: 10px;
     margin-bottom: 10px;
     padding: 10px;
