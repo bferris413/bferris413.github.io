@@ -62,6 +62,10 @@ body {
     display: flex;
     justify-content: center;
 }
+hr {
+    border-color: #bac4c0;
+    width: 80%;
+}
 .debug {
     border: 1px solid black;
 }
