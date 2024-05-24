@@ -44,7 +44,7 @@
     margin-top: 10px;
 }
 .xp {
-    color: rgb(30, 30, 30);
+    color: #2a2e2c;
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
     font-size: 1.25em;
     align-self: center;
@@ -58,7 +58,8 @@
     margin-right: 1em;
 }
 body {
-    background-color: #acc6bc;
+    /* background-color: #acc6bc; */
+    background-color: #ffffed;
     display: flex;
     justify-content: center;
 }
@@ -82,10 +83,10 @@ hr {
     font-size: 1.6em;
 }
 .header {
-    border-left: 3px solid rgb(30, 30, 30);
-    border-bottom: 3px solid rgb(30, 30, 30);
+    border-left: 3px solid #2a2e2c;
+    border-bottom: 3px solid #2a2e2c;
     padding: 20px;
-    color: rgb(30, 30, 30);
+    color: #2a2e2c;
 }
 .title {
     font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; 
@@ -93,10 +94,11 @@ hr {
     font-weight: 800;
 }
 .cursor {
-    align-self: center;
+    margin-left: 5px;
     width: 25px;
     height: 55px;
-    background-color: rgb(30, 30, 30);
+    border: 3px solid #2a2e2c;
+    /* background-color: #2a2e2c; */
     -webkit-animation: 1s wk-blink step-end infinite;
     -moz-animation: 1.3s moz-blink step-end infinite;
     -ms-animation: 1.3s ms-blink step-end infinite;
@@ -113,16 +115,16 @@ hr {
     margin-right: .5em;
 }
 a {
-    color: rgb(30, 30, 30);
+    color: #2a2e2c;
 }
 a:active {
-    border: 2px solid rgb(30, 30, 30);
+    border: 2px solid #2a2e2c;
 }
 .mb-10px {
     margin-bottom: 10px;
 }
 .project-content {
-    color: rgb(30, 30, 30);
+    color: #2a2e2c;
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
     font-size: 1.25em;
     align-self: center;
@@ -136,7 +138,7 @@ a:active {
     font-weight:600;
 }
 .project {
-    border-bottom: 2px solid rgb(30, 30, 30);
+    border-bottom: 2px solid #2a2e2c;
     margin-right: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -144,44 +146,56 @@ a:active {
 
 @keyframes blink {
     from, to {
+        border: 3px solid transparent;
+    }
+    50% {
+        border: 3px solid #2a2e2c;
+    }
+    /* from, to {
         background-color: transparent;
     }
     50% {
-        background-color: rgb(30, 30, 30);
-    }
+        background-color: #2a2e2c;
+    } */
 }
 @-moz-keyframes moz-blink {
     from, to {
+        border: 3px solid transparent;
+    }
+    50% {
+        border: 3px solid #2a2e2c;
+    }
+    /* from, to {
         background-color: transparent;
     }
     50% {
-        background-color: rgb(30, 30, 30);
-    }
+        background-color: #2a2e2c;
+    } */
 }
 
 @-webkit-keyframes wk-blink {
     from, to {
-        background-color: transparent;
+        border: 3px solid transparent;
     }
     50% {
-        background-color: rgb(30, 30, 30);
+        border: 3px solid #2a2e2c;
     }
 }
 
 @-ms-keyframes ms-blink {
     from, to {
-        background-color: transparent;
+        border: 3px solid transparent;
     }
     50% {
-        background-color: rgb(30, 30, 30);
+        border: 3px solid #2a2e2c;
     }
 }
 
 @-o-keyframes o-blink {
     from, to {
-        background-color: transparent;
+        border: 3px solid transparent;
     }
     50% {
-        background-color: rgb(30, 30, 30);
+        border: 3px solid #2a2e2c;
     }
 }
