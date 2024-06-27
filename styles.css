@@ -1,5 +1,5 @@
 /* for mobile and tablet */
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
     .content {
         width: 100%;
     }
@@ -15,9 +15,9 @@
     .project-size {
         width: 100%;
     }
-}
+} */
 /* desktop */
-@media screen and (max-width: 2000px) {
+/* @media screen and (max-width: 2000px) { */
     .content {
         width: 80%;
         min-width: 900px;
@@ -36,7 +36,7 @@
     .project-size {
         width: 100%;
     }
-}
+/* } */
 .page-header {
     font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif; 
     font-size: 1.6em;
