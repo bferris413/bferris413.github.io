@@ -1,10 +1,10 @@
-use std::{env, sync::Arc};
+use std::{cmp::Ordering, env, sync::Arc};
 
 use anyhow::Result;
 use reqwest::{header::{ACCEPT, USER_AGENT}, Client};
 use serde::{de::DeserializeOwned, Deserialize};
 use serde_json::Value;
-use time::{OffsetDateTime, PrimitiveDateTime};
+use time::OffsetDateTime;
 
 const OWNER: &str = "bferris413";
 const GH_ACCEPT_JSON: &str = "application/vnd.github+json";
@@ -43,7 +43,7 @@ async fn main() -> Result<()> {
         commits.extend(repo_commits.into_iter());
     }
 
-    commits.sort_by(|first, second| first.commit.commit.author.date.cmp(&second.commit.commit.author.date));
+    commits.sort_by(order_by_date);
 
     for commit in commits.iter() {
         println!("{:35}{:25}{:?}", commit.commit.commit.author.date, commit.repo_name, commit.commit.commit.message);
@@ -89,6 +89,10 @@ async fn authd_get<T: DeserializeOwned>(url: &str, token: &str) -> Result<Vec<T>
 
     let t: Vec<T> = response.json().await?;
     Ok(t)
+}
+
+fn order_by_date(first: &RepoCommit, second: &RepoCommit) -> Ordering {
+    first.commit.commit.author.date.cmp(&second.commit.commit.author.date)
 }
 
 struct RepoCommit {
