@@ -27,7 +27,7 @@ async fn main() -> Result<()> {
 
     let repos = fetch_owner_repos(&token, per_page).await?;
     let commits = fetch_commits(token, per_page, &repos[..]).await;
-    let html = populate_template(&commits[..]).await?;
+    let html = populate_template(&commits[..100]).await?;
 
     write_output(&html).await
 }
