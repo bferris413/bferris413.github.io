@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/et-book-roman-line-figures.ttf') format('truetype');
+} */
+
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+/* @supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+} */
+
+/* 
+.para {
+    @apply mb-4;
+} */
