@@ -1,6 +1,7 @@
-use std::{cmp::Ordering, env, sync::Arc};
+use std::{cmp::Ordering, env, path::{Path, PathBuf}, sync::Arc};
 
 use anyhow::Result;
+use clap::Parser;
 use reqwest::{header::{ACCEPT, USER_AGENT}, Client};
 use serde::{de::DeserializeOwned, Deserialize};
 use time::OffsetDateTime;
@@ -15,21 +16,33 @@ const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
 
 // debug -------------------------------------
-const INDEX_TEMPLATE_PATH: &str = "templates/index.html";
 const REPLACE_TEXT: &str = "{replace}";
-const OUT_FILE_PATH: &str = "../out/index.html";
 // -------------------------------------------
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    /// Path to template index.html
+    #[arg(long)]
+    template_file_path: PathBuf,
+
+    /// Path to write completed index.html
+    #[arg(long)]
+    out_file_path: PathBuf,
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let args = Cli::parse();
+
     let token = env::var(GH_TOKEN_VAR)?;
     let per_page = 100;
 
     let repos = fetch_owner_repos(&token, per_page).await?;
     let commits = fetch_commits(token, per_page, &repos[..]).await;
-    let html = populate_template(&commits[..100]).await?;
+    let html = populate_template(&commits[..100], &args.template_file_path).await?;
 
-    write_output(&html).await
+    write_output(&html, &args.out_file_path).await
 }
 
 async fn fetch_owner_repos(token: &str, per_page: usize) -> Result<Vec<Repo>> {
@@ -90,8 +103,8 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
     all_commits
 }
 
-async fn populate_template(commits: &[RepoCommit]) -> Result<String> {
-    let template = async_fs::read_to_string(INDEX_TEMPLATE_PATH).await?;
+async fn populate_template(commits: &[RepoCommit], index_template_path: &Path) -> Result<String> {
+    let template = async_fs::read_to_string(index_template_path).await?;
     let mut replacement_text = String::new();
     for commit in commits.iter() {
         let date = commit.commit.commit.author.date;
@@ -104,8 +117,8 @@ async fn populate_template(commits: &[RepoCommit]) -> Result<String> {
     Ok(html)
 }
 
-async fn write_output(html: &str) -> Result<()> {
-    async_fs::write(OUT_FILE_PATH, html).await?;
+async fn write_output(html: &str, out_file_path: &Path) -> Result<()> {
+    async_fs::write(out_file_path, html).await?;
     Ok(())
 }
 
