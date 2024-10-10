@@ -37,6 +37,8 @@ async fn main() -> Result<()> {
 
     let token = env::var(GH_TOKEN_VAR)?;
     let per_page = 100;
+    dbg!(&args.template_file_path);
+    dbg!(&args.out_file_path);
 
     let repos = fetch_owner_repos(&token, per_page).await?;
     let commits = fetch_commits(token, per_page, &repos[..]).await;
@@ -74,7 +76,7 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
 
             let commit_resp = authd_get_all::<Commit>(&commits_url, &*token, per_page).await;
             if let Err(e) = commit_resp {
-                eprintln!("fetch err: {e}");
+                eprintln!("error fetching {commits_url}: {e}");
                 return Vec::new();
             };
 
@@ -133,7 +135,6 @@ async fn authd_get_all<T: DeserializeOwned>(
 
     loop {
         let url = per_page_url.replace("{page}", &page.to_string());
-        println!("fetching {url}");
         let response_ts: Vec<T> = authd_get(&url, token).await?;
 
         let should_break = response_ts.len() < per_page;
