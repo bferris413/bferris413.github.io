@@ -3,9 +3,10 @@ use std::{cmp::Ordering, env, path::{Path, PathBuf}, sync::Arc};
 use anyhow::Result;
 use clap::Parser;
 use reqwest::{header::{ACCEPT, USER_AGENT}, Client};
-use serde::{de::DeserializeOwned, Deserialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use tera::{Context, Tera};
 use time::OffsetDateTime;
-use tokio::fs as async_fs;
+use tokio::{fs as async_fs, task};
 use tokio::time::{sleep as tokio_sleep, Duration};
 
 const OWNER: &str = "bferris413";
@@ -14,10 +15,6 @@ const GH_TOKEN_VAR: &str = "GH_TOKEN";
 
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
-
-// debug -------------------------------------
-const REPLACE_TEXT: &str = "{replace}";
-// -------------------------------------------
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -37,12 +34,10 @@ async fn main() -> Result<()> {
 
     let token = env::var(GH_TOKEN_VAR)?;
     let per_page = 100;
-    dbg!(&args.template_file_path);
-    dbg!(&args.out_file_path);
 
     let repos = fetch_owner_repos(&token, per_page).await?;
     let commits = fetch_commits(token, per_page, &repos[..]).await;
-    let html = populate_template(&commits[..100], &args.template_file_path).await?;
+    let html = populate_template(&commits[..100], args.template_file_path).await?;
 
     write_output(&html, &args.out_file_path).await
 }
@@ -105,16 +100,20 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
     all_commits
 }
 
-async fn populate_template(commits: &[RepoCommit], index_template_path: &Path) -> Result<String> {
-    let template = async_fs::read_to_string(index_template_path).await?;
-    let mut replacement_text = String::new();
-    for commit in commits.iter() {
-        let date = commit.commit.commit.author.date;
-        let repo = &commit.repo_name;
-        let message = commit.commit.commit.message.as_deref().unwrap_or("");
-        replacement_text.push_str(&format!("{date:35}{repo:25}{message}\n"));
-    }
-    let html = template.replace(REPLACE_TEXT, &replacement_text);
+async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf) -> Result<String> {
+    let tp2 = index_template_path.clone();
+
+    let tera = task::spawn_blocking(move || {
+        let mut tera = Tera::default();
+        tera.add_template_file(tp2, None)?;
+        Ok::<_, tera::Error>(tera)
+    }).await??;
+
+    let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
+    let mut context = Context::new();
+    context.insert("ui_commits", &ui_commits);
+    let template_name = index_template_path.to_str().unwrap();
+    let html = tera.render(template_name, &context)?;
 
     Ok(html)
 }
@@ -166,25 +165,44 @@ fn order_by_date_rev(first: &RepoCommit, second: &RepoCommit) -> Ordering {
     second.commit.commit.author.date.cmp(&first.commit.commit.author.date)
 }
 
+#[derive(Serialize)]
+struct UiCommit {
+    author_date: String,
+    repo_name: Arc<String>,
+    commit_msg: Option<String>,
+}
+impl From<&RepoCommit> for UiCommit {
+    fn from(rc: &RepoCommit) -> Self {
+        let date = rc.commit.commit.author.date; 
+        let formatted_date = format!("{}-{:02}-{:02} {:02}:{:02}:{:02}Z", date.year(), date.month() as u8, date.day(), date.hour(), date.minute(), date.second());
+        UiCommit {
+            repo_name: rc.repo_name.clone(),
+            author_date: formatted_date,
+            commit_msg: rc.commit.commit.message.to_owned(),
+        }
+    }
+}
+
+#[derive(Serialize)]
 struct RepoCommit {
     repo_name: Arc<String>,
     commit: Commit,
 
 }
 
-#[derive(Debug, Eq, Deserialize, PartialEq)]
+#[derive(Debug, Eq, Deserialize, PartialEq, Serialize)]
 struct Commit {
     commit: CommitData,
 }
 
-#[derive(Debug, Deserialize, Eq, PartialEq)]
+#[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
 struct CommitData {
     author: GitHubUser,
     committer: GitHubUser,
     message: Option<String>
 }
 
-#[derive(Debug, Deserialize, Eq, PartialEq)]
+#[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
 struct GitHubUser {
     name: String,
     email: String,
