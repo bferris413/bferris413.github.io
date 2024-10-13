@@ -1,0 +1,73 @@
+<mxfile host="Electron" modified="2024-10-12T01:27:39.662Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="a2xUb0zI1MZV2L0PAIBh" version="24.6.4" type="device">
+  <diagram name="Page-1" id="TEjR-edul3zJcvMYwC03">
+    <mxGraphModel dx="1062" dy="648" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-1" value="Interactive Digital" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=100;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry width="850" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-2" value="Activity" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=40;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="693" y="139" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-3" value="2024-10-10 14:54:39.0 +00:00:00" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="239" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-4" value="bferris413.github.io" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="510" y="179" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-7" value="Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="209" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-8" value="2024-10-09 16:33:56.0 +00:00:00" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="330" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-9" value="bferris413.github.io" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="510" y="280" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-10" value="Updated gitignore." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="310" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-11" value="2024-10-10 14:54:39.0 +00:00:00" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="430" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-12" value="bferris413.github.io" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="510" y="370" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-13" value="Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="400" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-14" value="2024-10-10 14:54:39.0 +00:00:00" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="530" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-15" value="bferris413.github.io" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="510" y="470" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-16" value="Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="500" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-17" value="2024-10-10 14:54:39.0 +00:00:00" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="630" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-18" value="bferris413.github.io" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="510" y="570" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-19" value="Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="600" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-29" value="About" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=40;fontStyle=1;textShadow=0;" vertex="1" parent="1">
+          <mxGeometry x="15" y="139" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-30" value="Projects" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=40;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="15" y="190" width="165" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-31" value="Blog" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=40;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="15" y="240" width="165" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Xz__jfCPSPWBYuDUX3BQ-32" value="Warmup" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=40;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="15" y="290" width="175" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
