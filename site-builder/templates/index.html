@@ -12,14 +12,14 @@
 
 <body> 
     <h1 class="text-[calc(100vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
-    <div class="px-4">
+    <div class="px-2">
         <h3 class="text-4xl tracking-[-0.03em] leading-none font-semibold">Activity</h3>
         {% for commit in ui_commits %}
-            <div>
-                <div>{{ commit.repo_name }}</div>
-                <div>{{ commit.commit_msg }}</div>
-                <div>{{ commit.author_date }}</div>
-            </div>
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>{{ commit.repo_name }}</span>
+                <span>{{ commit.commit_msg }}</span>
+                <span class="text-slate-500 text-xs font-bold">{{ commit.author_date }}</span>
+            </span>
         {% endfor %}
     </div>
 </body>
