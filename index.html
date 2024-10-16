@@ -12,138 +12,638 @@
 
 <body> 
     <h1 class="text-[calc(100vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
-    <div class="px-4">
+    <div class="px-2">
         <h3 class="text-4xl tracking-[-0.03em] leading-none font-semibold">Activity</h3>
-        2024-10-16 1:15:30.0 +00:00:00     bferris413.github.io     Added debug commits and started working on the template.
-2024-10-16 0:57:33.0 +00:00:00     bferris413.github.io     Added read-from-file for testing/dry-runs/template work.
-2024-10-13 0:47:02.0 +00:00:00     bferris413.github.io     Added sketch.
-2024-10-13 0:44:58.0 +00:00:00     bferris413.github.io     Added basic templating w/ Tera.
-2024-10-10 14:54:39.0 +00:00:00    bferris413.github.io     Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs
-2024-10-09 17:15:27.0 +00:00:00    bferris413.github.io     Fixed publisher, installed crontab.
-2024-10-09 16:33:56.0 +00:00:00    bferris413.github.io     Updated gitignore.
-2024-10-09 15:24:13.0 +00:00:00    bferris413.github.io     Added deployment script, tailwind config, template, etc.
-2024-10-09 13:55:49.0 +00:00:00    bferris413.github.io     Added local deployment script.
-2024-10-09 13:21:59.0 +00:00:00    bferris413.github.io     Changed template/out paths to args.
-2024-10-09 0:49:48.0 +00:00:00     bferris413.github.io     Incrementally updating stuff.
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added debug commits and started working on the template.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-16 01:15:30Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added read-from-file for testing&#x2F;dry-runs&#x2F;template work.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-16 00:57:33Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added sketch.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-13 00:47:02Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added basic templating w&#x2F; Tera.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-13 00:44:58Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Simplified the whole git subtree thing (by not using it =), and turned down some verbose logs in main.rs</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-10 14:54:39Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Fixed publisher, installed crontab.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 17:15:27Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Updated gitignore.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 16:33:56Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added deployment script, tailwind config, template, etc.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 15:24:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added local deployment script.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 13:55:49Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Changed template&#x2F;out paths to args.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 13:21:59Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Incrementally updating stuff.
 
 * Added tailwind. Seems to smooth over some CSS issues but Im not sure how much itll get me.
-* Limited vec size. This doesn't affect how much is fetched yet but Ill change it later.
-* Still need the cron setup w/ commit-if-changed.
-2024-10-08 0:12:12.0 +00:00:00     bferris413.github.io     Added some debug functionality with fetch/replace html template.
+* Limited vec size. This doesn&#x27;t affect how much is fetched yet but Ill change it later.
+* Still need the cron setup w&#x2F; commit-if-changed.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-09 00:49:48Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added some debug functionality with fetch&#x2F;replace html template.
 
-Ultimately this will switch to Tera or Askama, but its fine for now.
-2024-10-06 23:19:30.0 +00:00:00    bferris413.github.io     Fixed typo (test)
-2024-10-06 23:17:09.0 +00:00:00    bferris413.github.io     Merge commit '587e323e36730384bfaccfd527e028fabeaaa28f'
-2024-10-06 23:08:48.0 +00:00:00    bferris413.github.io     Changes
-2024-10-06 23:06:10.0 +00:00:00    bferris413.github.io     Added styles to out/
-2024-10-06 23:05:41.0 +00:00:00    bferris413.github.io     Still reworking.
-2024-10-06 23:04:47.0 +00:00:00    bferris413.github.io     Fixing tree.
-2024-10-06 23:03:23.0 +00:00:00    bferris413.github.io     Deploy branch setup.
-2024-10-06 22:56:02.0 +00:00:00    bferris413.github.io     Restructuring file tree.
-2024-10-06 19:56:42.0 +00:00:00    bferris413.github.io     Added beginning of site builder.
-2024-10-06 18:20:53.0 +00:00:00    project-tracker          In the middle of breaking all sorts of stuff.
-2024-10-04 14:54:53.0 +00:00:00    cottage                  Fixed .gitignore .js ignore.
-2024-10-04 14:54:13.0 +00:00:00    cottage                  Added trace prototype.
-2024-10-02 2:21:13.0 +00:00:00     project-tracker          Still filling out sql...
-2024-10-02 2:21:13.0 +00:00:00     project-tracker          More boilerplate, estimate and addr create/update tests.
-2024-10-02 2:21:13.0 +00:00:00     project-tracker          Trait stuff for db models.
-2024-10-02 2:21:13.0 +00:00:00     project-tracker          Fleshing out DB interface.
-2024-10-02 2:21:13.0 +00:00:00     project-tracker          Added basic data types.
-2024-09-26 13:34:49.0 +00:00:00    cottage                  Messing with table/grid setups.
-2024-09-11 14:13:30.0 +00:00:00    cottage                  Updated TODO
-2024-09-11 14:10:48.0 +00:00:00    cottage                  Updated types in extension and backend.
-2024-09-11 13:32:01.0 +00:00:00    cottage                  Added step_count test.
-2024-09-11 0:28:23.0 +00:00:00     cottage                  Added step count to value metadata.
-2024-09-10 13:18:35.0 +00:00:00    cottage                  Fixed key/id display and updated todo.
-2024-09-10 1:39:00.0 +00:00:00     cottage                  Fixed value layout. Probably needs more work but it's fine for now.
-2024-09-06 15:06:58.0 +00:00:00    cottage                  Backend support for ID tracking
-2024-08-25 1:32:07.0 +00:00:00     cottage                  Added ID to ops
-2024-08-18 21:59:21.0 +00:00:00    cottage                  Changed ID scheme after the realization that _all_ expressions will be tagged, not just those for a particular function.
-2024-08-17 21:37:22.0 +00:00:00    budget                   Added error log.
-2024-08-14 2:00:25.0 +00:00:00     cottage                  Added ID type.
-2024-08-10 23:31:58.0 +00:00:00    budget                   Added border-transparent to readonly fields
-2024-08-09 14:34:57.0 +00:00:00    cottage                  Updated todo.
-2024-08-09 3:02:30.0 +00:00:00     cottage                  Have multi-values in UI.
-2024-08-06 19:02:15.0 +00:00:00    cottage                  Added multiple values on backend.
-2024-08-06 18:15:02.0 +00:00:00    cottage                  Updated TODO.
-2024-07-17 12:42:57.0 +00:00:00    cottage                  Updated todo, messing with syntax ideas.
-2024-06-27 23:03:37.0 +00:00:00    cottage                  Updated syntax highlight.
-2024-06-27 22:23:56.0 +00:00:00    bferris413.github.io     Changed color.
-2024-06-27 22:19:42.0 +00:00:00    bferris413.github.io     no blinker
-2024-06-27 22:15:25.0 +00:00:00    bferris413.github.io     Removed viewport tag.
-2024-06-27 22:14:11.0 +00:00:00    bferris413.github.io     trying style change.
-2024-06-27 22:11:37.0 +00:00:00    bferris413.github.io     minor style changes.
-2024-06-19 20:56:54.0 +00:00:00    cottage                  Added len for vec/map/data. Fixed tokenize bug.
-2024-06-11 13:35:31.0 +00:00:00    cottage                  Made execution cancellable with the addition of threadpool.
-2024-06-10 23:15:22.0 +00:00:00    cottage                  Added simple threadpool.
-2024-06-05 1:47:53.0 +00:00:00     cottage                  Updated todo.
-2024-06-04 13:49:50.0 +00:00:00    cottage                  Added if.
-2024-06-03 16:01:37.0 +00:00:00    cottage                  Updated todo.
-2024-06-03 16:00:29.0 +00:00:00    cottage                  Added loop and break, but I forgot I needed if to test conditions...
-2024-05-31 14:14:35.0 +00:00:00    cottage                  Added !=
-2024-05-31 13:37:01.0 +00:00:00    cottage                  Added =
-2024-05-30 12:47:16.0 +00:00:00    cottage                  Updated TODO.
-2024-05-30 12:43:39.0 +00:00:00    cottage                  Added logical or.
-2024-05-30 12:35:32.0 +00:00:00    cottage                  Added logical and
-2024-05-29 0:10:36.0 +00:00:00     cottage                  Removed 1 from index len due to copy/paste =)
-2024-05-29 0:02:35.0 +00:00:00     cottage                  Added >= and <=
-2024-05-28 14:46:26.0 +00:00:00    cottage                  Added >.
-2024-05-28 13:42:33.0 +00:00:00    cottage                  Added < operator.
-2024-05-28 0:36:21.0 +00:00:00     cottage                  Added booleans, moving to comparisons.
-2024-05-24 14:48:55.0 +00:00:00    bferris413.github.io     updated colors.
-2024-05-24 13:21:36.0 +00:00:00    cottage                  Updated TODO.
-2024-05-24 13:10:50.0 +00:00:00    cottage                  Added data accesses to set.
-2024-05-24 1:15:20.0 +00:00:00     cottage                  Added set on vec.
-2024-05-23 16:21:25.0 +00:00:00    cottage                  Added set for 'places' in maps. Vec and data are likely implemented, need tests.
-2024-05-23 13:27:01.0 +00:00:00    cottage                  Removed a bunch of misused macro calls.
-2024-05-23 12:23:09.0 +00:00:00    cottage                  Added set to syntax highlight.
-2024-05-22 13:39:17.0 +00:00:00    cottage                  Added variable set.
-2024-05-20 13:34:14.0 +00:00:00    cottage                  Updated TODO, starting variable assignment.
-2024-05-20 13:31:58.0 +00:00:00    cottage                  Range values no longer stored for load.
-2024-05-20 13:08:32.0 +00:00:00    cottage                  Fixed a couple tests incorrectly relying on io markers in def.
-2024-05-20 13:02:06.0 +00:00:00    cottage                  Only non-def function calls need to be io wrapped.
-2024-05-18 21:32:52.0 +00:00:00    cottage                  Enforce wrapping all io operations.
-2024-05-14 16:03:43.0 +00:00:00    cottage                  Added io tracing.
-2024-05-11 0:21:07.0 +00:00:00     cottage                  Updated TODO, moving to IO lang support to enforce/save myself.
-2024-05-11 0:19:26.0 +00:00:00     cottage                  Added text write to file.
-2024-05-10 15:22:07.0 +00:00:00    cottage                  Added file open and delineation between keyable values, or not.
-2024-05-10 13:00:34.0 +00:00:00    cottage                  Changed builtins to 'native'
-2024-05-09 12:43:05.0 +00:00:00    cottage                  Eval now returns values instead of using the stack.
+Ultimately this will switch to Tera or Askama, but its fine for now.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-08 00:12:12Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Fixed typo (test)</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:19:30Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Merge commit &#x27;587e323e36730384bfaccfd527e028fabeaaa28f&#x27;</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:17:09Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Changes</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:08:48Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added styles to out&#x2F;</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:06:10Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Still reworking.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:05:41Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Fixing tree.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:04:47Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Deploy branch setup.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 23:03:23Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Restructuring file tree.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 22:56:02Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Added beginning of site builder.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 19:56:42Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>In the middle of breaking all sorts of stuff.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-06 18:20:53Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed .gitignore .js ignore.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-04 14:54:53Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added trace prototype.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-04 14:54:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>Still filling out sql...</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-02 02:21:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>More boilerplate, estimate and addr create&#x2F;update tests.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-02 02:21:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>Trait stuff for db models.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-02 02:21:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>Fleshing out DB interface.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-02 02:21:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>project-tracker</span>
+                <span>Added basic data types.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-10-02 02:21:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Messing with table&#x2F;grid setups.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-26 13:34:49Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-11 14:13:30Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated types in extension and backend.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-11 14:10:48Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added step_count test.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-11 13:32:01Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added step count to value metadata.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-11 00:28:23Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed key&#x2F;id display and updated todo.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-10 13:18:35Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed value layout. Probably needs more work but it&#x27;s fine for now.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-10 01:39:00Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Backend support for ID tracking</span>
+                <span class="text-slate-500 text-xs font-bold">2024-09-06 15:06:58Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added ID to ops</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-25 01:32:07Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Changed ID scheme after the realization that _all_ expressions will be tagged, not just those for a particular function.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-18 21:59:21Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>budget</span>
+                <span>Added error log.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-17 21:37:22Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added ID type.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-14 02:00:25Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>budget</span>
+                <span>Added border-transparent to readonly fields</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-10 23:31:58Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated todo.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-09 14:34:57Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Have multi-values in UI.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-09 03:02:30Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added multiple values on backend.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-06 19:02:15Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-08-06 18:15:02Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated todo, messing with syntax ideas.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-07-17 12:42:57Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated syntax highlight.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 23:03:37Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Changed color.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 22:23:56Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>no blinker</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 22:19:42Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>Removed viewport tag.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 22:15:25Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>trying style change.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 22:14:11Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>minor style changes.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-27 22:11:37Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added len for vec&#x2F;map&#x2F;data. Fixed tokenize bug.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-19 20:56:54Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Made execution cancellable with the addition of threadpool.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-11 13:35:31Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added simple threadpool.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-10 23:15:22Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated todo.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-05 01:47:53Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added if.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-04 13:49:50Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated todo.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-03 16:01:37Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added loop and break, but I forgot I needed if to test conditions...</span>
+                <span class="text-slate-500 text-xs font-bold">2024-06-03 16:00:29Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added !=</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-31 14:14:35Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added =</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-31 13:37:01Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-30 12:47:16Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added logical or.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-30 12:43:39Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added logical and</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-30 12:35:32Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Removed 1 from index len due to copy&#x2F;paste =)</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-29 00:10:36Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added &gt;= and &lt;=</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-29 00:02:35Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added &gt;.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-28 14:46:26Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added &lt; operator.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-28 13:42:33Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added booleans, moving to comparisons.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-28 00:36:21Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>bferris413.github.io</span>
+                <span>updated colors.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-24 14:48:55Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-24 13:21:36Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added data accesses to set.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-24 13:10:50Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added set on vec.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-24 01:15:20Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added set for &#x27;places&#x27; in maps. Vec and data are likely implemented, need tests.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-23 16:21:25Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Removed a bunch of misused macro calls.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-23 13:27:01Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added set to syntax highlight.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-23 12:23:09Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added variable set.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-22 13:39:17Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO, starting variable assignment.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-20 13:34:14Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Range values no longer stored for load.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-20 13:31:58Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed a couple tests incorrectly relying on io markers in def.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-20 13:08:32Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Only non-def function calls need to be io wrapped.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-20 13:02:06Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Enforce wrapping all io operations.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-18 21:32:52Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added io tracing.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-14 16:03:43Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO, moving to IO lang support to enforce&#x2F;save myself.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-11 00:21:07Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added text write to file.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-11 00:19:26Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added file open and delineation between keyable values, or not.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-10 15:22:07Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Changed builtins to &#x27;native&#x27;</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-10 13:00:34Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Eval now returns values instead of using the stack.
 
-Still untangling call. I'll continue to make passes over it until things are unified.
-2024-05-08 21:51:27.0 +00:00:00    cottage                  Updated TODO.
-2024-05-08 21:49:44.0 +00:00:00    cottage                  Fixed dyn issue.
+Still untangling call. I&#x27;ll continue to make passes over it until things are unified.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-09 12:43:05Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Updated TODO.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-08 21:51:27Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed dyn issue.
 
 The new plan is to not use a dynamic trait. Instead, for better or worse, function
-variants are going to be put under a 'generic' FuncKind enum, consisting of two variants:
+variants are going to be put under a &#x27;generic&#x27; FuncKind enum, consisting of two variants:
 * Native
 * User
 
 Native functions will wholly take the place of keyword implementations and builtins, while User
 functions will be largely as they are now. This implies that every native function will be a variant
-under FuncKind::Native. I think that's fine for a small core of natives, but I'd have to redesign this
+under FuncKind::Native. I think that&#x27;s fine for a small core of natives, but I&#x27;d have to redesign this
 (likely entirely) if it were to expand.
 
-This also paves the way for io functions.
-2024-05-07 19:30:04.0 +00:00:00    cottage                  Starting function interface refactor...
-2024-05-01 2:18:26.0 +00:00:00     cottage                  Added missing display stuff on Type for map.
-2024-05-01 2:02:13.0 +00:00:00     cottage                  Maps can be indexed.
-2024-04-30 13:30:30.0 +00:00:00    cottage                  Added map literals and required commans on vec literals.
-2024-04-29 21:31:21.0 +00:00:00    cottage                  Update TODOs
-2024-04-29 13:15:04.0 +00:00:00    cottage                  Finally got indexed/dotted access working.
+This also paves the way for io functions.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-08 21:49:44Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Starting function interface refactor...</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-07 19:30:04Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added missing display stuff on Type for map.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-01 02:18:26Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Maps can be indexed.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-05-01 02:02:13Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Added map literals and required commans on vec literals.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-30 13:30:30Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Update TODOs</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-29 21:31:21Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Finally got indexed&#x2F;dotted access working.
 
 Expressions will likely need to be pulled apart more concretely.
 Call is still a bit of a mess. Builtin and keyword ops need to be
-unified under the  interface.
-2024-04-26 22:38:16.0 +00:00:00    cottage                  Fixed tokenize and parse for dots and indexes.
+unified under the  interface.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-29 13:15:04Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Fixed tokenize and parse for dots and indexes.
 
-I think I'll have to do this again to generalize all expressions, but this makes some progress...
-2024-04-26 0:40:10.0 +00:00:00     cottage                  Removed dotted load.
-2024-04-25 23:54:42.0 +00:00:00    cottage                  My lack of actual expression parsing is now apparent.
+I think I&#x27;ll have to do this again to generalize all expressions, but this makes some progress...</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-26 22:38:16Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>Removed dotted load.</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-26 00:40:10Z</span>
+            </span>
+        
+            <span class="border-r-2 border-solid border-slate-700 mr-1">
+                <span>cottage</span>
+                <span>My lack of actual expression parsing is now apparent.
 
-I can't evaluate something like v[t.a], where t is (T (a: number), without it.
-Numeric indexes like v[10] or v[ten] work as expected, but I have to make expr
-
+I can&#x27;t evaluate something like v[t.a], where t is (T (a: number), without it.
+Numeric indexes like v[10] or v[ten] work as expected, but I have to make expr</span>
+                <span class="text-slate-500 text-xs font-bold">2024-04-25 23:54:42Z</span>
+            </span>
+        
     </div>
 </body>
 </html>
