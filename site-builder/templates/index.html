@@ -10,17 +10,15 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
 
-<body> 
+<body class="px-2"> 
     <h1 class="text-[calc(100vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
-    <div class="px-2">
+    <div>
         <h3 class="text-4xl tracking-[-0.03em] leading-none font-semibold">Activity</h3>
-        {% for commit in ui_commits %}
-            <span class="border-r-2 border-solid border-slate-700 mr-1">
-                <span>{{ commit.repo_name }}</span>
-                <span>{{ commit.commit_msg }}</span>
-                <span class="text-slate-500 text-xs font-bold">{{ commit.author_date }}</span>
-            </span>
-        {% endfor %}
+    {% for commit in ui_commits %}
+        <span>{{ commit.repo_name }}</span>
+        <span>{{ commit.commit_msg }}</span>
+        <span class="text-gray-400 text-xs font-bold border-r-2 border-solid border-slate-700 pr-1">{{ commit.author_date }}</span>
+    {% endfor %}
     </div>
 </body>
 </html>
