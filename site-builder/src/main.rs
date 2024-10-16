@@ -16,7 +16,7 @@ const GH_TOKEN_VAR: &str = "GH_TOKEN";
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
 
-#[derive(Parser)]
+#[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
 struct Cli {
     /// Path to template index.html
@@ -26,6 +26,14 @@ struct Cli {
     /// Path to write completed index.html
     #[arg(long)]
     out_file_path: PathBuf,
+
+    /// Read commits from a file instead of the network for e.g. template dry-runs or testing
+    #[arg(long, default_value_t = false, requires("input_file"))]
+    no_fetch: bool,
+
+    /// The file to read commits from, if --no-fetch was provided
+    #[arg(long, requires("no_fetch"))]
+    input_file: Option<PathBuf>,
 }
 
 #[tokio::main]
@@ -36,9 +44,13 @@ async fn main() -> Result<()> {
     let per_page = 100;
 
     let repos = fetch_owner_repos(&token, per_page).await?;
-    let commits = fetch_commits(token, per_page, &repos[..]).await;
-    let html = populate_template(&commits[..100], args.template_file_path).await?;
+    let commits = if args.no_fetch {
+        read_commits(args.input_file.unwrap()).await?
+    } else {
+        fetch_commits(token, per_page, &repos[..]).await
+    };
 
+    let html = populate_template(&commits[..100], args.template_file_path).await?;
     write_output(&html, &args.out_file_path).await
 }
 
@@ -98,6 +110,13 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
 
     all_commits.sort_by(order_by_date_rev);
     all_commits
+}
+
+async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
+    let commits_string = async_fs::read_to_string(file).await?;
+    let commits = serde_json::from_str(&commits_string)?;
+    
+    Ok(commits)
 }
 
 async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf) -> Result<String> {
@@ -183,7 +202,7 @@ impl From<&RepoCommit> for UiCommit {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Deserialize, Serialize)]
 struct RepoCommit {
     repo_name: Arc<String>,
     commit: Commit,
