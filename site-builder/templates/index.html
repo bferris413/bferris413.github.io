@@ -14,7 +14,13 @@
     <h1 class="text-[calc(100vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
     <div class="px-4">
         <h3 class="text-4xl tracking-[-0.03em] leading-none font-semibold">Activity</h3>
-        {{ __tera_context }}
+        {% for commit in ui_commits %}
+            <div>
+                <div>{{ commit.repo_name }}</div>
+                <div>{{ commit.commit_msg }}</div>
+                <div>{{ commit.author_date }}</div>
+            </div>
+        {% endfor %}
     </div>
 </body>
 </html>
