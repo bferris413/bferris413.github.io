@@ -554,6 +554,18 @@ video {
   --tw-contain-style:  ;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
 .table {
   display: table;
 }
@@ -562,17 +574,28 @@ video {
   display: grid;
 }
 
-.border-r-2 {
-  border-right-width: 2px;
+.flex-initial {
+  flex: 0 1 auto;
+}
+
+.basis-2\/5 {
+  flex-basis: 40%;
+}
+
+.basis-3\/5 {
+  flex-basis: 60%;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.border-b {
+  border-bottom-width: 1px;
 }
 
 .border-solid {
   border-style: solid;
-}
-
-.border-slate-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
 
 .border-transparent {
@@ -584,17 +607,30 @@ video {
   padding-right: 0.5rem;
 }
 
-.pr-1 {
-  padding-right: 0.25rem;
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
+.text-right {
+  text-align: right;
 }
 
-.text-\[calc\(100vw\/8\)\] {
-  font-size: calc(100vw / 8);
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-\[calc\(50vw\/8\)\] {
+  font-size: calc(50vw / 8);
+}
+
+.text-\[calc\(99vw\/8\)\] {
+  font-size: calc(99vw / 8);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-xs {
@@ -621,6 +657,15 @@ video {
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 /* @font-face {
