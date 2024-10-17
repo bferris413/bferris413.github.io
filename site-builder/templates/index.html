@@ -11,14 +11,28 @@
 </head>
 
 <body class="px-2"> 
-    <h1 class="text-[calc(100vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
-    <div>
-        <h3 class="text-4xl tracking-[-0.03em] leading-none font-semibold">Activity</h3>
-    {% for commit in ui_commits %}
-        <span>{{ commit.repo_name }}</span>
-        <span>{{ commit.commit_msg }}</span>
-        <span class="text-gray-400 text-xs font-bold border-r-2 border-solid border-slate-700 pr-1">{{ commit.author_date }}</span>
-    {% endfor %}
+    <h1 class="text-[calc(99vw/8)] tracking-[-0.03em] leading-none font-semibold">Interactive Digital</h1>
+    <div class="flex mt-4">
+        <div class="basis-3/5 flex-initial">
+            <div class="flex flex-col">
+                <div class="border-b border-solid text-2xl tracking-[-0.03em] leading-none font-semibold pb-1 mb-2">&nbsp;</div>
+                <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold mb-2">Projects</div>
+                <!-- <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold mb-2">Blog</div> -->
+                <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold mb-2">Sketches</div>
+                <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold mb-2">Résumé</div>
+            </div>
+        </div>
+        <div class="basis-2/5 flex-initial">
+            <div class="text-right border-b border-solid text-2xl tracking-[-0.03em] leading-none font-semibold pb-1 mb-2">Activity</div>
+        {% for commit in ui_commits %}
+            <div class="mb-2">
+                <span class="underline">{{ commit.repo_name }}&nbsp;</span>
+                <span class="text-gray-400 text-xs font-bold">{{ commit.author_date }}</span>
+                <br>
+                <span class="text-gray-500 text-sm font-bold">{{ commit.commit_msg }}</span>
+            </div>
+        {% endfor %}
+        </div>
     </div>
 </body>
 </html>
