@@ -594,6 +594,10 @@ video {
   flex-direction: column;
 }
 
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
