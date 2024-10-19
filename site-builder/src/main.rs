@@ -43,10 +43,10 @@ async fn main() -> Result<()> {
     let token = env::var(GH_TOKEN_VAR)?;
     let per_page = 100;
 
-    let repos = fetch_owner_repos(&token, per_page).await?;
     let commits = if args.no_fetch {
         read_commits(args.input_file.unwrap()).await?
     } else {
+        let repos = fetch_owner_repos(&token, per_page).await?;
         fetch_commits(token, per_page, &repos[..]).await
     };
 
