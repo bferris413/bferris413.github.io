@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, env, path::{Path, PathBuf}, sync::Arc};
+use std::{cmp::Ordering, collections::BTreeMap, env, path::{Path, PathBuf}, sync::Arc};
 
 use anyhow::Result;
 use clap::Parser;
@@ -129,8 +129,13 @@ async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf)
     }).await??;
 
     let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
+    let activity_stats = get_activity_stats(commits);
+    dbg!(&activity_stats);
+
     let mut context = Context::new();
     context.insert("ui_commits", &ui_commits);
+    context.insert("activity_stats", &activity_stats);
+
     let template_name = index_template_path.to_str().unwrap();
     let html = tera.render(template_name, &context)?;
 
@@ -182,6 +187,39 @@ async fn authd_get<T: DeserializeOwned>(url: &str, token: &str) -> Result<Vec<T>
 
 fn order_by_date_rev(first: &RepoCommit, second: &RepoCommit) -> Ordering {
     second.commit.commit.author.date.cmp(&first.commit.commit.author.date)
+}
+
+fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
+    let mut date_commits = BTreeMap::new();
+    for rc in commits {
+        let date = rc.commit.commit.author.date.date();
+        date_commits.entry(date)
+            .and_modify(|v| *v += 1)
+            .or_insert_with(|| 1);
+    }
+
+    let max = *date_commits.iter().max_by(|c1, c2| c1.1.cmp(c2.1)).unwrap().1;
+    let coords: Vec<_> = date_commits
+        .into_iter()
+        .enumerate()
+        .map(|(index, (_date, count))| Point { x: index as u32, y: count })
+        .collect();
+    let len = coords.len();
+
+    ActivityStats { max, coords, len }
+}
+
+#[derive(Debug, Serialize)]
+struct ActivityStats {
+    coords: Vec<Point>,
+    max: u32,
+    len: usize
+}
+
+#[derive(Debug, Serialize)]
+struct Point {
+    x: u32,
+    y: u32,
 }
 
 #[derive(Serialize)]
