@@ -554,10 +554,6 @@ video {
   --tw-contain-style:  ;
 }
 
-.fixed {
-  position: fixed;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -574,6 +570,14 @@ video {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
+.grid {
+  display: grid;
+}
+
 .flex-initial {
   flex: 0 1 auto;
 }
@@ -588,10 +592,6 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.resize {
-  resize: both;
 }
 
 .flex-col {
