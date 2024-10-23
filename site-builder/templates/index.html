@@ -23,14 +23,14 @@
         <div>
         <!-- <div class="basis-2/5 flex-initial"> -->
             <div class="text-2xl tracking-[-0.03em] leading-none font-semibold pb-1 mb-1">Activity</div>
-            <svg width="100%" height="{{activity_stats.max * 5 + 10}}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="100%" height="{{activity_stats.max * 5 + 10}}" viewBox="0 0 {{activity_stats.len * 4}} {{activity_stats.max * 5}}" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <polyline
-                    points="{% for coord in activity_stats.coords %} {{ coord.x * 3 }} {{ coord.y * 5 }},{% endfor %}"
+                    points="{% for coord in activity_stats.coords %} {{ coord.x * 2 }} {{ coord.y * 5 }},{% endfor %}"
                     stroke="black"
                     stroke-linejoin="miter"
                     fill="transparent"
-                    stroke-width="2"
-                    transform="scale(1, -1) translate(0, -{{activity_stats.max * 5 - 5}})"
+                    stroke-width="1.5"
+                    transform="scale(1, -1) translate(0, -{{activity_stats.max * 5 - 2}})"
                 />
                 <!-- <polyline points="60 0, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 160" stroke="orange" fill="transparent" stroke-width="5"/> -->
             </svg>
