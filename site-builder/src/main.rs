@@ -5,7 +5,7 @@ use clap::Parser;
 use reqwest::{header::{ACCEPT, USER_AGENT}, Client};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tera::{Context, Tera};
-use time::OffsetDateTime;
+use time::{Date, OffsetDateTime};
 use tokio::{fs as async_fs, task};
 use tokio::time::{sleep as tokio_sleep, Duration};
 
@@ -130,7 +130,6 @@ async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf)
 
     let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
     let activity_stats = get_activity_stats(commits);
-    dbg!(&activity_stats);
 
     let mut context = Context::new();
     context.insert("ui_commits", &ui_commits);
@@ -190,13 +189,8 @@ fn order_by_date_rev(first: &RepoCommit, second: &RepoCommit) -> Ordering {
 }
 
 fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
-    let mut date_commits = BTreeMap::new();
-    for rc in commits {
-        let date = rc.commit.commit.author.date.date();
-        date_commits.entry(date)
-            .and_modify(|v| *v += 1)
-            .or_insert_with(|| 1);
-    }
+    let mut date_commits = map_commits(commits);
+    fill_date_gaps(&mut date_commits);
 
     let max = *date_commits.iter().max_by(|c1, c2| c1.1.cmp(c2.1)).unwrap().1;
     let coords: Vec<_> = date_commits
@@ -209,6 +203,53 @@ fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
     ActivityStats { max, coords, len }
 }
 
+/// Fills gaps between dates, up to but not including today, with <missing date> -> 0.
+fn fill_date_gaps(date_commits: &mut BTreeMap<Date, u32>) {
+    let mut missing_dates = vec![];
+    let mut dates = date_commits.keys();
+    let (mut d1, mut d2) = (dates.next(), dates.next());
+
+    if d1.is_none() {
+        return;
+    }
+    
+    while let Some(next_plotted_date) = d2 {
+        let mut working_date = d1.unwrap().next_day().unwrap();
+        while working_date != *next_plotted_date {
+            missing_dates.push((working_date, 0));
+            working_date = working_date.next_day().unwrap();
+        }
+        d1 = d2;
+        d2 = dates.next();
+    }
+
+    let today = OffsetDateTime::now_utc().date();
+    let last_plotted_day = date_commits.last_key_value().unwrap().0;
+    let mut maybe_missing_day = last_plotted_day.next_day().unwrap();
+
+    while maybe_missing_day < today {
+        missing_dates.push((maybe_missing_day, 0));
+        maybe_missing_day = maybe_missing_day.next_day().unwrap();
+    }
+
+    date_commits.extend(missing_dates);
+
+}
+
+/// Collects commits into <commit date> -> <commit count>.
+fn map_commits(commits: &[RepoCommit]) -> BTreeMap<Date, u32> {
+    let mut date_commits = BTreeMap::new();
+        for rc in commits {
+            let date = rc.commit.commit.author.date.date();
+            date_commits.entry(date)
+                .and_modify(|v| *v += 1)
+                .or_insert_with(|| 1);
+        }
+
+    date_commits
+}
+
+/// Stats we want to reference in the UI.
 #[derive(Debug, Serialize)]
 struct ActivityStats {
     coords: Vec<Point>,
@@ -216,12 +257,14 @@ struct ActivityStats {
     len: usize
 }
 
+/// Coordinate point, used for plotting activity graph.
 #[derive(Debug, Serialize)]
 struct Point {
     x: u32,
     y: u32,
 }
 
+/// Commit information we want to display in the UI.
 #[derive(Serialize)]
 struct UiCommit {
     author_date: String,
@@ -240,6 +283,7 @@ impl From<&RepoCommit> for UiCommit {
     }
 }
 
+///
 #[derive(Deserialize, Serialize)]
 struct RepoCommit {
     repo_name: Arc<String>,
@@ -247,6 +291,7 @@ struct RepoCommit {
 
 }
 
+/// Parts of a GitHub commit we're interested in (may be incomplete compared to what the GH API returns).
 #[derive(Debug, Eq, Deserialize, PartialEq, Serialize)]
 struct Commit {
     commit: CommitData,
@@ -284,3 +329,26 @@ struct Owner {
     login: String,
 }
 
+#[cfg(test)]
+mod tests {
+    use time::macros::date;
+
+    use super::*;
+
+    #[test]
+    fn date_gaps() {
+        let mut date_commits = BTreeMap::from_iter([
+            (date!(2024 - 280), 1),
+            (date!(2024 - 281), 1),
+            (date!(2024 - 282), 1),
+            (date!(2024 - 287), 1),
+            (date!(2024 - 288), 1),
+            (date!(2024 - 290), 1),
+            (date!(2024 - 291), 1),
+            (date!(2024 - 294), 1),
+        ]);
+
+        fill_date_gaps(&mut date_commits);
+        dbg!(date_commits);
+    }
+}
