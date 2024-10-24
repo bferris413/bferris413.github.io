@@ -40,12 +40,12 @@ struct Cli {
 async fn main() -> Result<()> {
     let args = Cli::parse();
 
-    let token = env::var(GH_TOKEN_VAR)?;
     let per_page = 100;
 
     let commits = if args.no_fetch {
         read_commits(args.input_file.unwrap()).await?
     } else {
+        let token = env::var(GH_TOKEN_VAR)?;
         let repos = fetch_owner_repos(&token, per_page).await?;
         fetch_commits(token, per_page, &repos[..]).await
     };

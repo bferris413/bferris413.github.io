@@ -1,3 +1,4 @@
 **/target/*
 **/*.bkp
 .token
+**/.vscode
