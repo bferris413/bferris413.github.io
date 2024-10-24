@@ -619,12 +619,13 @@ video {
   padding-right: 0.5rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-.pb-4 {
-  padding-bottom: 1rem;
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .text-2xl {
@@ -634,10 +635,6 @@ video {
 
 .text-\[calc\(50vw\/8\)\] {
   font-size: calc(50vw / 8);
-}
-
-.text-\[calc\(99vw\/8\)\] {
-  font-size: calc(99vw / 8);
 }
 
 .text-sm {
