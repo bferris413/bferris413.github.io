@@ -566,10 +566,6 @@ video {
   margin-top: 1rem;
 }
 
-.flex {
-  display: flex;
-}
-
 .table {
   display: table;
 }
@@ -578,24 +574,8 @@ video {
   display: grid;
 }
 
-.flex-initial {
-  flex: 0 1 auto;
-}
-
-.basis-2\/5 {
-  flex-basis: 40%;
-}
-
-.basis-3\/5 {
-  flex-basis: 60%;
-}
-
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.flex-col {
-  flex-direction: column;
 }
 
 .whitespace-pre-line {
@@ -622,10 +602,6 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.pb-1 {
-  padding-bottom: 0.25rem;
 }
 
 .text-2xl {
