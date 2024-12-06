@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Deploys changes to site-builder and relevant static files to their local deploy locations.
+#
+# Those changes are picked up by the already-scheduled cron job.
 
 set -e
 set -x

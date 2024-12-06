@@ -7,7 +7,7 @@ use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tera::{Context, Tera};
 use time::{Date, OffsetDateTime};
 use tokio::{fs as async_fs, task};
-use tokio::time::{sleep as tokio_sleep, Duration};
+use tokio::time::{sleep as tokio_sleep, Duration as TokioDuration};
 
 const OWNER: &str = "bferris413";
 const GH_ACCEPT_JSON: &str = "application/vnd.github+json";
@@ -15,6 +15,7 @@ const GH_TOKEN_VAR: &str = "GH_TOKEN";
 
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
+const MAX_GRAPH_HISTORY: usize = 500;
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
@@ -50,7 +51,8 @@ async fn main() -> Result<()> {
         fetch_commits(token, per_page, &repos[..]).await
     };
 
-    let html = populate_template(&commits[..100], args.template_file_path).await?;
+    let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
+    let html = populate_template(&commits[..max_history], args.template_file_path).await?;
     write_output(&html, &args.out_file_path).await
 }
 
@@ -99,7 +101,7 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
     }
 
     while fetch_tasks.iter().any(|t| ! t.is_finished()) {
-        tokio_sleep(Duration::from_millis(50)).await;
+        tokio_sleep(TokioDuration::from_millis(50)).await;
     }
 
     let mut all_commits = Vec::new();
@@ -203,45 +205,47 @@ fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
     ActivityStats { max, coords, len }
 }
 
-/// Fills gaps between dates, up to but not including today, with <missing date> -> 0.
-fn fill_date_gaps(date_commits: &mut BTreeMap<Date, u32>) {
-    let mut missing_dates = vec![];
+/// Fills gaps between dates, up to but not including today, with <missing week number> -> 0.
+fn fill_date_gaps(date_commits: &mut BTreeMap<WeekNumber, u32>) {
+    let mut missing_weeks = vec![];
     let mut dates = date_commits.keys();
-    let (mut d1, mut d2) = (dates.next(), dates.next());
+    let (mut w1, mut w2) = (dates.next(), dates.next());
 
-    if d1.is_none() {
+    if w1.is_none() {
         return;
     }
     
-    while let Some(next_plotted_date) = d2 {
-        let mut working_date = d1.unwrap().next_day().unwrap();
-        while working_date != *next_plotted_date {
-            missing_dates.push((working_date, 0));
-            working_date = working_date.next_day().unwrap();
+    while let Some(next_plotted_week) = w2 {
+        let mut working_week = w1.unwrap().0 + 1;
+        while working_week != next_plotted_week.0 {
+            missing_weeks.push((working_week, 0));
+            working_week += 1;
         }
-        d1 = d2;
-        d2 = dates.next();
+        w1 = w2;
+        w2 = dates.next();
     }
 
-    let today = OffsetDateTime::now_utc().date();
-    let last_plotted_day = date_commits.last_key_value().unwrap().0;
-    let mut maybe_missing_day = last_plotted_day.next_day().unwrap();
+    let this_week = WeekNumber::from(OffsetDateTime::now_utc().date());
+    let last_plotted_week = date_commits.last_key_value().unwrap().0;
+    let mut maybe_missing_week = last_plotted_week.0 + 1;
 
-    while maybe_missing_day < today {
-        missing_dates.push((maybe_missing_day, 0));
-        maybe_missing_day = maybe_missing_day.next_day().unwrap();
+    while maybe_missing_week < this_week.0 {
+        missing_weeks.push((maybe_missing_week, 0));
+        maybe_missing_week += 1;
     }
 
-    date_commits.extend(missing_dates);
-
+    date_commits.extend(missing_weeks
+                            .into_iter()
+                            .map(|(week, n)| (WeekNumber(week), n)));
 }
 
 /// Collects commits into <commit date> -> <commit count>.
-fn map_commits(commits: &[RepoCommit]) -> BTreeMap<Date, u32> {
+fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
     let mut date_commits = BTreeMap::new();
         for rc in commits {
             let date = rc.commit.commit.author.date.date();
-            date_commits.entry(date)
+            let week = WeekNumber::from(date);
+            date_commits.entry(week)
                 .and_modify(|v| *v += 1)
                 .or_insert_with(|| 1);
         }
@@ -329,23 +333,34 @@ struct Owner {
     login: String,
 }
 
+/// A week numbered according to `date.year() * 52 + date.sunday_based_week()`.
+#[derive(Debug, Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Hash)]
+struct WeekNumber(i32);
+impl From<Date> for WeekNumber {
+    fn from(date: Date) -> Self {
+        let year = date.year();
+        let week = date.sunday_based_week() as i32;
+        let year_with_week = year * 52 + week;
+
+        WeekNumber(year_with_week)
+    }
+} 
+
 #[cfg(test)]
 mod tests {
-    use time::macros::date;
-
     use super::*;
 
     #[test]
     fn date_gaps() {
         let mut date_commits = BTreeMap::from_iter([
-            (date!(2024 - 280), 1),
-            (date!(2024 - 281), 1),
-            (date!(2024 - 282), 1),
-            (date!(2024 - 287), 1),
-            (date!(2024 - 288), 1),
-            (date!(2024 - 290), 1),
-            (date!(2024 - 291), 1),
-            (date!(2024 - 294), 1),
+            (WeekNumber(0), 1),
+            (WeekNumber(1), 1),
+            (WeekNumber(2), 1),
+            (WeekNumber(7), 1),
+            (WeekNumber(8), 1),
+            (WeekNumber(10), 1),
+            (WeekNumber(11), 1),
+            (WeekNumber(14), 1),
         ]);
 
         fill_date_gaps(&mut date_commits);
