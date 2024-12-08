@@ -622,8 +622,8 @@ video {
   border-color: transparent;
 }
 
-.stroke-\[1\] {
-  stroke-width: 1;
+.stroke-\[\.75\] {
+  stroke-width: .75;
 }
 
 .px-2 {
@@ -717,8 +717,8 @@ video {
     max-width: calc(100vw / 2);
   }
 
-  .md\:stroke-\[1\] {
-    stroke-width: 1;
+  .md\:stroke-\[\.60\] {
+    stroke-width: .60;
   }
 }
 
