@@ -35,6 +35,10 @@ struct Cli {
     /// The file to read commits from, if --no-fetch was provided
     #[arg(long, requires("no_fetch"))]
     input_file: Option<PathBuf>,
+
+    /// Saves fetched commits to a local file
+    #[arg(long, conflicts_with("no_fetch"))]
+    save_commits: Option<PathBuf>,
 }
 
 #[tokio::main]
@@ -50,6 +54,11 @@ async fn main() -> Result<()> {
         let repos = fetch_owner_repos(&token, per_page).await?;
         fetch_commits(token, per_page, &repos[..]).await
     };
+
+    if let Some(path) = args.save_commits {
+        let commits = serde_json::to_string_pretty(&commits)?;
+        async_fs::write(path, commits).await?;
+    }
 
     let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
     let html = populate_template(&commits[..max_history], args.template_file_path).await?;
@@ -85,7 +94,7 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
 
             let commit_resp = authd_get_all::<Commit>(&commits_url, &*token, per_page).await;
             if let Err(e) = commit_resp {
-                eprintln!("error fetching {commits_url}: {e}");
+                eprintln!("error fetching commits for repo '{repo_name}': {e}");
                 return Vec::new();
             };
 

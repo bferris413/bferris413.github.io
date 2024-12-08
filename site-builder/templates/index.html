@@ -19,7 +19,7 @@
         </div>
         <div class="max-w-screen-sm md:max-w-[calc(100vw/2)] xl:max-w-[calc(100vw/3)]">
             <svg class="stroke-[1] md:stroke-[1]" version="1.1"
-                viewBox="0 0 {{activity_stats.len * 10}} {{activity_stats.max + 5}}" xmlns="http://www.w3.org/2000/svg">
+                viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 5}}" xmlns="http://www.w3.org/2000/svg">
                 <polyline points="{% for coord in activity_stats.coords %} {{ coord.x * 3}} {{ coord.y }},{% endfor %}"
                     stroke="black" stroke-linejoin="miter" fill="transparent"
                     transform="scale(1, -1) translate(0, -{{activity_stats.max + 3}})" />
