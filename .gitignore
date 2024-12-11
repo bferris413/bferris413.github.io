@@ -2,3 +2,5 @@
 **/*.bkp
 .token
 **/.vscode
+/site-builder/templates/debug_commits.json
+

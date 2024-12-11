@@ -15,7 +15,7 @@ const GH_TOKEN_VAR: &str = "GH_TOKEN";
 
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
-const MAX_GRAPH_HISTORY: usize = 500;
+const MAX_GRAPH_HISTORY: usize = 300;
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]

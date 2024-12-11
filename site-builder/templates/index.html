@@ -17,13 +17,12 @@
         <div>
             <span class="text-2xl tracking-[-0.03em] leading-none font-semibold mb-1">Activity</span>
         </div>
-        <div class="max-w-screen-sm md:max-w-[calc(100vw/2)] xl:max-w-[calc(100vw/3)]">
-            <svg class="stroke-[.75] md:stroke-[.60]" version="1.1"
-                viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 5}}" xmlns="http://www.w3.org/2000/svg">
+        <div>
+            <svg height="50px" class="stroke-[.5]" version="1.1"
+                viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}" xmlns="http://www.w3.org/2000/svg">
                 <polyline points="{% for coord in activity_stats.coords %} {{ coord.x }} {{ coord.y }},{% endfor %}"
                     stroke="black" stroke-linejoin="miter" fill="transparent"
-                    transform="scale(1, -1) translate(0, -{{activity_stats.max + 3}})" />
-                <!-- <polyline points="60 0, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 160" stroke="orange" fill="transparent" stroke-width="5"/> -->
+                    transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})" />
             </svg>
         </div>
         <div>
