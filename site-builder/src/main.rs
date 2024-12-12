@@ -287,7 +287,7 @@ struct UiCommit {
 impl From<&RepoCommit> for UiCommit {
     fn from(rc: &RepoCommit) -> Self {
         let date = rc.commit.commit.author.date; 
-        let formatted_date = format!("{}-{:02}-{:02} {:02}:{:02}:{:02}Z", date.year(), date.month() as u8, date.day(), date.hour(), date.minute(), date.second());
+        let formatted_date = format!("{}-{:02}-{:02}", date.year(), date.month() as u8, date.day());
         UiCommit {
             repo_name: rc.repo_name.clone(),
             author_date: formatted_date,
