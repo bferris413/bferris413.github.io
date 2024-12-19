@@ -677,6 +677,10 @@ video {
   text-decoration-line: underline;
 }
 
+.outline {
+  outline-style: solid;
+}
+
 /* @font-face {
   font-family: 'Inter';
   font-style: normal;
