@@ -41,6 +41,7 @@ reading and writing code. The intended features operate at at least two &#x27;me
 * The module&#x2F;architectural level, like how different modules compose to form the entire application.
 
 The core features are:
+\# Interactive Trace View
 (function-level)
 * Is implemented in VSCode Cottage extension (with some TODOs for polish)
 * Like printf debugging, but the timeline is 2d and interactive.
@@ -48,6 +49,7 @@ The core features are:
 showing the values for associated cells.
 * This can be thought of as a replay editor in which all the steps are available immediately.
 
+\# Execution Graph
 (module-level, but some function-level as well)
 * Is not implemented
 * Will show a graph-like view (a la Sprotty and ElkJS) of data paths
@@ -55,10 +57,12 @@ showing the values for associated cells.
 &#x27;boxes and arrows&#x27; of certain prior attempts from other projects)
 * Collapsable to show only a single piece of data&#x2F;function.
 
+\# Inline Forever
 (function-level)
 * Is not implemented
 * Inline function calls to a certain depth to show a more complete view of code
 
+\# Call Trace
 (module and function-level)
 * Is not implemented
 * Simple execution trace showing what actually happened (like bash&#x27;s &#x27;set -x&#x27; or lisp&#x27;s (trace) macro).</span>
