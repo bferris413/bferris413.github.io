@@ -11,8 +11,21 @@
 </head>
 
 <body class="px-2">
-    <h1 class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold border-b border-solid py-4">Interactive
-        Digital</h1>
+    <div class="border-b border-solid py-4 flex flex-row items-end justify-between">
+        <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold">
+            Interactive Digital
+        </div>
+        <div class="text-xs">
+            (last seen near
+            {% if activity_stats.geo_data %}
+            {{activity_stats.geo_data.city}}, {{activity_stats.geo_data.state_code | replace(from="US-", to="")}}
+            {% else %}
+            ??
+            {% endif %}
+            )
+        </div>
+
+    </div>
     <div class="mt-4">
         <div>
             <span class="text-2xl tracking-[-0.03em] leading-none font-semibold mb-1">Activity</span>

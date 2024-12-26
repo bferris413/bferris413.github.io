@@ -1,6 +1,7 @@
 **/target/*
 **/*.bkp
 .token
+.ip_token
 **/.vscode
 /site-builder/templates/debug_commits.json
 

@@ -12,9 +12,11 @@ use tokio::time::{sleep as tokio_sleep, Duration as TokioDuration};
 const OWNER: &str = "bferris413";
 const GH_ACCEPT_JSON: &str = "application/vnd.github+json";
 const GH_TOKEN_VAR: &str = "GH_TOKEN";
+const IP_API_TOKEN_VAR: &str = "IP_API_TOKEN";
 
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
 const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
+const IP_GEO: &str = "https://api.ipgeolocation.io/ipgeo?apiKey={api_key}";
 const MAX_GRAPH_HISTORY: usize = 300;
 
 #[derive(Debug, Parser)]
@@ -47,12 +49,15 @@ async fn main() -> Result<()> {
 
     let per_page = 100;
 
-    let commits = if args.no_fetch {
-        read_commits(args.input_file.unwrap()).await?
+    let (geo_data, commits) = if args.no_fetch {
+        (None, read_commits(args.input_file.unwrap()).await?)
     } else {
         let token = env::var(GH_TOKEN_VAR)?;
+        let ip_api_token = env::var(IP_API_TOKEN_VAR)?;
+
         let repos = fetch_owner_repos(&token, per_page).await?;
-        fetch_commits(token, per_page, &repos[..]).await
+        let geo_data = fetch_geo_data(&ip_api_token).await?;
+        (Some(geo_data), fetch_commits(token, per_page, &repos[..]).await)
     };
 
     if let Some(path) = args.save_commits {
@@ -61,8 +66,19 @@ async fn main() -> Result<()> {
     }
 
     let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
-    let html = populate_template(&commits[..max_history], args.template_file_path).await?;
+    let html = populate_template(&commits[..max_history], geo_data, args.template_file_path).await?;
     write_output(&html, &args.out_file_path).await
+}
+
+async fn fetch_geo_data(token: &str) -> Result<GeoData> {
+    let api = IP_GEO.replace("{api_key}", token);
+    let client = Client::new();
+    let response = client.get(api)
+        .send()
+        .await?;
+
+    let geo_data: GeoData = response.json().await?;
+    Ok(geo_data)
 }
 
 async fn fetch_owner_repos(token: &str, per_page: usize) -> Result<Vec<Repo>> {
@@ -130,7 +146,7 @@ async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
     Ok(commits)
 }
 
-async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf) -> Result<String> {
+async fn populate_template(commits: &[RepoCommit], mut geo_data: Option<GeoData>, index_template_path: PathBuf) -> Result<String> {
     let tp2 = index_template_path.clone();
 
     let tera = task::spawn_blocking(move || {
@@ -140,7 +156,12 @@ async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf)
     }).await??;
 
     let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
-    let activity_stats = get_activity_stats(commits);
+    if let Some(ref mut geo_data) = geo_data {
+        correct_near_home(geo_data);
+    }
+    
+    let mut activity_stats = get_activity_stats(commits);
+    activity_stats.geo_data = geo_data;
 
     let mut context = Context::new();
     context.insert("ui_commits", &ui_commits);
@@ -150,6 +171,15 @@ async fn populate_template(commits: &[RepoCommit], index_template_path: PathBuf)
     let html = tera.render(template_name, &context)?;
 
     Ok(html)
+}
+
+// ISP goes out of Bristol, corrects for near normal location
+fn correct_near_home(geo_data: &mut GeoData) {
+    if geo_data.city.to_lowercase() == "bristol" && geo_data.state_code.to_lowercase() == "us-tn" {
+        geo_data.city = "Abingdon".to_string();
+        geo_data.state_code = "US-VA".to_string();
+        geo_data.state_prov = "Virginia".to_string();
+    }
 }
 
 async fn write_output(html: &str, out_file_path: &Path) -> Result<()> {
@@ -211,7 +241,7 @@ fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
         .collect();
     let len = coords.len();
 
-    ActivityStats { max, coords, len }
+    ActivityStats { max, coords, len, geo_data: None, }
 }
 
 /// Fills gaps between dates, up to but not including today, with <missing week number> -> 0.
@@ -262,12 +292,24 @@ fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
     date_commits
 }
 
+/// Geographic data we want to reference in the UI.
+#[derive(Debug, Deserialize, Serialize)]
+struct GeoData {
+    // like "Virginia"
+    state_prov: String,
+    // like "US-VA"
+    state_code: String,
+    // like "Alexandria"
+    city: String,
+}
+
 /// Stats we want to reference in the UI.
 #[derive(Debug, Serialize)]
 struct ActivityStats {
     coords: Vec<Point>,
     max: u32,
-    len: usize
+    len: usize,
+    geo_data: Option<GeoData>,
 }
 
 /// Coordinate point, used for plotting activity graph.
