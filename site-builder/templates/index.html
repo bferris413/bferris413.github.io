@@ -18,15 +18,74 @@
         <div class="text-xs">
             (last seen near
             {% if activity_stats.geo_data %}
-            {{activity_stats.geo_data.city}}, {{activity_stats.geo_data.state_code | replace(from="US-", to="")}}
+            {{activity_stats.geo_data.city}}, {{ activity_stats.geo_data.state_code | replace(from="US-", to="") }})
             {% else %}
-            ??
+            ??)
             {% endif %}
-            )
         </div>
 
     </div>
+    <div class="mt-8 max-w-prose text-slate-700 font-[450]">
+        Hello! I'm an engineer who usually works at the
+        intersection of security, performance, networking and Linux. I try to approach problems from their
+        first principles and have a habit of asking, "But, <span class="italic">why?</span>"
+    </div>
+
+    <div class="mt-8 text-xl tracking-[-0.03em] leading-none font-semibold mb-2">Currently at</div>
+
+    <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://aembit.io">
+        <img class="h-10" src="aembit-full-icon.svg">
+        <span class="text-sm text-gray-600 font-semibold">Aembit</span>
+    </a>
+
+    <div class="text-sm max-w-prose text-slate-500 font-medium">
+        I work with a small but talented team on Aembit's Edge proxy (Rust, Linux).
+    </div>
+
+    <div class="mt-8 text-xl tracking-[-0.03em] leading-none font-semibold mb-4">Previously with</div>
+
+    <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://maxisiq.com">
+        <img class="h-6" src="iomaxis-logo.svg">
+        <span class="text-sm text-gray-600 font-semibold">IOMAXIS</span>
+    </a>
+
+    <div class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+        I spent two years as the technical lead of a small team (3-5 engineers) building a new <a
+            class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+            href="https://duckduckgo.com/?t=ffab&q=cross+domain+solution&ia=web">cross-domain solution</a> (Rust,
+        Linux).
+    </div>
+    <div class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+        Prior to that, I spent two years building a DoD-funded CDS (also Rust, Linux). <!-- Most of my time was spent
+        increasing
+        the performance and reliability of a custom protocol over UDP, but I also created web APIs, worked with tun/tap
+        devices, and wrote lot of async code (Rust, Python, Linux). -->
+    </div>
+
     <div class="mt-4">
+        <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://www.nasa.gov/goddard/">
+            <img class="h-12" src="nasa-logo.svg">
+            <span class="text-sm text-gray-600 font-semibold">NASA Goddard Space Flight Center</span>
+        </a>
+    </div>
+
+    <div class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+        I spent two years at Goddard, including internships. I built CI/CD pipelines, Dockerized applications,
+        wrote ground system software for the James Webb Space Telescope, and created a compiler to translate ~50k lines
+        of Fortran 77 to Java (Linux, Java, Python, Jenkins, Docker).
+    </div>
+
+    <div class="mt-4">
+        <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://www.cdpehs.com/">
+            <img class="h-8" src="cdp-logo.png">
+            <span class="text-sm text-gray-600 font-semibold">Custom Data Processing</span>
+        </a>
+    </div>
+
+    <div class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+        I wrote software while working in Operations to automate most of my job (C#, F#).
+    </div>
+    <div class="mt-8">
         <div>
             <span class="text-2xl tracking-[-0.03em] leading-none font-semibold mb-1">Activity</span>
         </div>
@@ -46,7 +105,7 @@
             <span class="underline text-sm">{{ commit.repo_name }}</span>
             <span class="text-gray-400 text-xs font-bold">{{ commit.author_date }}</span>
             <br>
-            <span class="text-gray-500 text-sm font-semibold whitespace-pre-line">{{ commit.commit_msg }}</span>
+            <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span>
         </div>
         {% endfor %}
     </div>
