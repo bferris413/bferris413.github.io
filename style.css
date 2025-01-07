@@ -574,12 +574,16 @@ video {
   margin-bottom: 1rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
-.mt-4 {
-  margin-top: 1rem;
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-8 {
@@ -676,23 +680,18 @@ video {
   padding-bottom: 1rem;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .text-\[calc\(50vw\/8\)\] {
   font-size: calc(50vw / 8);
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-xs {
@@ -790,4 +789,10 @@ video {
 
 .visited\:text-purple-600:visited {
   color: rgb(147 51 234 );
+}
+
+@media (min-width: 768px) {
+  .md\:text-\[0\.95rem\] {
+    font-size: 0.95rem;
+  }
 }
