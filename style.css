@@ -791,8 +791,12 @@ video {
   color: rgb(147 51 234 );
 }
 
-@media (min-width: 768px) {
-  .md\:text-\[0\.95rem\] {
+@media (min-width: 1024px) {
+  .lg\:mt-6 {
+    margin-top: 1.5rem;
+  }
+
+  .lg\:text-\[0\.95rem\] {
     font-size: 0.95rem;
   }
 }
