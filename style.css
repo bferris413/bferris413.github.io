@@ -590,6 +590,10 @@ video {
   margin-top: 2rem;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .inline {
   display: inline;
 }
@@ -792,8 +796,8 @@ video {
 }
 
 @media (min-width: 1024px) {
-  .lg\:mt-6 {
-    margin-top: 1.5rem;
+  .lg\:mt-4 {
+    margin-top: 1rem;
   }
 
   .lg\:text-\[0\.95rem\] {
