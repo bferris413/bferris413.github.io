@@ -35,7 +35,7 @@
         <div>
             <svg height="50px" class="stroke-[.5]" version="1.1"
                 viewBox="0 0 80 19" xmlns="http://www.w3.org/2000/svg">
-                <polyline points=" 0 3, 1 0, 2 4, 3 6, 4 1, 5 0, 6 2, 7 1, 8 5, 9 0, 10 0, 11 3, 12 6, 13 4, 14 5, 15 3, 16 0, 17 1, 18 1, 19 1, 20 0, 21 0, 22 5, 23 1, 24 1, 25 0, 26 0, 27 4, 28 4, 29 4, 30 2, 31 1, 32 10, 33 3, 34 8, 35 2, 36 10, 37 4, 38 12, 39 5, 40 8, 41 2, 42 12, 43 10, 44 4, 45 2, 46 1, 47 6, 48 0, 49 0, 50 1, 51 0, 52 0, 53 5, 54 2, 55 1, 56 1, 57 1, 58 6, 59 0, 60 1, 61 7, 62 17, 63 10, 64 6, 65 6, 66 8, 67 4, 68 8, 69 11, 70 8, 71 5, 72 8, 73 2, 74 0, 75 6, 76 1, 77 0, 78 3, 79 5,"
+                <polyline points=" 0 1, 1 0, 2 4, 3 6, 4 1, 5 0, 6 2, 7 1, 8 5, 9 0, 10 0, 11 3, 12 6, 13 4, 14 5, 15 3, 16 0, 17 1, 18 1, 19 1, 20 0, 21 0, 22 5, 23 1, 24 1, 25 0, 26 0, 27 4, 28 4, 29 4, 30 2, 31 1, 32 10, 33 3, 34 8, 35 2, 36 10, 37 4, 38 12, 39 5, 40 8, 41 2, 42 12, 43 10, 44 4, 45 2, 46 1, 47 6, 48 0, 49 0, 50 1, 51 0, 52 0, 53 5, 54 2, 55 1, 56 1, 57 1, 58 6, 59 0, 60 1, 61 7, 62 17, 63 10, 64 6, 65 6, 66 8, 67 4, 68 8, 69 11, 70 8, 71 5, 72 8, 73 2, 74 0, 75 6, 76 1, 77 0, 78 3, 79 7,"
                     stroke="black" stroke-linejoin="miter" fill="transparent"
                     transform="scale(1, -1) translate(0, -18)" />
             </svg>
@@ -43,6 +43,27 @@
         <details class="mt-2 mb-4">
             <summary class="text-xs text-gray-400">(my last 300 commits)</summary>
 
+            
+            <div class="mb-2">
+                <span class="underline text-sm">dover</span>
+                <span class="text-gray-400 text-xs font-bold">2025-02-07</span>
+                <br>
+                <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated enum signature in git.rs.</span>
+            </div>
+            
+            <div class="mb-2">
+                <span class="underline text-sm">dover</span>
+                <span class="text-gray-400 text-xs font-bold">2025-02-07</span>
+                <br>
+                <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated diff method and applied to Use statements.
+
+* The diff return type for containers will be `Option&lt;T&gt;`.
+* Diffs will be &#x27;member&#x27; based, e.g
+  * Use members are a single use statement (non-nested),
+  * Struct members are (currently) vis and fields,
+  * Field members are (name, type) pairs,
+  * etc.</span>
+            </div>
             
             <div class="mb-2">
                 <span class="underline text-sm">dover</span>
@@ -2362,20 +2383,6 @@ The straightforward solution was to change the structure to [year] -&gt; { [cate
                 <span class="text-gray-400 text-xs font-bold">2023-07-28</span>
                 <br>
                 <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed draw font test.</span>
-            </div>
-            
-            <div class="mb-2">
-                <span class="underline text-sm">rip8</span>
-                <span class="text-gray-400 text-xs font-bold">2023-07-28</span>
-                <br>
-                <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Changed timer precision from millis to micros.</span>
-            </div>
-            
-            <div class="mb-2">
-                <span class="underline text-sm">rip8</span>
-                <span class="text-gray-400 text-xs font-bold">2023-07-28</span>
-                <br>
-                <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added sound and delay timer decrement at 60&#x2F;sec</span>
             </div>
             
         </details>
