@@ -43,14 +43,15 @@
             </svg>
         </div>
         <details class="mt-2 mb-4">
-            <summary class="text-xs text-gray-400">(my last {{ui_commits | length}} commits)</summary>
+            <summary class="text-xs text-gray-400">(last {{ui_commits | length}} commits)</summary>
 
             {% for commit in ui_commits %}
             <div class="mb-2">
                 <span class="underline text-sm">{{ commit.repo_name }}</span>
                 <span class="text-gray-400 text-xs font-bold">{{ commit.author_date }}</span>
                 <br>
-                <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span>
+                <pre class="text-xs text-slate-700">{{ commit.commit_msg }}</pre>
+                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->
             </div>
             {% endfor %}
         </details>
