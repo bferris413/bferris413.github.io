@@ -34,8 +34,8 @@
         <div class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1">Activity</div>
         <div>
             <svg height="50px" class="stroke-[.5]" version="1.1"
-                viewBox="0 0 76 19" xmlns="http://www.w3.org/2000/svg">
-                <polyline points=" 0 1, 1 5, 2 0, 3 0, 4 3, 5 6, 6 4, 7 5, 8 3, 9 0, 10 1, 11 1, 12 1, 13 0, 14 0, 15 5, 16 1, 17 1, 18 0, 19 0, 20 4, 21 4, 22 4, 23 2, 24 1, 25 10, 26 3, 27 8, 28 2, 29 10, 30 4, 31 12, 32 5, 33 8, 34 2, 35 12, 36 10, 37 4, 38 2, 39 1, 40 6, 41 0, 42 0, 43 1, 44 0, 45 0, 46 5, 47 2, 48 1, 49 1, 50 1, 51 6, 52 0, 53 1, 54 7, 55 17, 56 10, 57 6, 58 6, 59 8, 60 4, 61 8, 62 11, 63 8, 64 5, 65 8, 66 2, 67 0, 68 6, 69 1, 70 0, 71 3, 72 8, 73 5, 74 3, 75 5,"
+                viewBox="0 0 75 19" xmlns="http://www.w3.org/2000/svg">
+                <polyline points=" 0 5, 1 0, 2 0, 3 3, 4 6, 5 4, 6 5, 7 3, 8 0, 9 1, 10 1, 11 1, 12 0, 13 0, 14 5, 15 1, 16 1, 17 0, 18 0, 19 4, 20 4, 21 4, 22 2, 23 1, 24 10, 25 3, 26 8, 27 2, 28 10, 29 4, 30 12, 31 5, 32 8, 33 2, 34 12, 35 10, 36 4, 37 2, 38 1, 39 6, 40 0, 41 0, 42 1, 43 0, 44 0, 45 5, 46 2, 47 1, 48 1, 49 1, 50 6, 51 0, 52 1, 53 7, 54 17, 55 10, 56 6, 57 6, 58 8, 59 4, 60 8, 61 11, 62 8, 63 5, 64 8, 65 2, 66 0, 67 6, 68 1, 69 0, 70 3, 71 8, 72 5, 73 3, 74 6,"
                     stroke="black" stroke-linejoin="miter" fill="transparent"
                     transform="scale(1, -1) translate(0, -18)" />
             </svg>
@@ -43,6 +43,46 @@
         <details class="mt-2 mb-4">
             <summary class="text-xs text-gray-400">(last 300 commits)</summary>
 
+            
+            <div class="mb-2">
+                <span class="underline text-sm">dover</span>
+                <span class="text-gray-400 text-xs font-bold">2025-02-28</span>
+                <br>
+                <pre class="text-xs text-slate-700">Added enum and variant diffing.
+
+Sample output:
+--------------------------------------------------------------------
+enum L7Protocol&lt;T: Clone&gt; {                        enum L7Protocol {
+    Http { t: T },                                     Https,
+    Https,                                             Dns,
+    STUN,                                              Smtp,
+}                                                  }
+
+variants:
+- Http { t : T }                                   + Dns
+- STUN                                             + Smtp
+
+generic parameters:
+- T : Clone
+--------------------------------------------------------------------</pre>
+                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added enum and variant diffing.
+
+Sample output:
+--------------------------------------------------------------------
+enum L7Protocol&lt;T: Clone&gt; {                        enum L7Protocol {
+    Http { t: T },                                     Https,
+    Https,                                             Dns,
+    STUN,                                              Smtp,
+}                                                  }
+
+variants:
+- Http { t : T }                                   + Dns
+- STUN                                             + Smtp
+
+generic parameters:
+- T : Clone
+--------------------------------------------------------------------</span> -->
+            </div>
             
             <div class="mb-2">
                 <span class="underline text-sm">dover</span>
@@ -3122,14 +3162,6 @@ The straightforward solution was to change the structure to [year] -&gt; { [cate
                 <br>
                 <pre class="text-xs text-slate-700">Changed out dir to current dir.</pre>
                 <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Changed out dir to current dir.</span> -->
-            </div>
-            
-            <div class="mb-2">
-                <span class="underline text-sm">budget</span>
-                <span class="text-gray-400 text-xs font-bold">2023-09-16</span>
-                <br>
-                <pre class="text-xs text-slate-700">Compiles with TS.</pre>
-                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Compiles with TS.</span> -->
             </div>
             
         </details>
