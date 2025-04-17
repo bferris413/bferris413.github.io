@@ -34,8 +34,8 @@
         <div class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1">Activity</div>
         <div>
             <svg height="50px" class="stroke-[.5]" version="1.1"
-                viewBox="0 0 72 19" xmlns="http://www.w3.org/2000/svg">
-                <polyline points=" 0 1, 1 1, 2 0, 3 0, 4 5, 5 1, 6 1, 7 0, 8 0, 9 4, 10 4, 11 4, 12 2, 13 1, 14 10, 15 3, 16 8, 17 2, 18 10, 19 4, 20 12, 21 5, 22 8, 23 2, 24 12, 25 10, 26 4, 27 2, 28 1, 29 6, 30 0, 31 0, 32 1, 33 0, 34 0, 35 5, 36 2, 37 1, 38 1, 39 1, 40 6, 41 0, 42 1, 43 7, 44 17, 45 10, 46 6, 47 6, 48 8, 49 4, 50 8, 51 11, 52 8, 53 5, 54 8, 55 2, 56 0, 57 6, 58 1, 59 0, 60 3, 61 8, 62 5, 63 3, 64 6, 65 5, 66 2, 67 0, 68 7, 69 4, 70 0, 71 9,"
+                viewBox="0 0 71 19" xmlns="http://www.w3.org/2000/svg">
+                <polyline points=" 0 1, 1 0, 2 0, 3 5, 4 1, 5 1, 6 0, 7 0, 8 4, 9 4, 10 4, 11 2, 12 1, 13 10, 14 3, 15 8, 16 2, 17 10, 18 4, 19 12, 20 5, 21 8, 22 2, 23 12, 24 10, 25 4, 26 2, 27 1, 28 6, 29 0, 30 0, 31 1, 32 0, 33 0, 34 5, 35 2, 36 1, 37 1, 38 1, 39 6, 40 0, 41 1, 42 7, 43 17, 44 10, 45 6, 46 6, 47 8, 48 4, 49 8, 50 11, 51 8, 52 5, 53 8, 54 2, 55 0, 56 6, 57 1, 58 0, 59 3, 60 8, 61 5, 62 3, 63 6, 64 5, 65 2, 66 0, 67 7, 68 4, 69 0, 70 10,"
                     stroke="black" stroke-linejoin="miter" fill="transparent"
                     transform="scale(1, -1) translate(0, -18)" />
             </svg>
@@ -43,6 +43,28 @@
         <details class="mt-2 mb-4">
             <summary class="text-xs text-gray-400">(last 300 commits)</summary>
 
+            
+            <div class="mb-2">
+                <span class="underline text-sm">dover</span>
+                <span class="text-gray-400 text-xs font-bold">2025-04-17</span>
+                <br>
+                <pre class="text-xs text-slate-700">Giant commit for a a bunch of formatting changes.
+
+- Added colored output on terminals.
+- Starting with functions, output formatting is delegated to a separate
+struct. The goal is to output a single type that can then be formatted
+based on the chosen &quot;backend.&quot; Text output is currently supported,
+but HTML is planned for use in GitHub-like PRs.
+- Need to finish function inputs.</pre>
+                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Giant commit for a a bunch of formatting changes.
+
+- Added colored output on terminals.
+- Starting with functions, output formatting is delegated to a separate
+struct. The goal is to output a single type that can then be formatted
+based on the chosen &quot;backend.&quot; Text output is currently supported,
+but HTML is planned for use in GitHub-like PRs.
+- Need to finish function inputs.</span> -->
+            </div>
             
             <div class="mb-2">
                 <span class="underline text-sm">dover</span>
@@ -3232,14 +3254,6 @@ The straightforward solution was to change the structure to [year] -&gt; { [cate
                 <br>
                 <pre class="text-xs text-slate-700">Added natives.</pre>
                 <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added natives.</span> -->
-            </div>
-            
-            <div class="mb-2">
-                <span class="underline text-sm">moonshot</span>
-                <span class="text-gray-400 text-xs font-bold">2023-11-29</span>
-                <br>
-                <pre class="text-xs text-slate-700">WIP fn call refactor</pre>
-                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">WIP fn call refactor</span> -->
             </div>
             
         </details>
