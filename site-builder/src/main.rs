@@ -175,7 +175,8 @@ async fn populate_template(commits: &[RepoCommit], mut geo_data: Option<GeoData>
 
 // ISP goes out of Bristol, corrects for near normal location
 fn correct_near_home(geo_data: &mut GeoData) {
-    if geo_data.city.to_lowercase() == "bristol" && geo_data.state_code.to_lowercase() == "us-tn" {
+    let state_code = geo_data.state_code.to_lowercase();
+    if geo_data.city.to_lowercase() == "bristol" && (state_code == "us-tn" || state_code == "us-va") {
         geo_data.city = "Abingdon".to_string();
         geo_data.state_code = "US-VA".to_string();
         geo_data.state_prov = "Virginia".to_string();
