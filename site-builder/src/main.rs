@@ -2,6 +2,7 @@ use std::{
     cmp::Ordering,
     collections::BTreeMap,
     env,
+    hash::{DefaultHasher, Hash, Hasher},
     path::{Path, PathBuf},
     sync::Arc,
 };
@@ -83,14 +84,35 @@ async fn main() -> Result<()> {
     }
 
     let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
-    let posts_dir = &args.template_file_path.parent().unwrap().join("posts");
+    let template_dir = &args.template_file_path.parent().unwrap();
+    let post_template = template_dir.join("post_template.html");
+    let posts_dir = template_dir.join("posts");
     let posts = get_posts(&posts_dir).await?;
-    let index =
-        populate_index_template(&commits[..max_history], geo_data, args.template_file_path).await?;
-    let posts_file_index_path = posts_dir.join("posts.html");
-    let posts_index = populate_posts_template(&posts_file_index_path, &posts).await?;
 
-    write_output(&index, &posts_index, &posts, &args.out_file_path).await
+    let posts_hash = {
+        let mut hasher = DefaultHasher::new();
+        posts.hash(&mut hasher);
+        hasher.finish()
+    };
+    let index = populate_index_template(
+        &commits[..max_history],
+        geo_data,
+        args.template_file_path,
+        posts_hash,
+    )
+    .await?;
+    let posts_file_index_path = posts_dir.join("posts.html");
+    let (posts_index, post_template) =
+        populate_post_templates(&posts_file_index_path, &post_template, &posts).await?;
+
+    write_output(
+        &index,
+        &posts_index,
+        &post_template,
+        &posts,
+        &args.out_file_path,
+    )
+    .await
 }
 
 async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
@@ -111,6 +133,7 @@ async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
         }
     }
 
+    posts.sort_by(|p1, p2| p1.post_number.cmp(&p2.post_number));
     Ok(posts)
 }
 
@@ -193,12 +216,18 @@ async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
     Ok(commits)
 }
 
-async fn populate_posts_template(posts_path: &Path, posts: &[Post]) -> Result<String> {
-    let pp2 = posts_path.to_path_buf();
+async fn populate_post_templates(
+    posts_index_template: &Path,
+    post_template: &Path,
+    posts: &[Post],
+) -> Result<(String, String)> {
+    let index2 = posts_index_template.to_path_buf();
+    let post_template2 = post_template.to_path_buf();
 
     let tera = task::spawn_blocking(move || {
         let mut tera = Tera::default();
-        tera.add_template_file(pp2, None)?;
+        tera.add_template_file(index2, None)?;
+        tera.add_template_file(post_template2, None)?;
         Ok::<_, tera::Error>(tera)
     })
     .await??;
@@ -207,16 +236,19 @@ async fn populate_posts_template(posts_path: &Path, posts: &[Post]) -> Result<St
     let ui_posts: Vec<_> = posts.iter().map(|post| UiPost::from(post)).collect();
     context.insert("posts", &ui_posts);
 
-    let template_name = posts_path.to_str().unwrap();
+    let template_name = posts_index_template.to_str().unwrap();
     let html = tera.render(template_name, &context)?;
+    let post_template_name = post_template.to_str().unwrap();
+    let post_html = tera.render(post_template_name, &context)?;
 
-    Ok(html)
+    Ok((html, post_html))
 }
 
 async fn populate_index_template(
     commits: &[RepoCommit],
     mut geo_data: Option<GeoData>,
     index_template_path: PathBuf,
+    posts_hash: u64,
 ) -> Result<String> {
     let tp2 = index_template_path.clone();
 
@@ -238,6 +270,7 @@ async fn populate_index_template(
     let mut context = Context::new();
     context.insert("ui_commits", &ui_commits);
     context.insert("activity_stats", &activity_stats);
+    context.insert("posts_hash", &posts_hash);
 
     let template_name = index_template_path.to_str().unwrap();
     let html = tera.render(template_name, &context)?;
@@ -259,6 +292,7 @@ fn correct_near_home(geo_data: &mut GeoData) {
 async fn write_output(
     html: &str,
     posts_html: &str,
+    post_template_html: &str,
     posts: &[Post],
     out_file_path: &Path,
 ) -> Result<()> {
@@ -272,8 +306,11 @@ async fn write_output(
     async_fs::write(posts_dir.join("posts.html"), posts_html).await?;
 
     for post in posts {
-        let post_file_path = posts_dir.join(&post.filename);
-        async_fs::write(&post_file_path, &post.md_content).await?;
+        let mut post_file_path = posts_dir.join(&post.filename);
+        post_file_path.set_extension("html");
+        let full_post_html =
+            post_template_html.replace("%%content%%", &markdown::to_html(&post.md_content));
+        async_fs::write(&post_file_path, &full_post_html).await?;
     }
 
     Ok(())
@@ -408,11 +445,13 @@ fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
 #[derive(Serialize)]
 struct UiPost {
     title: String,
+    html_filename: String,
 }
 impl From<&Post> for UiPost {
     fn from(value: &Post) -> Self {
         Self {
             title: value.title.clone(),
+            html_filename: format!("{}.html", value.filename),
         }
     }
 }
@@ -421,7 +460,9 @@ struct Post {
     filename: String,
     title: String,
     md_content: String,
+    #[allow(unused)]
     md_ast: MarkdownNode,
+    post_number: u32,
 }
 impl Post {
     fn try_new(md_content: String, filename: String) -> Result<Self> {
@@ -431,6 +472,14 @@ impl Post {
         let MarkdownNode::Root(root) = &md_ast else {
             unreachable!();
         };
+
+        let (post_number, filename) = filename.split_once("_").ok_or_else(|| {
+            anyhow!("Invalid filename format for {filename}, expected <##>_<filename>")
+        })?;
+        let post_number = post_number
+            .parse::<u32>()
+            .map_err(|_| anyhow!("Invalid post number"))?;
+        let filename = filename.to_string();
 
         let mut title = None;
         for node in &root.children {
@@ -465,7 +514,16 @@ impl Post {
             md_content,
             md_ast,
             title,
+            post_number,
         })
+    }
+}
+impl Hash for Post {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.filename.hash(state);
+        self.md_content.hash(state);
+        self.title.hash(state);
+        self.post_number.hash(state);
     }
 }
 

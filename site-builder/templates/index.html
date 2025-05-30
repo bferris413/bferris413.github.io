@@ -1,155 +1,214 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Digital</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-</head>
-
-<body class="px-2">
-    <div class="py-4 flex flex-row items-end justify-between">
-        <!-- <div class="border-b border-solid py-4 flex flex-row items-end justify-between"> -->
-        <div class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold">
-            Interactive Digital
-        </div>
-        <div class="text-xs">
-            (last seen near
-            {% if activity_stats.geo_data %}
-            {{activity_stats.geo_data.city}}, {{ activity_stats.geo_data.state_code | replace(from="US-", to="") }})
-            {% else %}
-            ??)
-            {% endif %}
-        </div>
-
-    </div>
-    <nav>
-        <ul>
-            <li>
-                <a class="text-blue-600 visited:text-purple-600" href="/posts">
-                    <span class="sm:text-sm md:text-md text-gray-600 font-semibold underline">Posts</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <div class="lg:mt-4 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]">
-        Hello! I'm an engineer who usually works at the
-        intersection of security, performance, networking and Linux. I try to approach problems from their
-        first principles and have learned to appreciate the habit of asking, "But, <span class="italic">why?</span>"
-    </div>
-
-    <div class="mt-8">
-        <div class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1">Activity</div>
-        <div>
-            <svg height="50px" class="stroke-[.5]" version="1.1"
-                viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="{% for coord in activity_stats.coords %} {{ coord.x }} {{ coord.y }},{% endfor %}"
-                    stroke="black" stroke-linejoin="miter" fill="transparent"
-                    transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})" />
-            </svg>
-        </div>
-        <details class="mt-2 mb-4">
-            <summary class="text-xs text-gray-400">(last {{ui_commits | length}} commits)</summary>
-
-            {% for commit in ui_commits %}
-            <div class="mb-2">
-                <span class="underline text-sm">{{ commit.repo_name }}</span>
-                <span class="text-gray-400 text-xs font-bold">{{ commit.author_date }}</span>
-                <br>
-                <pre class="text-xs text-slate-700">{{ commit.commit_msg }}</pre>
-                <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->
+    <body class="px-2">
+        <div class="py-4 flex flex-row items-end justify-between">
+            <!-- <div class="border-b border-solid py-4 flex flex-row items-end justify-between"> -->
+            <a href="/">
+                <div
+                    class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                >
+                    Interactive Digital
+                </div>
+            </a>
+            <div class="text-xs">
+                (last seen near {% if activity_stats.geo_data %}
+                {{activity_stats.geo_data.city}}, {{
+                activity_stats.geo_data.state_code | replace(from="US-", to="")
+                }}) {% else %} ??) {% endif %}
             </div>
-            {% endfor %}
+        </div>
+        <nav class="mb-4">
+            <ul>
+                <li>
+                    <a
+                        class="text-blue-600 visited:text-purple-600"
+                        href="/posts/posts.html"
+                    >
+                        <span
+                            class="sm:text-sm md:text-md text-gray-600 font-semibold underline"
+                            >Posts</span
+                        >
+                        <!-- {{ posts_hash }} -- -->
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div
+            class="lg:mt-4 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
+        >
+            Hello! I'm an engineer who usually works at the intersection of
+            security, performance, networking and Linux. I try to approach
+            problems from their first principles and have learned to appreciate
+            the habit of asking, "But, <span class="italic">why?</span>"
+        </div>
+
+        <div class="mt-8">
+            <div
+                class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1"
+            >
+                Activity
+            </div>
+            <div>
+                <svg
+                    height="50px"
+                    class="stroke-[.5]"
+                    version="1.1"
+                    viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <polyline
+                        points="{% for coord in activity_stats.coords %} {{ coord.x }} {{ coord.y }},{% endfor %}"
+                        stroke="black"
+                        stroke-linejoin="miter"
+                        fill="transparent"
+                        transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})"
+                    />
+                </svg>
+            </div>
+            <details class="mt-2 mb-4">
+                <summary class="text-xs text-gray-400">
+                    (last {{ui_commits | length}} commits)
+                </summary>
+
+                {% for commit in ui_commits %}
+                <div class="mb-2">
+                    <span class="underline text-sm"
+                        >{{ commit.repo_name }}</span
+                    >
+                    <span class="text-gray-400 text-xs font-bold"
+                        >{{ commit.author_date }}</span
+                    >
+                    <br />
+                    <pre class="text-xs text-slate-700">
+{{ commit.commit_msg }}</pre
+                    >
+                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->
+                </div>
+                {% endfor %}
+            </details>
+        </div>
+
+        <!-- <hr class="mt-2 max-w-prose"> -->
+
+        <div
+            class="mt-8 tracking-[-0.03em] text-lg leading-none font-semibold mb-2"
+        >
+            Work History
+        </div>
+
+        <a
+            class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+            href="https://aembit.io"
+        >
+            <img class="inline-block h-10" src="aembit-full-icon.svg" />
+            <br />
+            <span class="text-sm text-gray-600 font-semibold">Aembit</span>
+        </a>
+
+        <div class="text-sm max-w-prose text-slate-500 font-medium">
+            I work with a small, talented team on Aembit's Edge proxy (Rust,
+            Linux).
+        </div>
+
+        <hr class="mt-2 mb-6 max-w-prose" />
+
+        <a
+            class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+            href="https://maxisiq.com"
+        >
+            <img class="inline-block h-6" src="iomaxis-logo.svg" />
+            <br />
+            <span class="text-sm text-gray-600 font-semibold">IOMAXIS</span>
+        </a>
+
+        <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+            <summary>
+                I worked as an engineer for four years with IOMAXIS, including
+                two years as a technical lead (Rust, Networking, Linux).
+            </summary>
+            <div class="mt-2">
+                I led a small team (3-5 engineers) building a new
+                <a
+                    class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+                    href="https://duckduckgo.com/?t=ffab&q=cross+domain+solution&ia=web"
+                    >cross-domain solution</a
+                >. I worked on all parts of the project (design, networking,
+                implementation, build/deploy pipelines), but was also
+                responsible for mentorship, team-building, and overall technical
+                project direction.
+            </div>
+            <div class="mt-2">
+                Prior to that, I spent two years building a DoD-funded private
+                cloud. Most of my time was spent increasing the performance and
+                reliability of a custom protocol over UDP, but I also created
+                web APIs, worked with tun/tap devices, and wrote lot of async
+                code (Rust, Python, Linux).
+            </div>
         </details>
-    </div>
 
-    <!-- <hr class="mt-2 max-w-prose"> -->
+        <hr class="mt-2 mb-6 max-w-prose" />
 
-    <div class="mt-8 tracking-[-0.03em] text-lg leading-none font-semibold mb-2">Work History</div>
-
-    <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://aembit.io">
-        <img class="inline-block h-10" src="aembit-full-icon.svg">
-        <br>
-        <span class="text-sm text-gray-600 font-semibold">Aembit</span>
-    </a>
-
-    <div class="text-sm max-w-prose text-slate-500 font-medium">
-        I work with a small, talented team on Aembit's Edge proxy (Rust, Linux).
-    </div>
-
-    <hr class="mt-2 mb-6 max-w-prose">
-
-    <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://maxisiq.com">
-        <img class="inline-block h-6" src="iomaxis-logo.svg">
-        <br>
-        <span class="text-sm text-gray-600 font-semibold">IOMAXIS</span>
-    </a>
-
-    <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
-        <summary>I worked as an engineer for four years with IOMAXIS, including two years as a technical lead (Rust,
-            Networking,
-            Linux).</summary>
-        <div class="mt-2">
-            I led a small team (3-5 engineers) building a new <a
+        <div>
+            <a
                 class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                href="https://duckduckgo.com/?t=ffab&q=cross+domain+solution&ia=web">cross-domain solution</a>.
-            I worked on all parts of the project (design, networking, implementation, build/deploy pipelines), but was
-            also responsible for mentorship, team-building, and overall technical project direction.
+                href="https://www.nasa.gov/goddard/"
+            >
+                <img class="inline-block h-12" src="nasa-logo.svg" />
+                <br />
+                <span class="text-sm text-gray-600 font-semibold"
+                    >Goddard Space Flight Center</span
+                >
+            </a>
         </div>
-        <div class="mt-2">
-            Prior to that, I spent two years building a DoD-funded private cloud. Most of my time was
-            spent
-            increasing
-            the performance and reliability of a custom protocol over UDP, but I also created web APIs, worked with
-            tun/tap devices, and wrote lot of async code (Rust, Python, Linux).
+
+        <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
+            <summary>
+                I spent two years at NASA Goddard, including two internships
+                (Linux, Java, Python, Jenkins, Docker).
+            </summary>
+            <div class="mt-2">
+                I built CI/CD pipelines, Dockerized applications, wrote ground
+                system software for the James Webb Space Telescope, and created
+                a compiler to translate ~50k lines of Fortran 77 to Java.
+            </div>
+        </details>
+
+        <hr class="mt-2 mb-8 max-w-prose" />
+
+        <div>
+            <a
+                class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+                href="https://www.cdpehs.com/"
+            >
+                <img class="inline-block h-8" src="cdp-logo.png" />
+                <br />
+                <span class="text-sm text-gray-600 font-semibold"
+                    >Custom Data Processing</span
+                >
+            </a>
         </div>
-    </details>
 
-    <hr class="mt-2 mb-6 max-w-prose">
-
-    <div>
-        <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://www.nasa.gov/goddard/">
-            <img class="inline-block h-12" src="nasa-logo.svg">
-            <br>
-            <span class="text-sm text-gray-600 font-semibold">Goddard Space Flight Center</span>
-        </a>
-    </div>
-
-    <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
-        <summary>
-            I spent two years at NASA Goddard, including two internships (Linux, Java, Python, Jenkins, Docker).
-        </summary>
-        <div class="mt-2">
-            I built CI/CD pipelines, Dockerized applications,
-            wrote ground system software for the James Webb Space Telescope, and created a compiler to translate ~50k
-            lines
-            of Fortran 77 to Java.
-        </div>
-    </details>
-
-    <hr class="mt-2 mb-8 max-w-prose">
-
-    <div>
-        <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://www.cdpehs.com/">
-            <img class="inline-block h-8" src="cdp-logo.png">
-            <br>
-            <span class="text-sm text-gray-600 font-semibold">Custom Data Processing</span>
-        </a>
-    </div>
-
-    <details class="mt-2 mb-4 text-sm max-w-prose text-slate-500 font-medium">
-        <summary>
-            I worked nights in CDP Operations for two years while finishing my degree (C#, F#).
-        </summary>
-        <div class="mt-2">
-            The unusual hours gave me the freedom to write a .NET desktop application which automated most of my job.
-            It was approved for production use and adopted by the department (C#, F#).
-        </div>
-    </details>
-
-</body>
-
+        <details
+            class="mt-2 mb-4 text-sm max-w-prose text-slate-500 font-medium"
+        >
+            <summary>
+                I worked nights in CDP Operations for two years while finishing
+                my degree (C#, F#).
+            </summary>
+            <div class="mt-2">
+                The unusual hours gave me the freedom to write a .NET desktop
+                application which automated most of my job. It was approved for
+                production use and adopted by the department (C#, F#).
+            </div>
+        </details>
+    </body>
 </html>

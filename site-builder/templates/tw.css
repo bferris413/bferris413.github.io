@@ -10,14 +10,36 @@
 } */
 
 :root {
-  font-family: Inter, sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+    font-family: Inter, sans-serif;
+    font-feature-settings:
+        "liga" 1,
+        "calt" 1; /* fix for Chrome */
 }
 /* @supports (font-variation-settings: normal) {
   :root { font-family: InterVariable, sans-serif; }
 } */
 
-/* 
+/*
 .para {
     @apply mb-4;
 } */
+
+.post-content h1 {
+    @apply leading-none font-bold tracking-[-0.03em] text-4xl text-gray-700 mt-6 mb-4;
+}
+
+.post-content h2 {
+    @apply leading-none font-bold tracking-[-0.03em] text-2xl text-gray-700 mt-6 mb-4;
+}
+
+.post-content h3 {
+    @apply leading-none font-bold tracking-[-0.03em] text-xl text-gray-700 mt-4 mb-4;
+}
+
+.post-content h4 {
+    @apply leading-none font-bold tracking-[-0.03em] text-lg text-gray-700 mt-4 mb-4;
+}
+
+.post-content p {
+    @apply text-slate-600 mb-4 font-medium;
+}
