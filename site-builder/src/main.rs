@@ -6,8 +6,12 @@ use std::{
     sync::Arc,
 };
 
-use anyhow::Result;
+use anyhow::{anyhow, bail, Result};
 use clap::Parser;
+use markdown::{
+    mdast::{Heading, Node as MarkdownNode, Text},
+    ParseOptions,
+};
 use reqwest::{
     header::{ACCEPT, USER_AGENT},
     Client,
@@ -79,11 +83,14 @@ async fn main() -> Result<()> {
     }
 
     let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
-    let posts = get_posts(&args.template_file_path.parent().unwrap().join("posts")).await?;
-    let html =
-        populate_template(&commits[..max_history], geo_data, args.template_file_path).await?;
+    let posts_dir = &args.template_file_path.parent().unwrap().join("posts");
+    let posts = get_posts(&posts_dir).await?;
+    let index =
+        populate_index_template(&commits[..max_history], geo_data, args.template_file_path).await?;
+    let posts_file_index_path = posts_dir.join("posts.html");
+    let posts_index = populate_posts_template(&posts_file_index_path, &posts).await?;
 
-    write_output(&html, &posts, &args.out_file_path).await
+    write_output(&index, &posts_index, &posts, &args.out_file_path).await
 }
 
 async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
@@ -92,9 +99,14 @@ async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
 
     while let Some(entry) = dir_entries.next_entry().await? {
         if entry.file_type().await?.is_file() {
-            let md_content = async_fs::read_to_string(entry.path()).await?;
-            let filename = entry.file_name().to_string_lossy().to_string();
-            let post = Post::new(md_content, filename);
+            let file_path = entry.path();
+            let filename = file_path.file_stem().unwrap().to_string_lossy().to_string();
+            if filename == "posts" {
+                // index, not a post
+                continue;
+            }
+            let md_content = async_fs::read_to_string(&file_path).await?;
+            let post = Post::try_new(md_content, filename)?;
             posts.push(post);
         }
     }
@@ -181,7 +193,27 @@ async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
     Ok(commits)
 }
 
-async fn populate_template(
+async fn populate_posts_template(posts_path: &Path, posts: &[Post]) -> Result<String> {
+    let pp2 = posts_path.to_path_buf();
+
+    let tera = task::spawn_blocking(move || {
+        let mut tera = Tera::default();
+        tera.add_template_file(pp2, None)?;
+        Ok::<_, tera::Error>(tera)
+    })
+    .await??;
+
+    let mut context = Context::new();
+    let ui_posts: Vec<_> = posts.iter().map(|post| UiPost::from(post)).collect();
+    context.insert("posts", &ui_posts);
+
+    let template_name = posts_path.to_str().unwrap();
+    let html = tera.render(template_name, &context)?;
+
+    Ok(html)
+}
+
+async fn populate_index_template(
     commits: &[RepoCommit],
     mut geo_data: Option<GeoData>,
     index_template_path: PathBuf,
@@ -224,7 +256,12 @@ fn correct_near_home(geo_data: &mut GeoData) {
     }
 }
 
-async fn write_output(html: &str, posts: &[Post], out_file_path: &Path) -> Result<()> {
+async fn write_output(
+    html: &str,
+    posts_html: &str,
+    posts: &[Post],
+    out_file_path: &Path,
+) -> Result<()> {
     let parent_dir = out_file_path.parent().unwrap();
     let posts_dir = parent_dir.join("posts");
 
@@ -232,6 +269,7 @@ async fn write_output(html: &str, posts: &[Post], out_file_path: &Path) -> Resul
     async_fs::create_dir_all(&posts_dir).await?;
 
     async_fs::write(out_file_path, html).await?;
+    async_fs::write(posts_dir.join("posts.html"), posts_html).await?;
 
     for post in posts {
         let post_file_path = posts_dir.join(&post.filename);
@@ -367,16 +405,67 @@ fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
     date_commits
 }
 
+#[derive(Serialize)]
+struct UiPost {
+    title: String,
+}
+impl From<&Post> for UiPost {
+    fn from(value: &Post) -> Self {
+        Self {
+            title: value.title.clone(),
+        }
+    }
+}
+
 struct Post {
     filename: String,
+    title: String,
     md_content: String,
+    md_ast: MarkdownNode,
 }
 impl Post {
-    fn new(md_content: String, filename: String) -> Self {
-        Post {
+    fn try_new(md_content: String, filename: String) -> Result<Self> {
+        let md_ast = markdown::to_mdast(&md_content, &ParseOptions::default())
+            .map_err(|msg| anyhow!("Failed to parse Markdown: {}", msg))?;
+
+        let MarkdownNode::Root(root) = &md_ast else {
+            unreachable!();
+        };
+
+        let mut title = None;
+        for node in &root.children {
+            match node {
+                MarkdownNode::Heading(Heading {
+                    depth: 1, children, ..
+                }) => {
+                    let title_text = children
+                        .first()
+                        .ok_or_else(|| anyhow!("First heading in {filename} was empty"))?;
+
+                    let MarkdownNode::Text(Text { value, .. }) = title_text else {
+                        bail!("First heading in {filename} was not a text node");
+                    };
+
+                    title = Some(value.clone());
+                    break;
+                }
+                MarkdownNode::Html { .. } => {
+                    // probably have an HTML header
+                }
+                other => bail!("Unexpected first node in {filename}: {other:?}"),
+            }
+        }
+
+        let Some(title) = title else {
+            bail!("No title found in {filename}");
+        };
+
+        Ok(Self {
             filename,
             md_content,
-        }
+            md_ast,
+            title,
+        })
     }
 }
 
