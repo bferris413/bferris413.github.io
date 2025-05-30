@@ -1,13 +1,22 @@
-use std::{cmp::Ordering, collections::BTreeMap, env, path::{Path, PathBuf}, sync::Arc};
+use std::{
+    cmp::Ordering,
+    collections::BTreeMap,
+    env,
+    path::{Path, PathBuf},
+    sync::Arc,
+};
 
 use anyhow::Result;
 use clap::Parser;
-use reqwest::{header::{ACCEPT, USER_AGENT}, Client};
+use reqwest::{
+    header::{ACCEPT, USER_AGENT},
+    Client,
+};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tera::{Context, Tera};
 use time::{Date, OffsetDateTime};
-use tokio::{fs as async_fs, task};
 use tokio::time::{sleep as tokio_sleep, Duration as TokioDuration};
+use tokio::{fs as async_fs, task};
 
 const OWNER: &str = "bferris413";
 const GH_ACCEPT_JSON: &str = "application/vnd.github+json";
@@ -15,7 +24,8 @@ const GH_TOKEN_VAR: &str = "GH_TOKEN";
 const IP_API_TOKEN_VAR: &str = "IP_API_TOKEN";
 
 const USER_REPOS: &str = "https://api.github.com/user/repos?per_page={per_page}&page={page}";
-const REPO_COMMITS: &str = "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
+const REPO_COMMITS: &str =
+    "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
 const IP_GEO: &str = "https://api.ipgeolocation.io/ipgeo?apiKey={api_key}";
 const MAX_GRAPH_HISTORY: usize = 300;
 
@@ -57,7 +67,10 @@ async fn main() -> Result<()> {
 
         let repos = fetch_owner_repos(&token, per_page).await?;
         let geo_data = fetch_geo_data(&ip_api_token).await?;
-        (Some(geo_data), fetch_commits(token, per_page, &repos[..]).await)
+        (
+            Some(geo_data),
+            fetch_commits(token, per_page, &repos[..]).await,
+        )
     };
 
     if let Some(path) = args.save_commits {
@@ -66,23 +79,41 @@ async fn main() -> Result<()> {
     }
 
     let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
-    let html = populate_template(&commits[..max_history], geo_data, args.template_file_path).await?;
-    write_output(&html, &args.out_file_path).await
+    let posts = get_posts(&args.template_file_path.parent().unwrap().join("posts")).await?;
+    let html =
+        populate_template(&commits[..max_history], geo_data, args.template_file_path).await?;
+
+    write_output(&html, &posts, &args.out_file_path).await
+}
+
+async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
+    let mut posts = Vec::new();
+    let mut dir_entries = async_fs::read_dir(posts_dir).await?;
+
+    while let Some(entry) = dir_entries.next_entry().await? {
+        if entry.file_type().await?.is_file() {
+            let md_content = async_fs::read_to_string(entry.path()).await?;
+            let filename = entry.file_name().to_string_lossy().to_string();
+            let post = Post::new(md_content, filename);
+            posts.push(post);
+        }
+    }
+
+    Ok(posts)
 }
 
 async fn fetch_geo_data(token: &str) -> Result<GeoData> {
     let api = IP_GEO.replace("{api_key}", token);
     let client = Client::new();
-    let response = client.get(api)
-        .send()
-        .await?;
+    let response = client.get(api).send().await?;
 
     let geo_data: GeoData = response.json().await?;
     Ok(geo_data)
 }
 
 async fn fetch_owner_repos(token: &str, per_page: usize) -> Result<Vec<Repo>> {
-    let repos = authd_get_all::<Repo>(USER_REPOS, &token, per_page).await?
+    let repos = authd_get_all::<Repo>(USER_REPOS, &token, per_page)
+        .await?
         .into_iter()
         .filter(|r| r.owner.login == OWNER)
         .collect();
@@ -91,7 +122,7 @@ async fn fetch_owner_repos(token: &str, per_page: usize) -> Result<Vec<Repo>> {
 }
 
 /// Fetches all commits for each repo.
-/// 
+///
 /// The returned vector is sorted in descending order.
 async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<RepoCommit> {
     let repo_commits = REPO_COMMITS.replace("{owner}", OWNER);
@@ -114,9 +145,13 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
                 return Vec::new();
             };
 
-            let repo_commits: Vec<RepoCommit> = commit_resp.unwrap()
+            let repo_commits: Vec<RepoCommit> = commit_resp
+                .unwrap()
                 .into_iter()
-                .map(|commit| RepoCommit { commit, repo_name: repo_name.clone() })
+                .map(|commit| RepoCommit {
+                    commit,
+                    repo_name: repo_name.clone(),
+                })
                 .collect();
 
             repo_commits
@@ -125,7 +160,7 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
         fetch_tasks.push(fetch_task);
     }
 
-    while fetch_tasks.iter().any(|t| ! t.is_finished()) {
+    while fetch_tasks.iter().any(|t| !t.is_finished()) {
         tokio_sleep(TokioDuration::from_millis(50)).await;
     }
 
@@ -142,24 +177,29 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
 async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
     let commits_string = async_fs::read_to_string(file).await?;
     let commits = serde_json::from_str(&commits_string)?;
-    
+
     Ok(commits)
 }
 
-async fn populate_template(commits: &[RepoCommit], mut geo_data: Option<GeoData>, index_template_path: PathBuf) -> Result<String> {
+async fn populate_template(
+    commits: &[RepoCommit],
+    mut geo_data: Option<GeoData>,
+    index_template_path: PathBuf,
+) -> Result<String> {
     let tp2 = index_template_path.clone();
 
     let tera = task::spawn_blocking(move || {
         let mut tera = Tera::default();
         tera.add_template_file(tp2, None)?;
         Ok::<_, tera::Error>(tera)
-    }).await??;
+    })
+    .await??;
 
     let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
     if let Some(ref mut geo_data) = geo_data {
         correct_near_home(geo_data);
     }
-    
+
     let mut activity_stats = get_activity_stats(commits);
     activity_stats.geo_data = geo_data;
 
@@ -176,15 +216,28 @@ async fn populate_template(commits: &[RepoCommit], mut geo_data: Option<GeoData>
 // ISP goes out of Bristol, corrects for near normal location
 fn correct_near_home(geo_data: &mut GeoData) {
     let state_code = geo_data.state_code.to_lowercase();
-    if geo_data.city.to_lowercase() == "bristol" && (state_code == "us-tn" || state_code == "us-va") {
+    if geo_data.city.to_lowercase() == "bristol" && (state_code == "us-tn" || state_code == "us-va")
+    {
         geo_data.city = "Abingdon".to_string();
         geo_data.state_code = "US-VA".to_string();
         geo_data.state_prov = "Virginia".to_string();
     }
 }
 
-async fn write_output(html: &str, out_file_path: &Path) -> Result<()> {
+async fn write_output(html: &str, posts: &[Post], out_file_path: &Path) -> Result<()> {
+    let parent_dir = out_file_path.parent().unwrap();
+    let posts_dir = parent_dir.join("posts");
+
+    async_fs::remove_dir_all(&posts_dir).await?;
+    async_fs::create_dir_all(&posts_dir).await?;
+
     async_fs::write(out_file_path, html).await?;
+
+    for post in posts {
+        let post_file_path = posts_dir.join(&post.filename);
+        async_fs::write(&post_file_path, &post.md_content).await?;
+    }
+
     Ok(())
 }
 
@@ -215,7 +268,8 @@ async fn authd_get_all<T: DeserializeOwned>(
 
 async fn authd_get<T: DeserializeOwned>(url: &str, token: &str) -> Result<Vec<T>> {
     let client = Client::new();
-    let response = client.get(url)
+    let response = client
+        .get(url)
         .header(USER_AGENT, OWNER)
         .header(ACCEPT, GH_ACCEPT_JSON)
         .bearer_auth(token)
@@ -227,22 +281,39 @@ async fn authd_get<T: DeserializeOwned>(url: &str, token: &str) -> Result<Vec<T>
 }
 
 fn order_by_date_rev(first: &RepoCommit, second: &RepoCommit) -> Ordering {
-    second.commit.commit.author.date.cmp(&first.commit.commit.author.date)
+    second
+        .commit
+        .commit
+        .author
+        .date
+        .cmp(&first.commit.commit.author.date)
 }
 
 fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
     let mut date_commits = map_commits(commits);
     fill_date_gaps(&mut date_commits);
 
-    let max = *date_commits.iter().max_by(|c1, c2| c1.1.cmp(c2.1)).unwrap().1;
+    let max = *date_commits
+        .iter()
+        .max_by(|c1, c2| c1.1.cmp(c2.1))
+        .unwrap()
+        .1;
     let coords: Vec<_> = date_commits
         .into_iter()
         .enumerate()
-        .map(|(index, (_date, count))| Point { x: index as u32, y: count })
+        .map(|(index, (_date, count))| Point {
+            x: index as u32,
+            y: count,
+        })
         .collect();
     let len = coords.len();
 
-    ActivityStats { max, coords, len, geo_data: None, }
+    ActivityStats {
+        max,
+        coords,
+        len,
+        geo_data: None,
+    }
 }
 
 /// Fills gaps between dates, up to but not including today, with <missing week number> -> 0.
@@ -254,7 +325,7 @@ fn fill_date_gaps(date_commits: &mut BTreeMap<WeekNumber, u32>) {
     if w1.is_none() {
         return;
     }
-    
+
     while let Some(next_plotted_week) = w2 {
         let mut working_week = w1.unwrap().0 + 1;
         while working_week != next_plotted_week.0 {
@@ -274,23 +345,39 @@ fn fill_date_gaps(date_commits: &mut BTreeMap<WeekNumber, u32>) {
         maybe_missing_week += 1;
     }
 
-    date_commits.extend(missing_weeks
-                            .into_iter()
-                            .map(|(week, n)| (WeekNumber(week), n)));
+    date_commits.extend(
+        missing_weeks
+            .into_iter()
+            .map(|(week, n)| (WeekNumber(week), n)),
+    );
 }
 
 /// Collects commits into <commit date> -> <commit count>.
 fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
     let mut date_commits = BTreeMap::new();
-        for rc in commits {
-            let date = rc.commit.commit.author.date.date();
-            let week = WeekNumber::from(date);
-            date_commits.entry(week)
-                .and_modify(|v| *v += 1)
-                .or_insert_with(|| 1);
-        }
+    for rc in commits {
+        let date = rc.commit.commit.author.date.date();
+        let week = WeekNumber::from(date);
+        date_commits
+            .entry(week)
+            .and_modify(|v| *v += 1)
+            .or_insert_with(|| 1);
+    }
 
     date_commits
+}
+
+struct Post {
+    filename: String,
+    md_content: String,
+}
+impl Post {
+    fn new(md_content: String, filename: String) -> Self {
+        Post {
+            filename,
+            md_content,
+        }
+    }
 }
 
 /// Geographic data we want to reference in the UI.
@@ -329,8 +416,13 @@ struct UiCommit {
 }
 impl From<&RepoCommit> for UiCommit {
     fn from(rc: &RepoCommit) -> Self {
-        let date = rc.commit.commit.author.date; 
-        let formatted_date = format!("{}-{:02}-{:02}", date.year(), date.month() as u8, date.day());
+        let date = rc.commit.commit.author.date;
+        let formatted_date = format!(
+            "{}-{:02}-{:02}",
+            date.year(),
+            date.month() as u8,
+            date.day()
+        );
         UiCommit {
             repo_name: rc.repo_name.clone(),
             author_date: formatted_date,
@@ -344,7 +436,6 @@ impl From<&RepoCommit> for UiCommit {
 struct RepoCommit {
     repo_name: Arc<String>,
     commit: Commit,
-
 }
 
 /// Parts of a GitHub commit we're interested in (may be incomplete compared to what the GH API returns).
@@ -357,7 +448,7 @@ struct Commit {
 struct CommitData {
     author: GitHubUser,
     committer: GitHubUser,
-    message: Option<String>
+    message: Option<String>,
 }
 
 #[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -396,7 +487,7 @@ impl From<Date> for WeekNumber {
 
         WeekNumber(year_with_week)
     }
-} 
+}
 
 #[cfg(test)]
 mod tests {
