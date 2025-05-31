@@ -2,13 +2,12 @@
 
 current_dir="$(dirname "$0")"
 cd "$current_dir" || exit 1
+current_dir="$(pwd)"
 
 cargo watch \
     --watch-when-idle \
-    -x "run -- --template-file-path=$current_dir/../templates/index.html --out-file-path=$current_dir/../index.html" \
-    -w "$current_dir/../templates/index.html" \
-    -w "$current_dir/../templates/post_template.html" \
-    -w "$current_dir/../templates/posts" \
+    -x "run -- --project-dir="$current_dir/../deploy/" --out-dir=$current_dir/../site --sanity-check" \
+    -w "$current_dir/../deploy" \
     -w "$current_dir/../src"
 
 # cargo watch \

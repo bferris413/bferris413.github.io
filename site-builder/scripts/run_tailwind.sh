@@ -3,4 +3,4 @@
 set -e
 
 cd "$(dirname "$0")"
-tailwindcss -c ../tailwind.config.js -i ../templates/tw.css -o ../style.css --watch
+tailwindcss -c ../deploy/tailwind.config.js -i ../deploy/tw.css -o ../site/static/style.css --watch

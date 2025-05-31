@@ -14,11 +14,5 @@ pwd
 cargo build --release
 
 sudo cp target/release/site-builder /usr/local/bin/site-builder
-sudo mkdir -p /usr/local/bin/templates
-
-sudo cp templates/index.html /usr/local/bin/templates
-sudo cp templates/post_template.html /usr/local/bin/templates
-sudo cp -R templates/posts /usr/local/bin/templates/posts
-sudo cp templates/tw.css /usr/local/bin/templates
-sudo cp -R templates/static /usr/local/bin/templates/static
-sudo cp tailwind.config.js /usr/local/bin/templates
+sudo rm -rf /usr/local/bin/deploy
+cp -r deploy /usr/local/bin/deploy

@@ -8,7 +8,10 @@ use std::{
 };
 
 use anyhow::{anyhow, bail, Result};
-use clap::Parser;
+use clap::{
+    builder::{PathBufValueParser, TypedValueParser},
+    Parser,
+};
 use markdown::{
     mdast::{Heading, Node as MarkdownNode, Text},
     ParseOptions,
@@ -33,17 +36,25 @@ const REPO_COMMITS: &str =
     "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
 const IP_GEO: &str = "https://api.ipgeolocation.io/ipgeo?apiKey={api_key}";
 const MAX_GRAPH_HISTORY: usize = 300;
+const PER_PAGE: usize = 100;
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
 struct Cli {
-    /// Path to template index.html
-    #[arg(long)]
-    template_file_path: PathBuf,
+    /// Path to project directory
+    #[arg(long, value_parser=PathBufValueParser::new().try_map(|p| p.canonicalize()))]
+    project_dir: PathBuf,
 
-    /// Path to write completed index.html
+    /// Path to write the populated project.
+    ///
+    /// If the directory exists, it must be empty or contain only web files. If it doesn't exist, it will be created.
     #[arg(long)]
-    out_file_path: PathBuf,
+    // #[arg(long, value_parser=PathBufValueParser::new().try_map(|p| p.canonicalize()))]
+    out_dir: PathBuf,
+
+    /// Exit after checking directory/file structure, without running anything else.
+    #[arg(long, default_value_t = false)]
+    sanity_check: bool,
 
     /// Read commits from a file instead of the network for e.g. template dry-runs or testing
     #[arg(long, default_value_t = false, requires("input_file"))]
@@ -61,61 +72,188 @@ struct Cli {
 #[tokio::main]
 async fn main() -> Result<()> {
     let args = Cli::parse();
+    sanity_check(&args).await?;
 
-    let per_page = 100;
+    if args.sanity_check {
+        return Ok(());
+    }
 
-    let (geo_data, commits) = if args.no_fetch {
-        (None, read_commits(args.input_file.unwrap()).await?)
-    } else {
-        let token = env::var(GH_TOKEN_VAR)?;
-        let ip_api_token = env::var(IP_API_TOKEN_VAR)?;
+    let posts_dir = args.project_dir.join("posts");
+    let (posts, posts_hash) = read_md_posts(&posts_dir).await?;
 
-        let repos = fetch_owner_repos(&token, per_page).await?;
-        let geo_data = fetch_geo_data(&ip_api_token).await?;
-        (
-            Some(geo_data),
-            fetch_commits(token, per_page, &repos[..]).await,
-        )
-    };
-
+    let (geo_data, commits, max_history) = fetch_commit_info(&args).await?;
     if let Some(path) = args.save_commits {
         let commits = serde_json::to_string_pretty(&commits)?;
         async_fs::write(path, commits).await?;
     }
 
-    let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
-    let template_dir = &args.template_file_path.parent().unwrap();
-    let post_template = template_dir.join("post_template.html");
-    let posts_dir = template_dir.join("posts");
-    let posts = get_posts(&posts_dir).await?;
+    let template_dir = args.project_dir.join("templates");
+    let tera = initialize_tera(&template_dir).await?;
+    let site_content =
+        populate_templates(&tera, &commits[..max_history], geo_data, &posts, posts_hash).await?;
 
-    let posts_hash = {
-        let mut hasher = DefaultHasher::new();
-        posts.hash(&mut hasher);
-        hasher.finish()
-    };
-    let index = populate_index_template(
-        &commits[..max_history],
-        geo_data,
-        args.template_file_path,
-        posts_hash,
-    )
-    .await?;
-    let posts_file_index_path = posts_dir.join("posts.html");
-    let (posts_index, post_template) =
-        populate_post_templates(&posts_file_index_path, &post_template, &posts).await?;
-
-    write_output(
-        &index,
-        &posts_index,
-        &post_template,
-        &posts,
-        &args.out_file_path,
-    )
-    .await
+    write_output(&site_content, &args.out_dir).await
 }
 
-async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
+async fn initialize_tera(templates_dir: &Path) -> Result<Tera> {
+    let templates_glob = format!("{}/**/*.html", templates_dir.display());
+    let tera = task::spawn_blocking(move || Tera::new(&templates_glob)).await??;
+    Ok(tera)
+}
+
+/// Checks the project directory structure for the expected layout.
+async fn sanity_check(args: &Cli) -> Result<()> {
+    // check project directory
+    eprintln!(
+        "Checking directory structure at {}",
+        args.project_dir.display()
+    );
+
+    if !args.project_dir.exists() {
+        bail!("Project directory does not exist");
+    }
+    if !args.project_dir.is_dir() {
+        bail!("Project directory is not a directory");
+    }
+
+    // check templates directory
+    let templates_dir = args.project_dir.join("templates");
+    if !templates_dir.exists() {
+        bail!(
+            "Templates directory {} does not exist",
+            templates_dir.display()
+        );
+    }
+    if !templates_dir.is_dir() {
+        bail!(
+            "Templates directory {} is not a directory",
+            templates_dir.display()
+        );
+    }
+
+    let index_template = templates_dir.join("index.html");
+    if !index_template.exists() {
+        bail!(
+            "Index template file {} does not exist",
+            index_template.display()
+        );
+    }
+    if !index_template.is_file() {
+        bail!(
+            "Index template file {} is not a file",
+            index_template.display()
+        );
+    }
+
+    let posts_template = templates_dir.join("posts.html");
+    if !posts_template.exists() {
+        bail!(
+            "Posts template file {} does not exist",
+            posts_template.display()
+        );
+    }
+    if !posts_template.is_file() {
+        bail!(
+            "Posts template file {} is not a file",
+            posts_template.display()
+        );
+    }
+
+    let individual_post_template = templates_dir.join("post.html");
+    if !individual_post_template.exists() {
+        bail!(
+            "Individual post template file {} does not exist",
+            individual_post_template.display()
+        );
+    }
+    if !individual_post_template.is_file() {
+        bail!(
+            "Individual post template file {} is not a file",
+            individual_post_template.display()
+        );
+    }
+
+    // Posts directory checks
+    let posts_dir = args.project_dir.join("posts");
+    if !posts_dir.exists() {
+        bail!("Posts directory {} does not exist", posts_dir.display());
+    }
+    if !posts_dir.is_dir() {
+        bail!("Posts directory {} is not a directory", posts_dir.display());
+    }
+
+    // Static directory checks
+    let static_dir = args.project_dir.join("static");
+    if !static_dir.exists() {
+        bail!("Statics directory {} does not exist", static_dir.display());
+    }
+    if !static_dir.is_dir() {
+        bail!(
+            "Statics directory {} is not a directory",
+            static_dir.display()
+        );
+    }
+
+    // Output directory checks
+    if args.out_dir.exists() {
+        if !args.out_dir.is_dir() {
+            bail!(
+                "Output directory {} is not a directory",
+                args.out_dir.display()
+            );
+        }
+
+        if !only_contains_web_stuff(&args.out_dir).await? {
+            bail!(
+                "Output directory {} contains non-web files (can't confidently auto-delete)",
+                args.out_dir.display()
+            );
+        }
+    }
+
+    println!("Directory structures look good");
+    Ok(())
+}
+
+async fn only_contains_web_stuff(out_dir: &Path) -> Result<bool> {
+    let mut entries = async_fs::read_dir(out_dir).await?;
+    while let Some(entry) = entries.next_entry().await? {
+        let path = entry.path();
+        if path.is_dir() {
+            // recursion with async requires indirection
+            let web_check = Box::pin(only_contains_web_stuff(&path));
+            if !web_check.await? {
+                return Ok(false);
+            }
+        } else if !path
+            .extension()
+            .map_or(false, |ext| ext == "html" || ext == "css" || ext == "js")
+        {
+            return Ok(false);
+        }
+    }
+
+    Ok(true)
+}
+
+async fn fetch_commit_info(args: &Cli) -> Result<(Option<GeoData>, Vec<RepoCommit>, usize)> {
+    if args.no_fetch {
+        let commits = read_commits(args.input_file.as_ref().unwrap()).await?;
+        let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
+        Ok((None, commits, max_history))
+    } else {
+        let token = env::var(GH_TOKEN_VAR)?;
+        let ip_api_token = env::var(IP_API_TOKEN_VAR)?;
+
+        let repos = fetch_owner_repos(&token, PER_PAGE).await?;
+        let geo_data = fetch_geo_data(&ip_api_token).await?;
+        let commits = fetch_commits(token, PER_PAGE, &repos[..]).await;
+        let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
+        Ok((Some(geo_data), commits, max_history))
+    }
+}
+
+async fn read_md_posts(posts_dir: &Path) -> Result<(Vec<Post>, u64)> {
     let mut posts = Vec::new();
     let mut dir_entries = async_fs::read_dir(posts_dir).await?;
 
@@ -134,7 +272,14 @@ async fn get_posts(posts_dir: &Path) -> Result<Vec<Post>> {
     }
 
     posts.sort_by(|p1, p2| p1.post_number.cmp(&p2.post_number));
-    Ok(posts)
+
+    let posts_hash = {
+        let mut hasher = DefaultHasher::new();
+        posts.hash(&mut hasher);
+        hasher.finish()
+    };
+
+    Ok((posts, posts_hash))
 }
 
 async fn fetch_geo_data(token: &str) -> Result<GeoData> {
@@ -209,56 +354,68 @@ async fn fetch_commits(token: String, per_page: usize, repos: &[Repo]) -> Vec<Re
     all_commits
 }
 
-async fn read_commits(file: PathBuf) -> Result<Vec<RepoCommit>> {
+async fn read_commits(file: &Path) -> Result<Vec<RepoCommit>> {
     let commits_string = async_fs::read_to_string(file).await?;
     let commits = serde_json::from_str(&commits_string)?;
 
     Ok(commits)
 }
 
-async fn populate_post_templates(
-    posts_index_template: &Path,
-    post_template: &Path,
+struct SiteContent {
+    index_html: String,
+    posts_index_html: String,
+    posts_html: Vec<(String, String)>,
+}
+
+// populate_templates(&tera, &commits[..max_history], geo_data, &posts).await?;
+async fn populate_templates(
+    tera: &Tera,
+    commits: &[RepoCommit],
+    geo_data: Option<GeoData>,
     posts: &[Post],
-) -> Result<(String, String)> {
-    let index2 = posts_index_template.to_path_buf();
-    let post_template2 = post_template.to_path_buf();
+    posts_hash: u64,
+) -> Result<SiteContent> {
+    dbg!(tera.get_template_names().collect::<Vec<_>>());
 
-    let tera = task::spawn_blocking(move || {
-        let mut tera = Tera::default();
-        tera.add_template_file(index2, None)?;
-        tera.add_template_file(post_template2, None)?;
-        Ok::<_, tera::Error>(tera)
-    })
-    .await??;
+    let site_content = SiteContent {
+        index_html: populate_index_template(tera, commits, geo_data, posts_hash).await?,
+        posts_index_html: populate_post_index_template(tera, posts).await?,
+        posts_html: populate_individual_post_template(tera, posts).await?,
+    };
 
-    let mut context = Context::new();
+    Ok(site_content)
+}
+
+async fn populate_individual_post_template(
+    tera: &Tera,
+    posts: &[Post],
+) -> Result<Vec<(String, String)>> {
+    let mut individual_post_html = Vec::new();
+    for post in posts {
+        let mut context = Context::new();
+        let post_html_from_md = &markdown::to_html(&post.md_content);
+        context.insert("content", post_html_from_md);
+        let full_post_html = tera.render("post.html", &context)?;
+        individual_post_html.push((post.filename.clone(), full_post_html));
+    }
+    Ok(individual_post_html)
+}
+
+async fn populate_post_index_template(tera: &Tera, posts: &[Post]) -> Result<String> {
+    let mut posts_index_context = Context::new();
     let ui_posts: Vec<_> = posts.iter().map(|post| UiPost::from(post)).collect();
-    context.insert("posts", &ui_posts);
+    posts_index_context.insert("posts", &ui_posts);
 
-    let template_name = posts_index_template.to_str().unwrap();
-    let html = tera.render(template_name, &context)?;
-    let post_template_name = post_template.to_str().unwrap();
-    let post_html = tera.render(post_template_name, &context)?;
-
-    Ok((html, post_html))
+    let post_html = tera.render("posts.html", &posts_index_context)?;
+    Ok(post_html)
 }
 
 async fn populate_index_template(
+    tera: &Tera,
     commits: &[RepoCommit],
     mut geo_data: Option<GeoData>,
-    index_template_path: PathBuf,
     posts_hash: u64,
 ) -> Result<String> {
-    let tp2 = index_template_path.clone();
-
-    let tera = task::spawn_blocking(move || {
-        let mut tera = Tera::default();
-        tera.add_template_file(tp2, None)?;
-        Ok::<_, tera::Error>(tera)
-    })
-    .await??;
-
     let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
     if let Some(ref mut geo_data) = geo_data {
         correct_near_home(geo_data);
@@ -272,8 +429,7 @@ async fn populate_index_template(
     context.insert("activity_stats", &activity_stats);
     context.insert("posts_hash", &posts_hash);
 
-    let template_name = index_template_path.to_str().unwrap();
-    let html = tera.render(template_name, &context)?;
+    let html = tera.render("index.html", &context)?;
 
     Ok(html)
 }
@@ -289,28 +445,21 @@ fn correct_near_home(geo_data: &mut GeoData) {
     }
 }
 
-async fn write_output(
-    html: &str,
-    posts_html: &str,
-    post_template_html: &str,
-    posts: &[Post],
-    out_file_path: &Path,
-) -> Result<()> {
-    let parent_dir = out_file_path.parent().unwrap();
-    let posts_dir = parent_dir.join("posts");
+async fn write_output(content: &SiteContent, out_dir: &Path) -> Result<()> {
+    if out_dir.exists() {
+        async_fs::remove_dir_all(&out_dir).await?;
+    }
 
-    async_fs::remove_dir_all(&posts_dir).await?;
+    async_fs::write(out_dir, &content.index_html).await?;
+
+    let posts_dir = out_dir.join("posts");
     async_fs::create_dir_all(&posts_dir).await?;
+    async_fs::write(posts_dir.join("posts.html"), &content.posts_index_html).await?;
 
-    async_fs::write(out_file_path, html).await?;
-    async_fs::write(posts_dir.join("posts.html"), posts_html).await?;
-
-    for post in posts {
-        let mut post_file_path = posts_dir.join(&post.filename);
+    for (filename, post_html) in content.posts_html.iter() {
+        let mut post_file_path = posts_dir.join(&filename);
         post_file_path.set_extension("html");
-        let full_post_html =
-            post_template_html.replace("%%content%%", &markdown::to_html(&post.md_content));
-        async_fs::write(&post_file_path, &full_post_html).await?;
+        async_fs::write(&post_file_path, &post_html).await?;
     }
 
     Ok(())
