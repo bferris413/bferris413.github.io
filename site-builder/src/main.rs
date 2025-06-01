@@ -222,6 +222,10 @@ async fn only_contains_web_stuff(out_dir: &Path) -> Result<bool> {
     while let Some(entry) = entries.next_entry().await? {
         let path = entry.path();
         if path.is_dir() {
+            if let Some("static") = path.file_name().map(|name| name.to_str().unwrap()) {
+                // static can have other stuff, no big deal
+                continue;
+            }
             // recursion with async requires indirection
             let web_check = Box::pin(only_contains_web_stuff(&path));
             if !web_check.await? {
@@ -244,8 +248,10 @@ async fn fetch_commit_info(args: &Cli) -> Result<(Option<GeoData>, Vec<RepoCommi
         let max_history = usize::min(MAX_GRAPH_HISTORY, commits.len());
         Ok((None, commits, max_history))
     } else {
-        let token = env::var(GH_TOKEN_VAR)?;
-        let ip_api_token = env::var(IP_API_TOKEN_VAR)?;
+        let token = env::var(GH_TOKEN_VAR)
+            .with_context(|| format!("{GH_TOKEN_VAR} not found in environment"))?;
+        let ip_api_token = env::var(IP_API_TOKEN_VAR)
+            .with_context(|| format!("{IP_API_TOKEN_VAR} not found in environment"))?;
 
         let repos = fetch_owner_repos(&token, PER_PAGE).await?;
         let geo_data = fetch_geo_data(&ip_api_token).await?;

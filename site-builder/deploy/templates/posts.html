@@ -36,17 +36,24 @@
             </ul>
         </nav>
         <div>
+            {% if posts %}
             <ul>
                 {% for post in posts %}
                 <li class="mb-2">
                     <a
-                        class="underline leading-none font-semibold tracking-[-0.03em] text-lg text-gray-700 visited:text-purple-600"
+                        class="underline leading-none font-medium tracking-[-0.03em] text-lg text-gray-700 visited:text-purple-600"
                         href="/posts/{{ post.html_filename }}"
                         >{{ post.title }}</a
                     >
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <span
+                class="text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
+                >No posts yet!</span
+            >
+            {% endif %}
         </div>
     </body>
 </html>
