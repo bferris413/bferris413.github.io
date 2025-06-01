@@ -4,6 +4,8 @@
 .ip_token
 **/.vscode
 /site-builder/templates/debug_commits.json
+/site-builder/deploy/posts/*
+/site-builder/site/*
 /site-builder/*.png
 /site-builder/*.svg
 
