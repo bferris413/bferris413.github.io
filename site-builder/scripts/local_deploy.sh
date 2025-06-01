@@ -15,4 +15,4 @@ cargo build --release
 
 sudo cp target/release/site-builder /usr/local/bin/site-builder
 sudo rm -rf /usr/local/bin/deploy
-cp -r deploy /usr/local/bin/deploy
+sudo cp -r deploy /usr/local/bin/deploy

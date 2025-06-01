@@ -7,7 +7,7 @@ use std::{
     sync::Arc,
 };
 
-use anyhow::{anyhow, bail, Result};
+use anyhow::{anyhow, bail, Context as _, Result};
 use clap::{
     builder::{PathBufValueParser, TypedValueParser},
     Parser,
@@ -92,7 +92,9 @@ async fn main() -> Result<()> {
     let site_content =
         populate_templates(&tera, &commits[..max_history], geo_data, &posts, posts_hash).await?;
 
-    write_output(&site_content, &args.out_dir).await
+    write_output(&site_content, &args.project_dir, &args.out_dir).await?;
+    eprintln!("Site built successfully");
+    Ok(())
 }
 
 async fn initialize_tera(templates_dir: &Path) -> Result<Tera> {
@@ -211,7 +213,7 @@ async fn sanity_check(args: &Cli) -> Result<()> {
         }
     }
 
-    println!("Directory structures look good");
+    eprintln!("Directory structures look good");
     Ok(())
 }
 
@@ -375,8 +377,6 @@ async fn populate_templates(
     posts: &[Post],
     posts_hash: u64,
 ) -> Result<SiteContent> {
-    dbg!(tera.get_template_names().collect::<Vec<_>>());
-
     let site_content = SiteContent {
         index_html: populate_index_template(tera, commits, geo_data, posts_hash).await?,
         posts_index_html: populate_post_index_template(tera, posts).await?,
@@ -445,21 +445,68 @@ fn correct_near_home(geo_data: &mut GeoData) {
     }
 }
 
-async fn write_output(content: &SiteContent, out_dir: &Path) -> Result<()> {
+async fn write_output(content: &SiteContent, project_dir: &Path, out_dir: &Path) -> Result<()> {
     if out_dir.exists() {
-        async_fs::remove_dir_all(&out_dir).await?;
+        eprintln!("Clearing existing site content at {}", out_dir.display());
+        async_fs::remove_dir_all(&out_dir)
+            .await
+            .context("Failed to remove out-dir")?;
     }
 
-    async_fs::write(out_dir, &content.index_html).await?;
+    eprintln!("Creating {}", out_dir.display());
+    async_fs::create_dir_all(&out_dir)
+        .await
+        .context("Failed to create out-dir")?;
+
+    let index = out_dir.join("index.html");
+    eprintln!("Writing {}", index.display());
+    async_fs::write(index, &content.index_html).await?;
 
     let posts_dir = out_dir.join("posts");
+    eprintln!("Creating {}", posts_dir.display());
     async_fs::create_dir_all(&posts_dir).await?;
-    async_fs::write(posts_dir.join("posts.html"), &content.posts_index_html).await?;
+
+    let posts_index = posts_dir.join("posts.html");
+    eprintln!("Writing {}", posts_index.display());
+    async_fs::write(posts_index, &content.posts_index_html).await?;
 
     for (filename, post_html) in content.posts_html.iter() {
         let mut post_file_path = posts_dir.join(&filename);
         post_file_path.set_extension("html");
+
+        eprintln!("Writing {}", post_file_path.display());
         async_fs::write(&post_file_path, &post_html).await?;
+    }
+
+    let projects_static = project_dir.join("static");
+    let site_static = out_dir.join("static");
+
+    // copy the static folder in it's entirety
+    recursive_copy_dir(&projects_static, &site_static).await?;
+
+    Ok(())
+}
+
+async fn recursive_copy_dir(src: &Path, dest: &Path) -> Result<()> {
+    if src.is_dir() {
+        eprintln!("Creating {}", dest.display());
+        async_fs::create_dir_all(dest).await?;
+
+        let mut entries = async_fs::read_dir(src).await?;
+        while let Some(entry) = entries.next_entry().await? {
+            let entry_path = entry.path();
+            let dest_path = dest.join(entry.file_name());
+            if entry_path.is_dir() {
+                Box::pin(recursive_copy_dir(&entry_path, &dest_path)).await?;
+            } else {
+                eprintln!(
+                    "Copying {} to {}",
+                    entry_path.display(),
+                    dest_path.display()
+                );
+                async_fs::copy(&entry_path, &dest_path).await?;
+            }
+        }
     }
 
     Ok(())
