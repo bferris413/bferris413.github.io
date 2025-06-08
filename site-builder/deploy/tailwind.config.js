@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: ["Inter"],
+      mono: ["monospace"],
       // 'serif': ['Playfair Display', 'system-ui'],
       // 'serif': ['ETBembo', 'system-ui'],
       // 'title': ['Cinzel', 'system-ui'],

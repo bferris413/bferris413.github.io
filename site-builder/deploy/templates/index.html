@@ -10,8 +10,7 @@
     </head>
 
     <body class="px-2">
-        <div class="py-4 flex flex-row items-end justify-between">
-            <!-- <div class="border-b border-solid py-4 flex flex-row items-end justify-between"> -->
+        <div class="py-4 flex flex-row items-baseline">
             <a href="/">
                 <div
                     class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
@@ -19,29 +18,22 @@
                     Interactive Digital
                 </div>
             </a>
-            <div class="text-xs">
-                (last seen near {% if activity_stats.geo_data %}
-                {{activity_stats.geo_data.city}}, {{
-                activity_stats.geo_data.state_code | replace(from="US-", to="")
-                }}) {% else %} ??) {% endif %}
-            </div>
-        </div>
-        <nav class="mb-4">
-            <ul>
-                <li>
-                    <a
-                        class="text-blue-600 visited:text-purple-600"
-                        href="/posts/posts.html"
-                    >
-                        <span
-                            class="sm:text-sm md:text-md text-gray-600 font-semibold underline"
-                            >Posts</span
+            <nav>
+                <ul>
+                    <li>
+                        <a
+                            class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4"
+                            href="/posts/posts.html"
                         >
-                        <!-- {{ posts_hash }} -- -->
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                            <span class="text-sm md:text-lg font-medium"
+                                >Posts</span
+                            >
+                            <!-- {{ posts_hash }} -- -->
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <div
             class="lg:mt-4 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
         >
@@ -56,6 +48,12 @@
                 class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1"
             >
                 Activity
+            </div>
+            <div class="text-xs">
+                (last seen near {% if activity_stats.geo_data %}
+                {{activity_stats.geo_data.city}}, {{
+                activity_stats.geo_data.state_code | replace(from="US-", to="")
+                }}) {% else %} ??) {% endif %}
             </div>
             <div>
                 <svg
