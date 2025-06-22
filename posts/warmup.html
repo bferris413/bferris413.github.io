@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4 flex flex-row items-baseline">
+            <a href="/">
+                <div
+                    class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                >
+                    Interactive Digital
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li>
+                        <a
+                            class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                            href="/posts/posts.html"
+                        >
+                            <span class="text-sm text-gray-600 font-semibold"
+                                >Posts</span
+                            >
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="post-content max-w-prose"><h1>Programming &amp; The Tools We Use</h1>
+<p>I usually have a generic programming topic on the back of my mind. Sometimes it's an idea
+for a side-project or product, and other times it's about a programming domain that
+interests me, like networking or compilers. Over the past few years, though, I've spent
+considerable time thinking about the <em>act</em> of programming and the tooling surrounding it.
+It frequently occurs to me that the tools we (or at least, I) use feel somewhat primitive,
+relative to the problems we work on.</p>
+<p>That's not to say that my work is always at the cutting edge of whatever field I'm in and
+therefore requires some specialized tool set. That's <em>also</em> not to say that the tools we do
+have aren't immensely helpful (however commonplace their general accessibility makes them
+appear). Rather, it just surprises me that modern tooling doesn't help me answer some
+basic questions that occur regularly while I'm programming, questions that I feel like I'm
+not the first one to have.</p>
+<h2>For Example</h2>
+<p>Suppose you're reading an unfamiliar function or module, maybe one that's had significant
+changes since the last time you worked with it. I think a perfectly reasonable question to
+ask concerning any given piece of data in the code is,</p>
+<blockquote>
+<p>&quot;Where did this data come from?&quot;</p>
+</blockquote>
+<p>I guess there's more than one way to answer this, but the process almost always starts
+with tracing backwards in an attempt to manually reconstruct the sequence of
+transformations that got me to whatever variable I'm considering. Sometimes the path is
+short, or I have enough of a mental model built up that I can connect the dots pretty
+quickly. Other times...<em>oh boy</em>, can it be painful.</p>
+<p>The part that irks me about that whole thing though isn't <strong>what</strong> needs to be done to
+build up my mental model, it's <strong>how</strong> it gets done. The word &quot;manually&quot; in the previous
+paragraph underpins my complaint. Why should I have to manually reconstruct the events
+leading up to this variable/function/whatever when, upon running the program once, every
+instruction/statement/expression executed first passed through at least the compiler
+pipeline, then the language runtime (if your language has one), and finally the CPU. The
+computer has already seen everything I'm trying to figure out, so why not just make the
+information available to me?</p>
+<h2>A Few Reasons</h2>
+<p>I can think of a few reasons why we don't have more specialized tools (continuing the example):</p>
+<ul>
+<li>
+<p><strong>The idea is just not useful.</strong> The problem of manually reconstructing an execution
+timeline at the level of my language isn't valuable.</p>
+</li>
+<li>
+<p><strong>The idea is technically infeasible/unsound.</strong> Reconstructing an execution timeline
+isn't feasible <em>on it's own merit</em> (i.e. not because of a platform limitation).</p>
+</li>
+<li>
+<p><strong>The idea is fine but platform dependencies make it infeasible.</strong> E.g. my language
+doesn't have a way to metaprogram (possible), or there's no way at all to implement this
+in a usable fashion (unlikely).</p>
+</li>
+<li>
+<p><strong>Nobody bothered to build it.</strong> There can be multiple reasons for this: lack of
+motivation, acceptance of the programming status quo, lack of incentive, etc. All
+believable.</p>
+</li>
+</ul>
+<p>All the above seem likely, frankly, and the reality is probably some combination of them.</p>
+<h2>Where We Go from Here</h2>
+<p>Despite the above example, this post isn't really a call-to-arms for someone to implement
+an execution timeline (although I likely will, at least as a prototype, and demo/post
+about it here later). It's just to serve my point that modern programming tooling doesn't
+need to stop at &quot;general purpose&quot; editors, type/borrow-checkers, and language servers. Or,
+to put it more succinctly: static analysis tools. I think there's a whole field of runtime
+analysis tooling we can build which have the potential to enhance the daily development
+loop, even with the advent of programmatically-useful LLMs.</p>
+<p>With that in mind, this site has a few explicit purposes:</p>
+<ol>
+<li>
+<p>Be a public outlet for writing about technical, programming-centric ideas to
+generate discussion and feedback.</p>
+</li>
+<li>
+<p>Serve as a shop/lab/demo space, where I can demo interesting stuff based on my posted
+thoughts. I try to never have a criticism without also having my own &quot;skin&quot; in the game.</p>
+</li>
+<li>
+<p>Serve as an exercise in, and incentive for, public writing.</p>
+</li>
+</ol>
+<p>If you made it this far, thanks for reading! Feel free to ping me on GitHub with any
+feedback or discussion.</p>
+</div>
+    </body>
+</html>
