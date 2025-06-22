@@ -3,10 +3,12 @@
 current_dir="$(dirname "$0")"
 cd "$current_dir" || exit 1
 current_dir="$(pwd)"
+echo "Current directory: $current_dir"
 export GH_TOKEN=$(cat ../../.token)
 export IP_API_TOKEN=$(cat ../../.ip_token)
 
 cargo watch \
+    --no-vcs-ignores \
     --watch-when-idle \
     -s "cd $current_dir/../deploy && tailwindcss -c ./tailwind.config.js -i ./tw.css -o ../site/static/style.css" \
     -x "run -- --project-dir="$current_dir/../deploy/" --out-dir=$current_dir/../site" \

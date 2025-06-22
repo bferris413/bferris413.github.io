@@ -22,10 +22,10 @@
                 <ul>
                     <li>
                         <a
-                            class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4"
+                            class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
                             href="/posts/posts.html"
                         >
-                            <span class="text-sm md:text-base font-medium"
+                            <span class="text-sm text-gray-600 font-semibold"
                                 >Posts</span
                             >
                         </a>
@@ -35,7 +35,7 @@
         </div>
         <div>
             {% if posts %}
-            <ul>
+            <ul class="list-disc">
                 {% for post in posts %}
                 <li class="mb-2">
                     <a
