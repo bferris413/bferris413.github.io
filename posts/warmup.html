@@ -10,26 +10,29 @@
     </head>
 
     <body class="px-2">
-        <div class="py-4 flex flex-row items-baseline">
-            <a href="/">
-                <div
-                    class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                >
-                    Interactive Digital
-                </div>
-            </a>
-            <nav>
-                <a
-                    class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                    href="/posts/posts.html"
-                >
-                    <span class="text-sm text-gray-600 font-semibold"
-                        >Posts</span
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
                     >
+                        Interactive Digital
+                    </div>
                 </a>
-            </nav>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
         </div>
-        <div class="post-content max-w-prose px-2"><h1>Programming and the Tools We Use</h1>
+        <div class="post-content max-w-prose px-2"><h2>Programming and the Tools We Use</h2>
 <p>I usually have a generic programming topic on the back of my mind. Sometimes it's an idea
 for a side-project or product, and other times it's about a programming domain that
 interests me, like networking or compilers. Over the past few years, though, I've spent
@@ -42,7 +45,7 @@ have aren't immensely helpful (however commonplace their general accessibility m
 appear). Rather, it just surprises me that modern tooling doesn't help me answer some
 basic questions that occur regularly while I'm programming, questions that I feel like I'm
 not the first one to have.</p>
-<h2>For Example</h2>
+<h3>For Example</h3>
 <p>Suppose you're reading an unfamiliar function or module, maybe one that's had significant
 changes since the last time you worked with it. I think a perfectly reasonable question to
 ask concerning any given piece of data in the code is, <em>&quot;Where did this thing come from?&quot;</em></p>
@@ -59,7 +62,7 @@ instruction/statement/expression executed first passed through at least the comp
 pipeline, then the language runtime (if your language has one), and finally the CPU. The
 computer has already seen everything I'm trying to figure out, so why not just make the
 information available to me?</p>
-<h2>A Few Reasons</h2>
+<h3>A Few Reasons</h3>
 <p>I can think of a few reasons why we don't have more specialized tools (continuing the example):</p>
 <ul>
 <li>
@@ -82,7 +85,7 @@ believable.</p>
 </li>
 </ul>
 <p>All the above seem likely, frankly, and the reality is probably some combination of them.</p>
-<h2>Where We Go from Here</h2>
+<h3>Where We Go from Here</h3>
 <p>Despite the above example, this post isn't really a call-to-arms for someone to implement
 an execution timeline (although I likely will, at least as a prototype, and demo/post
 about it here later). It's just to serve my point that modern programming tooling doesn't
