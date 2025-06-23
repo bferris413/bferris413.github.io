@@ -19,20 +19,16 @@
                 </div>
             </a>
             <nav>
-                <ul>
-                    <li>
-                        <a
-                            class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                            href="/posts/posts.html"
-                        >
-                            <span class="text-sm text-gray-600 font-semibold"
-                                >Posts</span
-                            >
-                        </a>
-                    </li>
-                </ul>
+                <a
+                    class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                    href="/posts/posts.html"
+                >
+                    <span class="text-sm text-gray-600 font-semibold"
+                        >Posts</span
+                    >
+                </a>
             </nav>
         </div>
-        <div class="post-content max-w-prose">{{ content | safe }}</div>
+        <div class="post-content max-w-prose px-2">{{ content | safe }}</div>
     </body>
 </html>
