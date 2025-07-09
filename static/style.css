@@ -658,8 +658,8 @@ video {
   align-items: baseline;
 }
 
-.overflow-x-scroll {
-  overflow-x: scroll;
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 .whitespace-pre-line {
