@@ -10,27 +10,29 @@
     </head>
 
     <body class="px-2">
-        <div class="py-4 flex flex-row items-baseline">
-            <a href="/">
-                <div
-                    class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                >
-                    Interactive Digital
-                </div>
-            </a>
-            <nav>
-                <a
-                    class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                    href="/posts/posts.html"
-                >
-                    <span class="text-sm text-gray-600 font-semibold"
-                        >Posts</span
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
                     >
-                    <!-- {{ posts_hash }} -- -->
+                        Interactive Digital
+                    </div>
                 </a>
-            </nav>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                        <!-- {{ posts_hash }} -- -->
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
         </div>
-        <hr class="md:hidden" />
         <div class="px-2">
             <div
                 class="lg:mt-2 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
@@ -82,7 +84,7 @@
                             >{{ commit.author_date }}</span
                         >
                         <br />
-                        <pre class="text-xs overflow-x-scroll text-slate-700">
+                        <pre class="text-xs overflow-x-auto text-slate-700">
 {{ commit.commit_msg }}</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->

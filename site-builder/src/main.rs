@@ -279,7 +279,7 @@ async fn read_md_posts(posts_dir: &Path) -> Result<(Vec<Post>, u64)> {
         }
     }
 
-    posts.sort_by(|p1, p2| p1.post_number.cmp(&p2.post_number));
+    posts.sort_by(|p1, p2| p2.post_number.cmp(&p1.post_number));
 
     let posts_hash = {
         let mut hasher = DefaultHasher::new();
@@ -409,7 +409,7 @@ async fn populate_individual_post_template(
 
 async fn populate_post_index_template(tera: &Tera, posts: &[Post]) -> Result<String> {
     let mut posts_index_context = Context::new();
-    let ui_posts: Vec<_> = posts.iter().map(|post| UiPost::from(post)).collect();
+    let ui_posts: Vec<UiPost> = posts.iter().map(|post| UiPost::from(post)).collect();
     posts_index_context.insert("posts", &ui_posts);
 
     let post_html = tera.render("posts.html", &posts_index_context)?;
@@ -648,12 +648,14 @@ fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
 struct UiPost {
     title: String,
     html_filename: String,
+    number: u32,
 }
 impl From<&Post> for UiPost {
     fn from(value: &Post) -> Self {
         Self {
             title: value.title.clone(),
             html_filename: format!("{}.html", value.filename),
+            number: value.post_number,
         }
     }
 }
@@ -687,7 +689,7 @@ impl Post {
         for node in &root.children {
             match node {
                 MarkdownNode::Heading(Heading {
-                    depth: 1, children, ..
+                    depth: 2, children, ..
                 }) => {
                     let title_text = children
                         .first()
