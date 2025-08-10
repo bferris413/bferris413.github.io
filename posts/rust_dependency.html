@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Thoughts on Rust's Dependency &quot;Problem&quot;</h2>
+<p>Rust projects are sometimes criticized for their tendency to encourage dependency
+bloat. I'd like to outline a couple of reasons why I think this happens, and offer a step
+towards addressing the issue.</p>
+<p>Dependency bloat happens when a project takes on more external dependencies (like
+supporting libraries/crates) than are deemed necessary. There's no generally accepted rule
+on where to draw the line between a dependency being warranted or not, so our judgment
+is more or less limited to our own bias and experience. Let's assume that projects can be
+bloated and consider why that is a bad thing.</p>
+<h3>Bloat is Transitive</h3>
+<p>If you're writing software for your own private consumption, never to be used by anyone
+else, and the software runs on your own machines (or machines that you rent with your own
+money), then I have good news for you: nobody else's opinion matters! You can pull in as
+many dependencies as you think are appropriate, so go ahead and use that
+<a href="https://docs.rs/is-even/latest/is_even/trait.IsEven.html"><code>is_even</code></a> crate. What's the
+worst that can happen? 😅</p>
+<p>On the other hand, if your project is in the public sphere and is useful to others, bloat
+matters. If someone imports your crate, they just inherited all the dependencies <em>your</em>
+project uses, in addition to whatever other dependencies they have. That may be a drop in
+the bucket, or it may be the entire bucket! The point is that bloat is exponentially
+transitive. Every project that depends on a bloated one becomes itself at least a little
+more bloated, on and on down the line for every project in the dependency chain.</p>
+<p>For people who care about system resource usage, or even cognitive complexity, managing
+dependencies efficiently is important. Before considering a solution (or least part of
+one), let's consider two reasons why projects may bloat.</p>
+<h3>Rust's Small Standard Library</h3>
+<p>Rust is somewhat unique among modern programming languages in that is has a very small
+standard library. When compared to a language like Go, the difference is apparent. Examples
+of functionality that Go's standard library has but Rust's does not include:</p>
+<ul>
+<li>HTTP support (client, server)</li>
+<li>serialization/encoding for formats like JSON and XML</li>
+<li>cryptography, including TLS, SHA256, AES, etc.</li>
+<li>compression</li>
+<li>images (PNG/JPEG)</li>
+<li>etc.</li>
+</ul>
+<p>Rust has a good <a href="https://crates.io">ecosystem of libraries</a> to support all these cases, and
+some libraries are even popular enough to be considered &quot;standard&quot; (like
+<code>serde</code> for serialization or
+<code>tokio</code> for async), but sometimes you just want to use
+the single, supported thing and instead have to decide between various crates. It's just
+not as straightforward as importing whatever the language gives you.</p>
+<h3>A Good Package Manager</h3>
+<p>cargo is Rust's integrated build tool, package manager, and test runner. It basically
+&quot;just works&quot; and, in my opinion, is one of Rust's killer features (which is admittedly
+kind of sad to say in 2025, but that's the state of modern programming).</p>
+<p>cargo makes it very easy to add libraries to your project, either by manually editing
+<code>Cargo.toml</code> or running <code>cargo add some_package</code> from the command line. Unlike Python's
+pip, cargo resolves dependencies per-project, which avoids collisions (there's
+also system-wide caching for projects that share the same dependencies).
+<a href="https://crates.io/">crates.io</a> is the community package registry, which contains quality
+crates, so there's really not much friction when going to add something to your project.
+You just search for what you're looking for, <code>cargo add</code> it to your project, and boom,
+you're off.</p>
+<p>Rust packaging requires no collision management, no manually pasting header and source
+files, no messing with make/cmake, or choosing between maven, gradle, or ant. It's pretty
+much a no-fuss experience. If a project isn't diligent in tracking dependencies (or just
+doesn't care), things <em>can</em> grow to the point of being bloated.</p>
+<p>So what can we do?</p>
+<h3>Crate Tagging by Dependency Types</h3>
+<p>I'd like to propose providing projects a way to signal what kinds of dependencies
+they use. Suppose we create a layering system like the following:</p>
+<ul>
+<li>Layer 0: the standard library and <code>libc</code> (which the standard library links to), which
+depend on nothing,</li>
+<li>Layer 1: any published crate that <em>only</em> depends on the standard library or <code>libc</code>,</li>
+<li>Layer 2: any published crate that depends on at least one Layer 1 crate (but no higher),</li>
+<li>Layer 3: any published crate that depends on at least one Layer 2 crate (but no higher),</li>
+<li>Layer 4: everything else.</li>
+</ul>
+<p>Under this scheme, a crate could be automatically assessed and tagged with a layer by the
+registry when being published. cargo's <a href="https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#version-requirement-syntax">version requirements</a>
+could be updated to include optional layer specifiers for enforcement (e.g. <code>other_crate = { version = &quot;1.2.3&quot;, layer = 2 }</code>). It'd also be nice to indicate some kind of layer
+restrictions at different scopes of a project as part of the build process, like in the
+context of team projects where someone wants to say &quot;this crate shouldn't build if we've
+accidentally imported a layer 4 crate&quot;.</p>
+<p>The purpose here is to provide tools for projects to reason about the kinds of dependencies
+they use. One advantage of the &quot;signaling&quot; approach is that, apart from the automatic
+tagging by the registry, enforcement is fully in your control. If you don't care, you
+just don't specify any layer requirements.</p>
+<h3>Conclusion</h3>
+<p>Let me close by acknowledging that I don't necessarily think dependency bloat is something
+to be &quot;solved&quot; in the generic sense, as in there being some objective metric to measure
+bloat. Dependency management, like many aspects of software, is a game of wrangling
+constraints and trade-offs.</p>
+<p>So that's the gist of it. Contact me on GitHub to share thoughts and criticisms. Thanks!</p>
+</div>
+    </body>
+</html>
