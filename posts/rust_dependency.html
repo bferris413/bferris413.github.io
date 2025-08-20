@@ -109,15 +109,17 @@ could be updated to include optional layer specifiers for enforcement (e.g. <cod
 restrictions at different scopes of a project as part of the build process, like in the
 context of team projects where someone wants to say &quot;this crate shouldn't build if we've
 accidentally imported a layer 4 crate&quot;.</p>
-<p>The purpose here is to provide tools for projects to reason about the kinds of dependencies
-they use. One advantage of the &quot;signaling&quot; approach is that, apart from the automatic
-tagging by the registry, enforcement is fully in your control. If you don't care, you
-just don't specify any layer requirements.</p>
+<p>The purpose here is to provide tools for projects to reason about the kinds of
+dependencies they use. One advantage of the &quot;signaling&quot; approach is that, apart from the
+automatic tagging by the registry, enforcement is fully in your control. If you don't
+care, you just don't specify any layer requirements.</p>
 <h3>Conclusion</h3>
 <p>Let me close by acknowledging that I don't necessarily think dependency bloat is something
-to be &quot;solved&quot; in the generic sense, as in there being some objective metric to measure
-bloat. Dependency management, like many aspects of software, is a game of wrangling
-constraints and trade-offs.</p>
+to be &quot;solved&quot; in the generic sense, as in there being some universal metric to measure
+and eliminate it. Dependency management, like many aspects of software, is a game of
+wrangling constraints and trade-offs specific to <em>your</em> project. The approach outlined
+above attempts to make a project's dependency management intentions more explicit but not
+objective.</p>
 <p>So that's the gist of it. Contact me on GitHub to share thoughts and criticisms. Thanks!</p>
 </div>
     </body>
