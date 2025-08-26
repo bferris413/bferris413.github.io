@@ -25,7 +25,16 @@
 } */
 
 code {
-    @apply font-mono font-medium bg-gray-200 border rounded-sm border-red-800 p-1;
+    @apply font-mono font-medium bg-gray-100 border rounded-sm border-gray-600 p-1;
+}
+
+/* Language-specific code block styling */
+code[class^="language-"] {
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 14px;
 }
 
 a:has(code) {

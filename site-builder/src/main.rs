@@ -14,7 +14,7 @@ use clap::{
 };
 use markdown::{
     mdast::{Heading, Node as MarkdownNode, Text},
-    ParseOptions,
+    CompileOptions, Options, ParseOptions,
 };
 use reqwest::{
     header::{ACCEPT, USER_AGENT},
@@ -397,9 +397,17 @@ async fn populate_individual_post_template(
     posts: &[Post],
 ) -> Result<Vec<(String, String)>> {
     let mut individual_post_html = Vec::new();
+    let options = Options {
+        compile: CompileOptions {
+            allow_dangerous_html: true,
+            ..Default::default()
+        },
+        ..Default::default()
+    };
     for post in posts {
         let mut context = Context::new();
-        let post_html_from_md = &markdown::to_html(&post.md_content);
+        let post_html_from_md =
+            &markdown::to_html_with_options(&post.md_content, &options).unwrap();
         context.insert("content", post_html_from_md);
         let full_post_html = tera.render("post.html", &context)?;
         individual_post_html.push((post.filename.clone(), full_post_html));
