@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diff OVERview</title>
+    <style>
+        body {
+            padding: 5px;
+        }
+        /* General table styling */
+        table {
+            width: 100%;
+            margin-bottom: 10px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #d0d7de;
+            border-radius: 5px;
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        /* Filename row styling */
+        th.filename {
+            text-align: left;
+            font-family: monospace;
+            font-weight: normal;
+            background-color: #f4f6fc;
+            padding: 8px 12px;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        /* Section headers (e.g., "Uses", "Impls") */
+        tr th {
+            text-align: left;
+            font-family: monospace;
+            font-weight: normal;
+            background-color: #fafafa;
+            padding: 6px 12px;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        /* Diff content cells */
+        td {
+            min-width: 90ch;
+            padding: 8px 12px;
+            border-bottom: 1px solid #d0d7de;
+            vertical-align: top;
+            background-color: #ffffff;
+            border-right: 1px solid #d0d7de;
+        }
+
+        td.empty-content {
+            background-color: #fdfdfd;
+        }
+
+        /* Border for the last column */
+        td:last-child {
+            border-right: none;
+        }
+
+        /* Added content */
+        .added {
+            color: #00ad14;
+        }
+
+        /* Remove the bottom border from the last row */
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Removed content */
+        .deleted {
+            color: #ad0500;
+        }
+    </style>
+</head>
+<body><table><tr><th colspan="2" class="filename">test_files/tuple_struct.rs</th></tr><tr><th colspan="2">Uses</th></tr><tr><td><pre><code><span class="deleted">use tokio::net::TcpListener
+</span><span class="">
+</span></code></pre></td><td><pre><code><span class="added">use std::io::Seek
+</span><span class="">
+</span><span class="added">use tokio::net::TcpStream
+</span><span class="">
+</span></code></pre></td><tr><th colspan="2">Structs</th></tr><tr><td><pre><code><span class="">struct RandomStruct {</span><span class="">
+    ..</span><span class="">
+    </span><span class="deleted">field2: u16</span><span class="">
+}</span></code></pre></td><td><pre><code><span class="">struct RandomStruct {</span><span class="">
+    ..</span><span class="">
+}</span></code></pre></td><tr><th colspan="2">Enums</th></tr><tr><td><pre><code><span class="">enum ApplicationProtocol</span><span class="deleted">&lt;T: Clone&gt;</span><span class=""> {</span><span class="">
+    </span><span class="">Http {</span><span class=""> ..</span><span class=""> }</span><span class="">
+    </span><span class="">Https</span><span class=""></span><span class="">
+    </span><span class="deleted">Stun
+</span><span class="">
+    </span><span class="deleted">Smtp
+</span><span class="">
+}</span></code></pre></td><td><pre><code><span class="">enum ApplicationProtocol</span><span class="added">&lt;T: Clone + Send, U&gt;</span><span class=""> {</span><span class="">
+    </span><span class="added">Dns
+</span><span class="">
+    </span><span class="">Http {</span><span class=""> ..</span><span class=""> </span><span class="added">u: U</span><span class=""> }</span><span class="">
+    </span><span class="">Https {</span><span class=""> </span><span class="added">t: T</span><span class=""> }</span><span class="">
+}</span></code></pre></td><tr><th colspan="2">Functions</th></tr><tr><td><pre><code><span class="deleted">pub</span><span class=""> fn build&lt;T, U, V&gt;(</span><span class="deleted">i: u32</span><span class="">, y: T) </span><span class="deleted">-&gt; T</span><span class="">
+where
+    U: Read,
+    </span><span class="deleted">V: Write</span><span class="">,</span></code></pre></td><td><pre><code><span class="added">async</span><span class=""> fn build&lt;T, U, V&gt;(</span><span class="added">x: String</span><span class="">, y: T) </span><span class="added">-&gt; u32</span><span class="">
+where
+    U: Read,
+    </span><span class="added">V: Write + Send</span><span class="">,</span></code></pre></td><tr><th colspan="2">Impls</th></tr><tr><td><pre><code><span class="">impl RandomStruct {</span><span class="">
+    </span><span class="">fn new(field1: u8, </span><span class="deleted">field2: u16</span><span class="">, </span><span class="deleted">field3: u32</span><span class="">) -&gt; Self</span><span class="">
+    </span><span class="">fn do_it(&amp;self, x: String)</span><span class="">
+}</span></code></pre></td><td><pre><code><span class="">impl RandomStruct {</span><span class="">
+    </span><span class="">fn new(field1: u8, </span><span class="added">field3: u32</span><span class="">) -&gt; Self</span><span class="">
+    </span><span class="added">pub</span><span class=""> fn do_it(&amp;self, x: String, </span><span class="added">y: String</span><span class="">)</span><span class="">
+    </span><span class="added">pub fn do_it_again(&amp;self) -&gt; Result&lt;(), String&gt; </span><span class="">
+}</span></code></pre></td></body></html>

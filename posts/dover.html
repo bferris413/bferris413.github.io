@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Diff OVERview: An Experimental Supplement to Git Diffs</h2>
+<p>I've been thinking about version control and how it could be more effective. I've used Git
+and centralized repositories like GitHub and Bitbucket, for most of my programming life.
+In general, it has served me well enough as a foundational version control tool. My gripe
+is the general lack of additional tooling built on top of it, particularly for viewing and
+understanding changes in their semantic context.</p>
+<p>The problem with diffs as presented by most diffing tools (e.g. GitHub's PR interface)
+is that they're too raw, too detached from the <em>system</em> I'm building. They're just
+a cleaned up presentation of what is still essentially a textual diff.</p>
+<p>When I read a diff, I spend significant time putting the textual changes in the context of
+the system before mentally comparing the system's behavior between versions. In some
+cases, especially when reviewing a large set of changes (of which I've been on both the
+giving and receiving ends 😅), I've felt like I wanted to see an <strong>overview</strong> of high-level
+changes, before going into the full diff. My reasoning is that if I can establish the
+context of the changes more quickly, I can get to the heart of a PR faster while
+eliminating some cruft around my current workflow.</p>
+<p>I recently decided to test that theory and ended up with a tool called <strong>dover</strong> (&quot;Diff
+OVERview&quot;). The rest of this post will explain what it is, how it works, and plans for
+upcoming improvements.</p>
+<h3>dover</h3>
+<p><a href="https://github.com/bferris413/dover">dover</a> is a CLI tool that provides a semantic,
+high-level overview of Git-based diffs for Rust code. It has two major dependencies:
+<a href="https://github.com/rust-lang/git2-rs">libgit2</a> for interacting with Git repositories
+and <a href="https://github.com/dtolnay/syn">syn</a> for working with Rust code.</p>
+<p>When run from the command line (like <code>dover diff [commit1 [commit2]]</code>), dover will:</p>
+<ol>
+<li>Collect the set of changes between the two commits with <code>libgit2</code>,</li>
+<li>Filter out any non-Rust source files,</li>
+<li>Parse the files with <code>syn</code> to get ASTs,</li>
+<li>Convert the ASTs into an &quot;overview&quot; AST containing only the things we want to diff,</li>
+<li>Diff the overviews of each file,</li>
+<li>Output the results.</li>
+</ol>
+<p>The crux of the project is really the overview AST: an opinionated subset of syntactic
+elements that we want to compare.</p>
+<p>For each file in the git diff, dover generates a top-level <code>Overview</code> that looks like this:</p>
+<pre><code class="language-rust">#[derive(Debug)]
+pub struct Overview {
+    path: PathBuf,
+    uses: Uses,
+    structs: Structs,
+    enums: Enums,
+    traits: Traits,
+    functions: Functions,
+    impls: Impls,
+}
+</code></pre>
+<p>Each overview element, except <code>path</code>, is itself a subset of its full AST so, for example, a standalone function looks like this:</p>
+<pre><code class="language-rust">#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Function {
+    vis: Visibility,
+    r#const: Option&lt;Const&gt;,
+    r#async: Option&lt;Async&gt;,
+    r#unsafe: Option&lt;Unsafe&gt;,
+    abi: Option&lt;Abi&gt;,
+    name: String,
+    generics: Generics,
+    inputs: Inputs,
+    output: ReturnType,
+    original_fn: syn::ItemFn,
+    source: SourceFile,
+}
+</code></pre>
+<p>All elements originate from their counterparts in <code>syn</code> but with &quot;extra&quot; information
+removed. For example, an &quot;overview&quot; of a function does not include the function body.</p>
+<h3>Sample Diff</h3>
+<p>Suppose we have these two arbitrary, made-up sample files:</p>
+<pre><code class="language-rust">// old somefile.rs
+
+use std::io::{Read, Write};
+use tokio::net::TcpListener;
+
+enum ApplicationProtocol&lt;T: Clone&gt; {
+    Http { t: T },
+    Https,
+    Stun,
+    Smtp,
+}
+
+pub fn build&lt;T, U, V&gt;(i: u32, y: T) -&gt; T
+where
+    U: Read,
+    V: Write,
+{
+    i
+}
+
+struct RandomStruct {
+    field1: u8,
+    field2: u16,
+    field3: u32,
+}
+impl RandomStruct {
+    fn new(field1: u8, field2: u16, field3: u32) -&gt; Self {
+        Self {
+            field1,
+            field2,
+            field3,
+        }
+    }
+    fn do_it(&amp;self, x: String) {
+        println!(&quot;do_it called with x: {}&quot;, x);
+    }
+}
+</code></pre>
+<br>
+<pre><code class="language-rust">// new - somefile.rs
+
+use std::io::{Read, Seek, Write};
+use tokio::net::TcpStream;
+
+async fn build&lt;T, U, V&gt;(x: String, y: T) -&gt; u32
+where
+    U: Read,
+    V: Write + Send,
+{
+    todo!()
+}
+
+enum ApplicationProtocol&lt;T: Clone + Send, U&gt; {
+    Dns,
+    Http { t: T, u: U },
+    Https { t: T },
+}
+
+struct RandomStruct {
+    field1: u8,
+    field3: u32,
+}
+impl RandomStruct {
+    fn new(field1: u8, field3: u32) -&gt; Self {
+        Self { field1, field3 }
+    }
+    pub fn do_it(&amp;self, x: String, y: String) {
+        println!(&quot;do_it called with ({x}, {y})&quot;);
+    }
+    pub fn do_it_again(&amp;self) -&gt; Result&lt;(), String&gt; {
+        println!(&quot;I'm doing it again!&quot;);
+        Ok(())
+    }
+}
+</code></pre>
+<p>Notice that in the second file, certain fields and variants were added or removed,
+interfaces were changed, and some items were reordered.</p>
+<p>A dover diff of those files to stdout looks like this: <a href="/static/sample_stdout_diff.png"><img src="/static/sample_stdout_diff.png" alt="An example dover diff to
+stdout" /></a></p>
+<p>If we use the <code>--to-html</code> flag when diffing, dover generates a static webpage showing the
+same contents: <a href="/static/sample_html_diff.png"><img src="/static/sample_html_diff.png" alt="An example dover diff as
+HTML" /></a></p>
+<p>There's still plenty of room for polish and bugfixes, but the general idea
+has mostly taken shape. A few things dover does include:</p>
+<ul>
+<li>showing diffed elements based on their semantic parts, irrespective of formatting,</li>
+<li>flattening <code>use</code> statements to explicitly show import changes,</li>
+<li>eliding function bodies, irrelevant struct and enum variant fields.</li>
+<li>diffing elements irrespective of their order of occurrence in a file, unless order has
+meaning (like in the case of function args or tuple struct fields).</li>
+</ul>
+<p>One key point is that the diff is opinionated, and not everyone agrees on what is and
+isn't relevant to an &quot;overview&quot; diff. After finishing the remaining syntactic elements
+(check the <a href="https://github.com/bferris413/dover?tab=readme-ov-file#-todo">roadmap</a>), the
+last thing I'd like to add is a <code>dover.toml</code> file for customizing what's included in the
+diff. I'd like customization to include what syntactic elements to diff, as well as the
+order of appearance of the major &quot;groups&quot; (structs, traits, etc.).</p>
+<h3>Is it Useful?</h3>
+<p>I've used dover when reviewing large diffs and found it works mostly as intended,
+especially when trying to filter out what a PR is not (like when someone changes a
+small set of interfaces and the diff shows 30+ files changed, but it's mostly signature-related fallout).</p>
+<p>I created the HTML output with the vision of integrating it into GitHub PRs, so that
+whenever someone opens a PR, a GitHub workflow will run dover and paste a link to the
+HTML diff. Integrating with our existing workflows while running automatically will let me
+see if the idea has actual long-term merit, or if it's just a neat trick. Time will tell!</p>
+<h3>Conclusion</h3>
+<p>dover is available on <a href="https://crates.io/crates/dover">crates.io/crates/dover</a> if you want
+to try it out: <code>cargo install dover</code>.</p>
+<p>If you use it and would like to leave feedback or suggestions, feel free to contact me on
+GitHub! It'd be great to hear other thoughts on dover, diffs, development tools, or the
+state of programming in general.</p>
+<p>Thanks for reading!</p>
+</div>
+    </body>
+</html>
