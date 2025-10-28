@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Metal ARM: Introduction</h2>
+<h3>Where I'm At</h3>
+<p>The majority of my software career has been spent at what I'd call the &quot;infrastructure&quot;
+layer: programs that sit somewhere between the kernel and an application's backend, and
+upon which other applications or systems are built. I've also occasionally done some UI
+work, but I've never gotten (or taken) the opportunity to go lower in the stack.</p>
+<p>I've had the increasing feeling, though, that it's time to go to the bottom and work my
+way up. I think there are a few contributing factors to this, but a major one is that most
+infrastructure software is still firmly in &quot;victim&quot; territory. It's subject to external
+factors that seem completely irrelevant to the problems I work on, and yet they exert a
+large influence over the solutions I'm able to build.</p>
+<p>The environments my code lives in, the tools I use, the data formats and protocols I
+communicate with, they're all (for the most part) inherited. And it's not that they're
+<em>all</em> the best, or even necessarily good. Some things are just accidents of history -
+they're what stuck at the time they were developed (and of course some of them are
+actually good).</p>
+<p>Before I go further, let me say that I respect both the relative immaturity of our field
+<em>and</em> the general complexity that arises from trying to model a process with code. It's
+hard, even humiliatingly difficult sometimes, to take an observed process in the world and
+try to codify it. Interesting and useful stuff gets built, no doubt, and we've been able
+to extract value (for some definition of it) with what we have, but sometimes it
+feels like we're just way off base. We build on the layers that calcified in the previous
+generations, yet notwithstanding all the advances of the last 70 or so years, our tools
+still feel decidedly primitive at best, and hilariously unsuited at worst, to solving the
+programming tasks before us. But it's <em>hard</em>, and I'm aware of that.</p>
+<h3>Where I'm Going</h3>
+<p>So I recently started two projects as an attempt to make some personal progress. First, I
+want to see just how complicated it is to build a software stack &quot;from scratch&quot; (with a
+healthy dose of caveats). Second, I want to use this stack to interact with real hardware
+and learn about the implications that hardware imposes on software. Third, I want to find
+a way to push the state of programming forward, even if it's a very small step.</p>
+<p>The projects are <a href="https://github.com/bferris413/metal-arm">metal-arm</a> (hence the name of
+this series) and <a href="https://github.com/bferris413/chasm-toolchain">chasm-toolchain</a>.
+Metal-arm is my foray into the world of bare-metal development, starting with handwritten
+machine code and ending with something like a small hobby OS. Chasm is the toolchain on
+which metal-arm is built. As I learn about an embedded/bare-metal concept, I first
+implement it by hand, and then add support to whatever part of the chasm toolchain is
+needed to support that feature. I then sanity-check the chasm implementation against my
+handwritten version on real hardware, and rinse and repeat.</p>
+<p>There will be mistakes, inefficiencies, and hours of staring at machine code, yes, but
+there will also be a toolchain that stands on its own, tons of learning, and perhaps a few
+neat features that are hard to find in more mainstream stacks. If that sort of thing
+interests you, I invite you to follow along with this series!</p>
+<p>As always, feel free to reach out on GitHub with questions and critiques.</p>
+</div>
+    </body>
+</html>
