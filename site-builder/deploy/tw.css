@@ -45,12 +45,28 @@ a:has(code)::after {
     content: none;
 }
 
-ul {
+ul li {
     @apply list-disc ml-6 text-gray-800 mb-4;
 }
 
-ol {
+ul h3 {
+    @apply leading-none font-bold tracking-[-0.03em] text-xl text-gray-800 mt-4 mb-2;
+}
+
+ul h4 {
+    @apply leading-none font-bold tracking-[-0.03em] text-lg text-gray-800 mt-4 mb-4;
+}
+
+ol li {
     @apply list-decimal ml-6 text-gray-800 mb-4;
+}
+
+ol h3 {
+    @apply leading-none font-bold tracking-[-0.03em] text-xl text-gray-800 mt-4 mb-2;
+}
+
+ol h4 {
+    @apply leading-none font-bold tracking-[-0.03em] text-lg text-gray-800 mt-4 mb-4;
 }
 
 h1 {

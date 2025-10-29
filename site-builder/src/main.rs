@@ -13,8 +13,8 @@ use clap::{
     Parser,
 };
 use markdown::{
-    mdast::{Heading, Node as MarkdownNode, Text},
-    CompileOptions, Options, ParseOptions,
+    mdast::{Heading, Node as MarkdownNode, Text, Toml},
+    CompileOptions, Constructs, Options, ParseOptions,
 };
 use reqwest::{
     header::{ACCEPT, USER_AGENT},
@@ -22,6 +22,7 @@ use reqwest::{
 };
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tera::{Context, Tera};
+use time::macros::format_description;
 use time::{Date, OffsetDateTime};
 use tokio::time::{sleep as tokio_sleep, Duration as TokioDuration};
 use tokio::{fs as async_fs, task};
@@ -657,6 +658,8 @@ struct UiPost {
     title: String,
     html_filename: String,
     number: u32,
+    created_at_year: i32,
+    created_at_month: String,
 }
 impl From<&Post> for UiPost {
     fn from(value: &Post) -> Self {
@@ -664,6 +667,8 @@ impl From<&Post> for UiPost {
             title: value.title.clone(),
             html_filename: format!("{}.html", value.filename),
             number: value.post_number,
+            created_at_year: value.created_at_year,
+            created_at_month: value.created_at_month.clone(),
         }
     }
 }
@@ -675,13 +680,24 @@ struct Post {
     #[allow(unused)]
     md_ast: MarkdownNode,
     post_number: u32,
+    created_at_year: i32,
+    created_at_month: String,
 }
 impl Post {
-    fn try_new(md_content: String, filename: String) -> Result<Self> {
-        let md_ast = markdown::to_mdast(&md_content, &ParseOptions::default())
-            .map_err(|msg| anyhow!("Failed to parse Markdown: {}", msg))?;
+    fn try_new(mut md_content: String, filename: String) -> Result<Self> {
+        let mut md_ast = markdown::to_mdast(
+            &md_content,
+            &ParseOptions {
+                constructs: Constructs {
+                    frontmatter: true,
+                    ..Default::default()
+                },
+                ..Default::default()
+            },
+        )
+        .map_err(|msg| anyhow!("Failed to parse Markdown: {}", msg))?;
 
-        let MarkdownNode::Root(root) = &md_ast else {
+        let MarkdownNode::Root(ref mut root) = &mut md_ast else {
             unreachable!();
         };
 
@@ -692,6 +708,20 @@ impl Post {
             .parse::<u32>()
             .map_err(|_| anyhow!("Invalid post number"))?;
         let filename = filename.to_string();
+
+        let created_at_str = match root.children.remove(0) {
+            MarkdownNode::Toml(Toml { value, position }) => {
+                // remove frontmatter
+                md_content = md_content.split_off(position.unwrap().end.offset);
+                value
+            }
+            other => {
+                bail!("Expected TOML frontmatter with MM/DD/YYYY, found {other:?}");
+            }
+        };
+
+        let format = format_description!("[month]/[day]/[year]");
+        let created_at = Date::parse(&created_at_str, &format)?;
 
         let mut title = None;
         for node in &root.children {
@@ -713,7 +743,7 @@ impl Post {
                 MarkdownNode::Html { .. } => {
                     // probably have an HTML header
                 }
-                other => bail!("Unexpected first node in {filename}: {other:?}"),
+                other => bail!("Unexpected first content node in {filename}: {other:?}"),
             }
         }
 
@@ -727,6 +757,8 @@ impl Post {
             md_ast,
             title,
             post_number,
+            created_at_year: created_at.year(),
+            created_at_month: created_at.month().to_string(),
         })
     }
 }

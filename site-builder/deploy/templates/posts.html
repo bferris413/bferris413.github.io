@@ -35,22 +35,41 @@
         <div class="lg:mt-4 px-2">
             <h2>Posts</h2>
             {% if posts %}
-            <ul class="list-none">
-                {% for post in posts %}
-                <li class="mb-2">
-                    <a
-                        class="underline leading-none font-medium tracking-[-0.03em] text-gray-700 visited:text-purple-600"
-                        href="/posts/{{ post.html_filename }}"
-                        >#{{ post.number }} {{ post.title }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <span
-                class="text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
-                >No posts yet!</span
-            >
+                {% set_global cur_year = 0 %}
+                {% set_global cur_month = "" %}
+                <ul class="list-none">
+                    {% for post in posts %}
+                        {% if post.created_at_year != cur_year %}
+                            {% set_global cur_year = post.created_at_year %}
+                            <div
+                                class="mt-4 tracking-[-0.03em] text-lg text-gray-800 leading-none font-semibold mb-2"
+                            >
+                                {{ cur_year }}
+                            </div>
+                            <hr class="max-w-prose" />
+                        {% endif %}
+                        {% if post.created_at_month != cur_month %}
+                            {% set_global cur_month = post.created_at_month %}
+                            <div
+                                class="mt-4 tracking-[-0.03em] text-lg text-gray-800 leading-none font-semibold mb-4"
+                            >
+                                {{ cur_month }}
+                            </div>
+                        {% endif %}
+                        <li class="mb-2">
+                            <a
+                                class="underline leading-none font-medium tracking-[-0.03em] text-gray-700 visited:text-purple-600"
+                                href="/posts/{{ post.html_filename }}"
+                                >#{{ post.number }} {{ post.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <span
+                    class="text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
+                    >No posts yet!</span
+                >
             {% endif %}
         </div>
     </body>
