@@ -60,7 +60,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 6, 1 4, 2 2, 3 1, 4 6, 5 0, 6 0, 7 1, 8 0, 9 0, 10 5, 11 2, 12 1, 13 1, 14 1, 15 6, 16 0, 17 1, 18 7, 19 17, 20 10, 21 6, 22 6, 23 8, 24 4, 25 8, 26 11, 27 8, 28 5, 29 8, 30 2, 31 0, 32 6, 33 1, 34 0, 35 3, 36 8, 37 5, 38 3, 39 6, 40 5, 41 2, 42 0, 43 7, 44 4, 45 0, 46 13, 47 0, 48 0, 49 9, 50 9, 51 5, 52 7, 53 3, 54 2, 55 0, 56 6, 57 5, 58 2, 59 5, 60 7, 61 0, 62 1, 63 0, 64 4, 65 1, 66 0, 67 0, 68 1, 69 1, 70 7, 71 4, 72 8, 73 6, 74 2, 75 0, 76 1, 77 4,"
+                            points=" 0 5, 1 4, 2 2, 3 1, 4 6, 5 0, 6 0, 7 1, 8 0, 9 0, 10 5, 11 2, 12 1, 13 1, 14 1, 15 6, 16 0, 17 1, 18 7, 19 17, 20 10, 21 6, 22 6, 23 8, 24 4, 25 8, 26 11, 27 8, 28 5, 29 8, 30 2, 31 0, 32 6, 33 1, 34 0, 35 3, 36 8, 37 5, 38 3, 39 6, 40 5, 41 2, 42 0, 43 7, 44 4, 45 0, 46 13, 47 0, 48 0, 49 9, 50 9, 51 5, 52 7, 53 3, 54 2, 55 0, 56 6, 57 5, 58 2, 59 5, 60 7, 61 0, 62 1, 63 0, 64 4, 65 1, 66 0, 67 0, 68 1, 69 1, 70 7, 71 4, 72 8, 73 6, 74 2, 75 0, 76 1, 77 5,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,54 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2025-11-19</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added support for pseudo-instructions.
+
+These take the format instruction!(operand). The intent is
+to provide support for common operations that don&#x27;t neccessarily
+correspond to a specific assembler mnemonic, or wouldn&#x27;t be
+found in the ARM technical reference.
+
+The first supported pseudo is `thumb-addr!(&amp;ref)`, which expects a
+label reference and relaces it with &lt;label-address&gt; | 1.
+
+An obvious objection to this pseudo is that it&#x27;s too specific. A more
+general pseudo like `math!(&amp;ref | 1)` would be applicable to a variety
+of usecases. I agree, but a) I wanted something I could use immediately,
+and b) I didn&#x27;t want to get tangled up in a more general-purpose
+implementation when it wasn&#x27;t strictly neccessary.
+
+It&#x27;s possible that thumb-addr! gets removed in lieu of something more
+general, but this is fine for now.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added support for pseudo-instructions.
+
+These take the format instruction!(operand). The intent is
+to provide support for common operations that don&#x27;t neccessarily
+correspond to a specific assembler mnemonic, or wouldn&#x27;t be
+found in the ARM technical reference.
+
+The first supported pseudo is `thumb-addr!(&amp;ref)`, which expects a
+label reference and relaces it with &lt;label-address&gt; | 1.
+
+An obvious objection to this pseudo is that it&#x27;s too specific. A more
+general pseudo like `math!(&amp;ref | 1)` would be applicable to a variety
+of usecases. I agree, but a) I wanted something I could use immediately,
+and b) I didn&#x27;t want to get tangled up in a more general-purpose
+implementation when it wasn&#x27;t strictly neccessary.
+
+It&#x27;s possible that thumb-addr! gets removed in lieu of something more
+general, but this is fine for now.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5096,20 +5144,6 @@ Added logical or.</pre
 Added logical and</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added logical and</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-05-29</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Removed 1 from index len due to copy&#x2F;paste =)</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Removed 1 from index len due to copy&#x2F;paste =)</span> -->
                     </div>
                     
                 </details>
