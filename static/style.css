@@ -724,10 +724,6 @@ video {
   border-width: 1px;
 }
 
-.border-transparent {
-  border-color: transparent;
-}
-
 .stroke-\[\.5\] {
   stroke-width: .5;
 }
