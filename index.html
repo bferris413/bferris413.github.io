@@ -56,11 +56,11 @@
                         height="50px"
                         class="stroke-[.5]"
                         version="1.1"
-                        viewBox="0 0 70 19"
+                        viewBox="0 0 71 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 6, 1 0, 2 1, 3 7, 4 17, 5 10, 6 6, 7 6, 8 8, 9 4, 10 8, 11 11, 12 8, 13 5, 14 8, 15 2, 16 0, 17 6, 18 1, 19 0, 20 3, 21 8, 22 5, 23 3, 24 6, 25 5, 26 2, 27 0, 28 7, 29 4, 30 0, 31 13, 32 0, 33 0, 34 9, 35 9, 36 5, 37 7, 38 3, 39 2, 40 0, 41 6, 42 5, 43 2, 44 5, 45 7, 46 0, 47 1, 48 0, 49 4, 50 1, 51 0, 52 0, 53 1, 54 1, 55 7, 56 4, 57 8, 58 6, 59 2, 60 0, 61 1, 62 8, 63 3, 64 0, 65 6, 66 5, 67 3, 68 6, 69 3,"
+                            points=" 0 5, 1 0, 2 1, 3 7, 4 17, 5 10, 6 6, 7 6, 8 8, 9 4, 10 8, 11 11, 12 8, 13 5, 14 8, 15 2, 16 0, 17 6, 18 1, 19 0, 20 3, 21 8, 22 5, 23 3, 24 6, 25 5, 26 2, 27 0, 28 7, 29 4, 30 0, 31 13, 32 0, 33 0, 34 9, 35 9, 36 5, 37 7, 38 3, 39 2, 40 0, 41 6, 42 5, 43 2, 44 5, 45 7, 46 0, 47 1, 48 0, 49 4, 50 1, 51 0, 52 0, 53 1, 54 1, 55 7, 56 4, 57 8, 58 6, 59 2, 60 0, 61 1, 62 8, 63 3, 64 0, 65 6, 66 5, 67 3, 68 6, 69 3, 70 1,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,52 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-01-16</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+First cut at imports and cross-module references.
+
+- Updated definition references ($thing) to require a width.
+Deciding on syntax for this was difficult and the current solution is
+unsatisfying, I have a mental note to revisit it: $32:thing.
+
+- Added support for definition references across modules:
+  $32:modname::thing
+
+- Added support for label references across modules: &amp;module::label.
+Label references are more palatable because the width is always the
+size of a pointer (currently 32-bit since we&#x27;re targeting Cortex M
+first).
+
+There&#x27;s pieces laying around the shop, but all the plumbing and
+implementation is present. Some of the proverbial mess needs attention,
+and I also need to add the final support for applying branch patches.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">First cut at imports and cross-module references.
+
+- Updated definition references ($thing) to require a width.
+Deciding on syntax for this was difficult and the current solution is
+unsatisfying, I have a mental note to revisit it: $32:thing.
+
+- Added support for definition references across modules:
+  $32:modname::thing
+
+- Added support for label references across modules: &amp;module::label.
+Label references are more palatable because the width is always the
+size of a pointer (currently 32-bit since we&#x27;re targeting Cortex M
+first).
+
+There&#x27;s pieces laying around the shop, but all the plumbing and
+implementation is present. Some of the proverbial mess needs attention,
+and I also need to add the final support for applying branch patches.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5230,20 +5276,6 @@ Added step count to value metadata.</pre
 Fixed key&#x2F;id display and updated todo.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed key&#x2F;id display and updated todo.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-09-10</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Fixed value layout. Probably needs more work but it&#x27;s fine for now.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed value layout. Probably needs more work but it&#x27;s fine for now.</span> -->
                     </div>
                     
                 </details>
