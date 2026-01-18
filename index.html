@@ -56,11 +56,11 @@
                         height="50px"
                         class="stroke-[.5]"
                         version="1.1"
-                        viewBox="0 0 71 19"
+                        viewBox="0 0 69 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 3, 1 0, 2 1, 3 7, 4 17, 5 10, 6 6, 7 6, 8 8, 9 4, 10 8, 11 11, 12 8, 13 5, 14 8, 15 2, 16 0, 17 6, 18 1, 19 0, 20 3, 21 8, 22 5, 23 3, 24 6, 25 5, 26 2, 27 0, 28 7, 29 4, 30 0, 31 13, 32 0, 33 0, 34 9, 35 9, 36 5, 37 7, 38 3, 39 2, 40 0, 41 6, 42 5, 43 2, 44 5, 45 7, 46 0, 47 1, 48 0, 49 4, 50 1, 51 0, 52 0, 53 1, 54 1, 55 7, 56 4, 57 8, 58 6, 59 2, 60 0, 61 1, 62 8, 63 3, 64 0, 65 6, 66 5, 67 3, 68 6, 69 3, 70 3,"
+                            points=" 0 1, 1 7, 2 17, 3 10, 4 6, 5 6, 6 8, 7 4, 8 8, 9 11, 10 8, 11 5, 12 8, 13 2, 14 0, 15 6, 16 1, 17 0, 18 3, 19 8, 20 5, 21 3, 22 6, 23 5, 24 2, 25 0, 26 7, 27 4, 28 0, 29 13, 30 0, 31 0, 32 9, 33 9, 34 5, 35 7, 36 3, 37 2, 38 0, 39 6, 40 5, 41 2, 42 5, 43 7, 44 0, 45 1, 46 0, 47 4, 48 1, 49 0, 50 0, 51 1, 52 1, 53 7, 54 4, 55 8, 56 6, 57 2, 58 0, 59 1, 60 8, 61 3, 62 0, 63 6, 64 5, 65 3, 66 6, 67 3, 68 6,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,62 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-01-17</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Removed redundant tokenization for single-symbol tokens.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Removed redundant tokenization for single-symbol tokens.</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-01-17</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added application support for multiple files.
+
+- Previously &#x27;chasm assemble&#x27; took a single file, it now takes a list
+- &#x27;chasm assemble&#x27; now automatically invokes the linker on the given
+  files.
+- Added &#x27;--no-link` flag to opt out of linking. When provided,
+  &#x27;assemble&#x27; will write the modules to their respective binary files as
+  before.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added application support for multiple files.
+
+- Previously &#x27;chasm assemble&#x27; took a single file, it now takes a list
+- &#x27;chasm assemble&#x27; now automatically invokes the linker on the given
+  files.
+- Added &#x27;--no-link` flag to opt out of linking. When provided,
+  &#x27;assemble&#x27; will write the modules to their respective binary files as
+  before.</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-01-17</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Fixed bug where definition references were always 32-bit.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed bug where definition references were always 32-bit.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5242,48 +5298,6 @@ Added basic data types.</pre
 Messing with table&#x2F;grid setups.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Messing with table&#x2F;grid setups.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-09-11</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Updated TODO</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated TODO</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-09-11</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Updated types in extension and backend.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated types in extension and backend.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-09-11</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Added step_count test.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added step_count test.</span> -->
                     </div>
                     
                 </details>
