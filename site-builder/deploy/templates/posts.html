@@ -42,7 +42,7 @@
                         {% if post.created_at_year != cur_year %}
                             {% set_global cur_year = post.created_at_year %}
                             <div
-                                class="mt-4 tracking-[-0.03em] text-lg text-gray-800 leading-none font-semibold mb-2"
+                                class="mt-4 tracking-[-0.03em] text-gray-800 leading-none font-semibold mb-2"
                             >
                                 {{ cur_year }}
                             </div>
@@ -51,7 +51,7 @@
                         {% if post.created_at_month != cur_month %}
                             {% set_global cur_month = post.created_at_month %}
                             <div
-                                class="mt-4 tracking-[-0.03em] text-lg text-gray-800 leading-none font-semibold mb-4"
+                                class="mt-4 tracking-[-0.03em] text-sm text-gray-800 leading-none font-semibold mb-4"
                             >
                                 {{ cur_month }}
                             </div>
