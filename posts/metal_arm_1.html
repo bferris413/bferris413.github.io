@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Metal ARM x01 - Starting Chasm (Lab Notes)</h2>
+<aside>
+Metal ARM is a series of projects for learning native toolchain development and
+embedded programming "from scratch." For additional context, see
+<a href="https://bferris413.github.io/posts/metal_arm_intro.html">this introductory post</a>.
+<br>
+<br>
+This post is formatted as a set of lab/shop notes: rough around the edges, to the point, light on
+prose.
+</aside>
+<p>Project 1 consists of:</p>
+<ul>
+<li>Bootstrapping the <code>chasm</code> compiler driver</li>
+<li>Building enough of the assembler to compile an assembly version of <a href="https://bferris413.github.io/posts/metal_arm_0.html">Project 0</a></li>
+</ul>
+<h2>Work Completed</h2>
+<ul>
+<li>Created the <a href="https://github.com/bferris413/chasm-toolchain/tree/main/chasm"><code>chasm</code> binary application</a>
+<ul>
+<li>The <code>chasm</code> binary is intended to be the driver for all build/test actions, similar to
+<code>cargo</code> and (less so) <code>gcc</code></li>
+<li>Subcommands will enable access to different parts of the toolchain
+<ul>
+<li><code>build</code> and <code>test</code> for application-level projects</li>
+<li><code>assemble</code> and <code>link</code> for manual assembly/linking</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Converted Project 0's binary to assembly</li>
+<li>Implemented enough of <code>chasm assemble</code> to recreate Project 0's binary
+<ul>
+<li>chasm commit <a href="https://github.com/bferris413/chasm-toolchain/tree/faf4d33d0a956e5c23c8be5308ee47148de6ef0b/chasm"><code>faf4d33d0a956e5c23c8be5308ee47148de6ef0b</code></a></li>
+</ul>
+</li>
+<li>Flashed and tested on EK-TM4C123GXL</li>
+</ul>
+<p>The full assembly program is:</p>
+<pre><code class="language-chasm-assembly">; vector table
+x2000.8000         ; sp starting address
+x0000.0009         ; reset handler address | 1 (thumb mode)
+
+; Reset handler - Initializes and continuously increments R0
+MOVS R0 x01
+
+@loop
+    ADDS R0 x01
+    B @loop
+</code></pre>
+<h2>Next Steps</h2>
+<p>Well for one, it's unlikely that I'll write any more handcrafted binaries. It was a good exercise
+in Project 0 for getting a grip on encoding, but going forward I'll be adding whatever support is
+needed to <code>chasm assemble</code> and let the machine handle it.</p>
+<p>Implementation-wise, I'd like to interact more with the board itself, probably by cycling the RGB
+spectrum on the built-in LED.</p></div>
+    </body>
+</html>
