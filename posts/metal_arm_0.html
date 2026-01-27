@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Metal ARM x00 - Setup and Hello World</h2>
+<aside>
+Metal ARM is a series of projects for learning native toolchain development and
+embedded programming "from scratch." For additional context, see
+<a href="https://bferris413.github.io/posts/metal_arm_intro.html">this introductory post</a>.
+<br>
+<br>
+This post is formatted as a set of lab/shop notes: rough around the edges, to the point, light on
+prose.
+</aside>
+<p>The purpose of Project 0 is to get my own, handwritten machine code running on my
+practically unused <a href="https://www.ti.com/tool/EK-TM4C123GXL">EK-TM4C123GXL</a> board.</p>
+<h2>Goals</h2>
+<ul>
+<li>Flash a minimal, handcrafted, working binary to the board</li>
+<li>No HALs or external software will run on the board apart from what I write
+<ul>
+<li>I get to use GDB for debugging</li>
+<li>I get to use external software for flashing and whatever else is needed to get stuff <em>onto</em> the board</li>
+</ul>
+</li>
+<li>Maximize <strong>learning</strong></li>
+</ul>
+<h2>Work Completed</h2>
+<ul>
+<li>Added <a href="https://github.com/bferris413/chasm-toolchain/tree/main/hx">hx</a> utility for converting
+hex text -&gt; binary files, and vice versa
+<ul>
+<li><a href="https://linux.die.net/man/1/xxd">xxd</a> doesn't support comments, but I wanted to annotate
+whatever machine code I needed to write and didn't bother looking further</li>
+</ul>
+</li>
+<li>Created minimal vector table and reset handler</li>
+<li>Initialized stack pointer</li>
+<li>Loop and increment a register forever</li>
+<li>Flashed with openocd and telnet (I <em>think</em> this could have just used openocd)</li>
+<li>Single stepped and verified with gdb</li>
+</ul>
+<p>The final program is:</p>
+<pre><code class="language-hx">; Vector table should be at 0x0 on reset/power on
+
+; vector table ------------------------------------------
+; 0x00 - contains address of initial stack pointer: 0x2000.8000
+00 80 00 20
+
+; 0x04 - contains address of reset handler: 0x0000.0008 | 1 (thumb mode set)
+09 00 00 00
+; -------------------------------------------------------
+
+
+; Reset handler - Continuously increments R0 ------------------------------------------
+; 0x08 - MOV R0 0x01: 0b00100000.00000001 -&gt; 0x2001
+01 20 
+
+; loop while incrementing R0
+; 0x0A - ADD R0 0x01: 0b00110000.00000001 -&gt; 0x3001
+01 30
+
+; branch back to the add
+; 0x0C - B to 0x0A (-6 offset in bytes, -3 in halfwords): 0b11100111.11111101 -&gt; 0xE7FD
+FD E7
+; -------------------------------------------------------------------------------------
+</code></pre>
+<h2>Commands Used</h2>
+<ul>
+<li>Compile hx to binary: <code>hx program.hxs &gt; program.bin</code></li>
+<li>Start openocd: <code>openocd -f board/ti_ek-tm4c123gxl.cfg</code></li>
+<li>Flash binary:</li>
+</ul>
+<pre><code class="language-bash">&gt; telnet localhost 4444
+&gt; flash write_image erase ./program.bin 0x00000000 bin
+</code></pre>
+<ul>
+<li>Step and inspect with gdb:</li>
+</ul>
+<pre><code class="language-bash">&gt; arm-none-eabi-gdb
+(gdb) target extended-remote :3333
+Remote debugging using :3333
+# ...
+(gdb) monitor reset halt
+[tm4c123gh6pm.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x00000008 msp: 0x20008000
+(gdb) stepi
+halted: PC: 0x0000000a
+(gdb) info registers
+r0             0x1                 1
+r1             0x0                 0
+# ...
+pc             0xa                 0xa
+# ...
+
+(gdb) stepi
+halted: PC: 0x0000000c
+(gdb) info registers
+r0             0x2                 2
+r1             0x0                 0
+# ...
+pc             0xc                 0xc
+# ...
+</code></pre>
+<br>
+<ul>
+<li>We can see the register increment forever!</li>
+</ul>
+<h2>Next steps</h2>
+<ul>
+<li>Writing raw machine code is a fun exercise once...time for an assembler</li>
+</ul></div>
+    </body>
+</html>
