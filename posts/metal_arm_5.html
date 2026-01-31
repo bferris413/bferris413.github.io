@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Metal ARM x05 - Linker and Modules (Lab Notes)</h2>
+<aside>
+  Metal ARM is a series of projects for learning native toolchain development and
+  embedded programming "from scratch." For additional context, see
+  <a href="https://bferris413.github.io/posts/metal_arm_intro.html">this introductory post</a>.
+  <br>
+  <br>
+  This post is formatted as a set of lab/shop notes: rough around the edges, to the point, light on
+  prose.
+</aside>
+<p>Project 5 introduces a primitive module system and a linker to support it.</p>
+<h3>Work Completed</h3>
+<p>Checkpoint commit for this phase is <a href="https://github.com/bferris413/chasm-toolchain/tree/538eb031d77d44ed7fe6cc28f56c35aee624c410"><code>538eb031d77d44ed7fe6cc28f56c35aee624c410</code></a>.</p>
+<ul>
+<li>
+<p>Module imports:</p>
+<pre><code class="language-chasm-assembly">; main.cas
+; ...
+
+; make `other-module` public definitions and labels accessible
+import!(other-module)
+</code></pre>
+</li>
+<li>
+<p>Public definitions and labels:</p>
+<ul>
+<li>The syntax for definition references (those with <code>$</code>) is admittedly noisy. I'll probably revisit it.</li>
+</ul>
+<pre><code class="language-chasm-assembly">; module.cas
+define32-pub!(some-special-addr, xAABB.CCDD)
+define16-pub!(some-thing, xAABB)
+define8-pub!(some-byte, xAA)
+
+@pub my-public-label
+@pub my-other-label
+@my-private-label
+</code></pre>
+  <br>
+<pre><code class="language-chasm-assembly">; main.cas
+import!(module)
+
+; sizes for pseudo definitions are explicitly declared
+$32:module::some-special-addr
+$16:module::some-thing
+$8:module::some-byte
+
+; sizes for labels are pointer sized
+&amp;module::my-public-label
+&amp;module::my-other-label
+</code></pre>
+</li>
+<li>
+<p>A hybrid binary/human-readable format for compiled modules serialized to disk:</p>
+<ul>
+<li>I wanted something with a human-readable header that would enable me to debug without writing a custom <code>objdump</code>-like
+program right off the bat.</li>
+<li>I also didn't want to waste a <em>ton</em> of space making all compiled code human readable.</li>
+<li>Given the constraints, I ended up with a hybrid format containing three parts (for now):
+<ol>
+<li>
+<p>Binary prelude:</p>
+<pre><code class="language-chasm-module">CHASM MODULE\n
+version 1\n
+headerlen &lt;8 byte length&gt;\n\n
+</code></pre>
+</li>
+<li>
+<p>Text header, containing the serialized fields of an <a href="https://github.com/bferris413/chasm-toolchain/blob/538eb031d77d44ed7fe6cc28f56c35aee624c410/chasm/src/assemble/mod.rs#L451-L459"><code>AssemblyModule</code></a> (currently JSON until I have a good reason to switch.
+I tried TOML, not a fan of how it presents nested structures):</p>
+<pre><code class="language-json">{
+    &quot;modname&quot;: &quot;test-module&quot;,
+    &quot;imports&quot;: [
+        &quot;other-mod&quot;,
+        &quot;my-mod&quot;
+    ],
+    &quot;definitions&quot;: {
+        &quot;CONST&quot;: {
+            &quot;U16&quot;: 4660
+        }
+    },
+    &quot;pub_definitions&quot;: {
+        &quot;START&quot;: {
+            &quot;U32&quot;: 536870912
+        },
+        &quot;OTHER&quot;: {
+            &quot;U32&quot;: 74565
+        }
+    },
+    &quot;labels&quot;: {
+        &quot;PRIVATE&quot;: [
+            false,
+            70000
+        ],
+        &quot;PUBLIC&quot;: [
+            true,
+            0
+        ]
+    },
+    &quot;linker_patches&quot;: [
+        {
+            &quot;LabelNewOffset&quot;: {
+                &quot;patch_at&quot;: 100,
+                &quot;patch_size&quot;: &quot;U16&quot;,
+                &quot;unpatched_value&quot;: 50
+            }
+        },
+        {
+            &quot;ImportLabelRef&quot;: {
+                &quot;patch_at&quot;: 200,
+                &quot;patch_size&quot;: &quot;U32&quot;,
+                &quot;import_module&quot;: {
+                    &quot;module&quot;: &quot;my-mod&quot;,
+                    &quot;member&quot;: &quot;LABEL&quot;
+                }
+            }
+        }
+    ]
+}
+\n\n
+</code></pre>
+</li>
+<li>
+<p>The module's code as binary, followed by <code>\n\n</code>.</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>A linker, with compiler driver support for linking both at build time and as a standalone step:</p>
+<ul>
+<li>Having imports and cross-module references implies the existence of a tool to resolve them, so here we have it.</li>
+<li><code>chasm assemble</code> will link the provided assembly modules into a single binary by default.</li>
+<li>If <code>--no-link</code> is specified, the modules will be serialized and written to disk.</li>
+<li><code>chasm link</code> takes a list of paths pointing to serialized assembly modules and links them into a single binary.</li>
+</ul>
+</li>
+</ul>
+<h3>Next Steps</h3>
+<p>Adding the module system was a significant step for Chasm and I'm overall pretty happy with the
+result. I'm sure there are things that will need cleanup or refactoring, but for now it's working as
+intended. Now that we have it in place there's a couple directions to go:</p>
+<ul>
+<li>
+<p><strong>Venture back to the embedded side of things</strong> and integrate with more of the hardware. The
+TM4C123GXL kit I have has some pluggable modules, including a screen, that I may try to draw simple
+graphics on.</p>
+<ul>
+<li>A small embedded project would be a good opportunity to start writing a board-specific
+standard library, e.g. startup code, vtable setup, GPIO initialization, etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Build an editor.</strong> I <em>really</em> want the penultimate Chasm development experience to be tuned
+specifically to the language and toolchain. I've developed some language plugins for VSCode in the
+past and feel it's just too large of a dependency to take, let alone the design choices I'd be
+forced to make that wouldn't really reflect the spirit of this project.</p>
+</li>
+<li>
+<p><strong>Start the high-level Chasm language.</strong> Probably won't tackle this yet, but some ideas are
+cooking.</p>
+</li>
+</ul></div>
+    </body>
+</html>

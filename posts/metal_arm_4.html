@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Metal ARM x04 - Function Calls (Lab Notes)</h2>
+<aside>
+  Metal ARM is a series of projects for learning native toolchain development and
+  embedded programming "from scratch." For additional context, see
+  <a href="https://bferris413.github.io/posts/metal_arm_intro.html">this introductory post</a>.
+  <br>
+  <br>
+  This post is formatted as a set of lab/shop notes: rough around the edges, to the point, light on
+  prose.
+</aside>
+<p>Project 4 is a bit smaller in implementaion size due to amount of reading I needed to do. Nevertheless, it consists of:</p>
+<ul>
+<li>Adding instructions to support actual function calls,</li>
+<li>Reading (in-progress) the <a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst#preamble">ARM Procedure Call Standard</a>,</li>
+<li>Started using <a href="https://godbolt.org/">Compiler Explorer</a> for code generation comparison,</li>
+<li>Getting an emulator setup going via QEMU for toolchain-related tasks that aren't dependent on real hardware.</li>
+</ul>
+<h3>Work Completed</h3>
+<ul>
+<li>
+<p>Added support for BL/BX instructions to enable function calls
+and returns to/from a given function (which is just a label):</p>
+<pre><code class="language-chasm-assembly">BL &amp;function
+; [...]
+
+@function
+  ; [...]
+  BX LR
+</code></pre>
+</li>
+<li>
+<p>Added <code>PUSH {regs...}</code> and <code>POP {regs...}</code> for stack management,</p>
+</li>
+<li>
+<p>Added <code>define!(&lt;identifier&gt;, &lt;hex_literal&gt;)</code> pseudo-instruction for definitions
+visible during assembly (but the <code>define</code> itself doesn't appear in the binary):</p>
+<pre><code class="language-chasm-assembly">define!(some-value, x11)
+; [...]
+MOVS R0 $some-value
+</code></pre>
+</li>
+<li>
+<p>Added <code>mov!(&lt;register&gt;, &lt;hex_literal&gt;)</code> pseudo-instruction for a little boilerplate
+reduction when generating plain MOVs.</p>
+</li>
+</ul>
+<h3>Next Steps</h3>
+<p>I <em>think</em> this is enough foundation for creating a primitive-but-useful module system that
+isn't strictly &quot;text-replace&quot; based. That, combined with a small linker, will let me start
+writing actually reusable code. Onward!</p></div>
+    </body>
+</html>

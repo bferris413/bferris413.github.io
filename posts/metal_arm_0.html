@@ -44,7 +44,7 @@ prose.
 </aside>
 <p>The purpose of Project 0 is to get my own, handwritten machine code running on my
 practically unused <a href="https://www.ti.com/tool/EK-TM4C123GXL">EK-TM4C123GXL</a> board.</p>
-<h2>Goals</h2>
+<h3>Goals</h3>
 <ul>
 <li>Flash a minimal, handcrafted, working binary to the board</li>
 <li>No HALs or external software will run on the board apart from what I write
@@ -55,7 +55,7 @@ practically unused <a href="https://www.ti.com/tool/EK-TM4C123GXL">EK-TM4C123GXL
 </li>
 <li>Maximize <strong>learning</strong></li>
 </ul>
-<h2>Work Completed</h2>
+<h3>Work Completed</h3>
 <ul>
 <li>Added <a href="https://github.com/bferris413/chasm-toolchain/tree/main/hx">hx</a> utility for converting
 hex text -&gt; binary files, and vice versa
@@ -95,7 +95,7 @@ whatever machine code I needed to write and didn't bother looking further</li>
 FD E7
 ; -------------------------------------------------------------------------------------
 </code></pre>
-<h2>Commands Used</h2>
+<h3>Commands Used</h3>
 <ul>
 <li>Compile hx to binary: <code>hx program.hxs &gt; program.bin</code></li>
 <li>Start openocd: <code>openocd -f board/ti_ek-tm4c123gxl.cfg</code></li>
@@ -136,7 +136,7 @@ pc             0xc                 0xc
 <ul>
 <li>We can see the register increment forever!</li>
 </ul>
-<h2>Next steps</h2>
+<h3>Next steps</h3>
 <ul>
 <li>Writing raw machine code is a fun exercise once...time for an assembler</li>
 </ul></div>

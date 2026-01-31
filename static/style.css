@@ -1191,6 +1191,10 @@ video {
   margin-bottom: 0;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -1650,7 +1654,6 @@ h2 {
 
 .post-content aside {
   margin-bottom: 1rem;
-  border-radius: 0.125rem;
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
@@ -1661,6 +1664,7 @@ h2 {
   line-height: 1.25rem;
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+  border-radius: 5px;
 }
 
 .after\:content-\[\'\2197\'\]::after {

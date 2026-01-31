@@ -46,7 +46,7 @@
 <ul>
 <li>Responding to button presses, where each press toggles the red LED.</li>
 </ul>
-<h2>Work Completed</h2>
+<h3>Work Completed</h3>
 <ul>
 <li>Updated syntax to use register dereferences like <code>LDR R1 [R0]</code> (added <code>[]</code>)</li>
 <li>Added support for label references like <code>&amp;label</code>, which evaluates to the address of <code>@label</code></li>
@@ -214,7 +214,7 @@ pad-with-to!(x00, x0000.026C)   ; pad out the rest of the vtable
     BX LR    
 
 </code></pre>
-<h2>Next Steps</h2>
+<h3>Next Steps</h3>
 <p>I mentioned in <a href="https://bferris413.github.io/posts/metal_arm_2.html">Project 2</a> that repeating the
 same setup code is kind of onerous, and I felt the same in this project. In the next project I'd
 like to add chasm support for function calls and some kind of <code>include</code> statement. This implies
