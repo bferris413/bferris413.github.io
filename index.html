@@ -60,7 +60,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 7, 1 10, 2 6, 3 6, 4 8, 5 4, 6 8, 7 11, 8 8, 9 5, 10 8, 11 2, 12 0, 13 6, 14 1, 15 0, 16 3, 17 8, 18 5, 19 3, 20 6, 21 5, 22 2, 23 0, 24 7, 25 4, 26 0, 27 13, 28 0, 29 0, 30 9, 31 9, 32 5, 33 7, 34 3, 35 2, 36 0, 37 6, 38 5, 39 2, 40 5, 41 7, 42 0, 43 1, 44 0, 45 4, 46 1, 47 0, 48 0, 49 1, 50 1, 51 7, 52 4, 53 8, 54 6, 55 2, 56 0, 57 1, 58 8, 59 3, 60 0, 61 6, 62 5, 63 3, 64 6, 65 3, 66 6, 67 4, 68 4, 69 0, 70 2, 71 7, 72 1,"
+                            points=" 0 6, 1 10, 2 6, 3 6, 4 8, 5 4, 6 8, 7 11, 8 8, 9 5, 10 8, 11 2, 12 0, 13 6, 14 1, 15 0, 16 3, 17 8, 18 5, 19 3, 20 6, 21 5, 22 2, 23 0, 24 7, 25 4, 26 0, 27 13, 28 0, 29 0, 30 9, 31 9, 32 5, 33 7, 34 3, 35 2, 36 0, 37 6, 38 5, 39 2, 40 5, 41 7, 42 0, 43 1, 44 0, 45 4, 46 1, 47 0, 48 0, 49 1, 50 1, 51 7, 52 4, 53 8, 54 6, 55 2, 56 0, 57 1, 58 8, 59 3, 60 0, 61 6, 62 5, 63 3, 64 6, 65 3, 66 6, 67 4, 68 4, 69 0, 70 2, 71 7, 72 2,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,46 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-02-22</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added cursor x position memory.
+
+Explicit horizontal movements store their final x position. When
+making vertical movements, the cursor attempts to honor this stored
+x position while clamping to the line length. The stored x position
+is updated when another horizontal movement is made.
+
+If this is confusing, open a text editor (I used Vim as a reference for
+the observed behavior), move the cursor to the end of the line, then
+navigate up&#x2F;down. If the moved-to line is longer than the moved-from
+one, the cursor will be at the same x position. If it&#x27;s longer, it
+will be clamped to the moved-to line&#x27;s length. This will apply no matter
+how many times you move up&#x2F;down. Moving horizontally will reset the
+&quot;stored&quot; position.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added cursor x position memory.
+
+Explicit horizontal movements store their final x position. When
+making vertical movements, the cursor attempts to honor this stored
+x position while clamping to the line length. The stored x position
+is updated when another horizontal movement is made.
+
+If this is confusing, open a text editor (I used Vim as a reference for
+the observed behavior), move the cursor to the end of the line, then
+navigate up&#x2F;down. If the moved-to line is longer than the moved-from
+one, the cursor will be at the same x position. If it&#x27;s longer, it
+will be clamped to the moved-to line&#x27;s length. This will apply no matter
+how many times you move up&#x2F;down. Moving horizontally will reset the
+&quot;stored&quot; position.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5378,28 +5418,6 @@ Added local deployment script.</pre
 Changed template&#x2F;out paths to args.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Changed template&#x2F;out paths to args.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-10-09</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Incrementally updating stuff.
-
-* Added tailwind. Seems to smooth over some CSS issues but Im not sure how much itll get me.
-* Limited vec size. This doesn&#x27;t affect how much is fetched yet but Ill change it later.
-* Still need the cron setup w&#x2F; commit-if-changed.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Incrementally updating stuff.
-
-* Added tailwind. Seems to smooth over some CSS issues but Im not sure how much itll get me.
-* Limited vec size. This doesn&#x27;t affect how much is fetched yet but Ill change it later.
-* Still need the cron setup w&#x2F; commit-if-changed.</span> -->
                     </div>
                     
                 </details>
