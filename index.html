@@ -56,15 +56,15 @@
                         height="50px"
                         class="stroke-[.5]"
                         version="1.1"
-                        viewBox="0 0 72 15"
+                        viewBox="0 0 72 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 5, 1 6, 2 6, 3 8, 4 4, 5 8, 6 11, 7 8, 8 5, 9 8, 10 2, 11 0, 12 6, 13 1, 14 0, 15 3, 16 8, 17 5, 18 3, 19 6, 20 5, 21 2, 22 0, 23 7, 24 4, 25 0, 26 13, 27 0, 28 0, 29 9, 30 9, 31 5, 32 7, 33 3, 34 2, 35 0, 36 6, 37 5, 38 2, 39 5, 40 7, 41 0, 42 1, 43 0, 44 4, 45 1, 46 0, 47 0, 48 1, 49 1, 50 7, 51 4, 52 8, 53 6, 54 2, 55 0, 56 1, 57 8, 58 3, 59 0, 60 6, 61 5, 62 3, 63 6, 64 3, 65 6, 66 4, 67 4, 68 0, 69 2, 70 7, 71 13,"
+                            points=" 0 1, 1 6, 2 6, 3 8, 4 4, 5 8, 6 11, 7 8, 8 5, 9 8, 10 2, 11 0, 12 6, 13 1, 14 0, 15 3, 16 8, 17 5, 18 3, 19 6, 20 5, 21 2, 22 0, 23 7, 24 4, 25 0, 26 13, 27 0, 28 0, 29 9, 30 9, 31 5, 32 7, 33 3, 34 2, 35 0, 36 6, 37 5, 38 2, 39 5, 40 7, 41 0, 42 1, 43 0, 44 4, 45 1, 46 0, 47 0, 48 1, 49 1, 50 7, 51 4, 52 8, 53 6, 54 2, 55 0, 56 1, 57 8, 58 3, 59 0, 60 6, 61 5, 62 3, 63 6, 64 3, 65 6, 66 4, 67 4, 68 0, 69 2, 70 7, 71 17,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
-                            transform="scale(1, -1) translate(0, -14)"
+                            transform="scale(1, -1) translate(0, -18)"
                         />
                     </svg>
                 </div>
@@ -73,6 +73,76 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-02-28</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added normal &#x27;A&#x27;
+
+The last few navigation command I&#x27;ll implement are word-movements (w, e,
+b, etc.). Once those are done, _hopefully_ the last absolutely required
+bit is the undo and redo stacks, which at a mental glance doesn&#x27;t seem
+trivial.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added normal &#x27;A&#x27;
+
+The last few navigation command I&#x27;ll implement are word-movements (w, e,
+b, etc.). Once those are done, _hopefully_ the last absolutely required
+bit is the undo and redo stacks, which at a mental glance doesn&#x27;t seem
+trivial.</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-02-28</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added &#x27;o&#x27; and &#x27;O&#x27; in visual mode.
+
+This swaps the cursor position to the other end of the selection.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added &#x27;o&#x27; and &#x27;O&#x27; in visual mode.
+
+This swaps the cursor position to the other end of the selection.</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-02-28</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added visual &#x27;s&#x27;.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added visual &#x27;s&#x27;.</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-02-28</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added &#x27;x&#x27; for visual mode</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added &#x27;x&#x27; for visual mode</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5434,70 +5504,6 @@ Going with ratatui for UI =).</pre
 Fixed repo fetch even when --no-fetch was specified.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed repo fetch even when --no-fetch was specified.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-10-19</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Housekeeping and minor format change:
-
-* Removed parent out&#x2F; directory since publish model changed.
-* Add newline consideration in comment messages.
-* Commented out nav until there&#x27;s more to populate.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Housekeeping and minor format change:
-
-* Removed parent out&#x2F; directory since publish model changed.
-* Add newline consideration in comment messages.
-* Commented out nav until there&#x27;s more to populate.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-10-18</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Updating template still.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updating template still.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-10-17</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Updated main template.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated main template.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-10-16</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Template update.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Template update.</span> -->
                     </div>
                     
                 </details>
