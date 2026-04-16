@@ -56,11 +56,11 @@
                         height="50px"
                         class="stroke-[.5]"
                         version="1.1"
-                        viewBox="0 0 76 19"
+                        viewBox="0 0 75 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 1, 1 4, 2 8, 3 11, 4 8, 5 5, 6 8, 7 2, 8 0, 9 6, 10 1, 11 0, 12 3, 13 8, 14 5, 15 3, 16 6, 17 5, 18 2, 19 0, 20 7, 21 4, 22 0, 23 13, 24 0, 25 0, 26 9, 27 9, 28 5, 29 7, 30 3, 31 2, 32 0, 33 6, 34 5, 35 2, 36 5, 37 7, 38 0, 39 1, 40 0, 41 4, 42 1, 43 0, 44 0, 45 1, 46 1, 47 7, 48 4, 49 8, 50 6, 51 2, 52 0, 53 1, 54 8, 55 3, 56 0, 57 6, 58 5, 59 3, 60 6, 61 3, 62 6, 63 4, 64 4, 65 0, 66 2, 67 7, 68 17, 69 2, 70 2, 71 2, 72 1, 73 4, 74 3, 75 6,"
+                            points=" 0 4, 1 8, 2 11, 3 8, 4 5, 5 8, 6 2, 7 0, 8 6, 9 1, 10 0, 11 3, 12 8, 13 5, 14 3, 15 6, 16 5, 17 2, 18 0, 19 7, 20 4, 21 0, 22 13, 23 0, 24 0, 25 9, 26 9, 27 5, 28 7, 29 3, 30 2, 31 0, 32 6, 33 5, 34 2, 35 5, 36 7, 37 0, 38 1, 39 0, 40 4, 41 1, 42 0, 43 0, 44 1, 45 1, 46 7, 47 4, 48 8, 49 6, 50 2, 51 0, 52 1, 53 8, 54 3, 55 0, 56 6, 57 5, 58 3, 59 6, 60 3, 61 6, 62 4, 63 4, 64 0, 65 2, 66 7, 67 17, 68 2, 69 2, 70 2, 71 1, 72 4, 73 3, 74 7,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,40 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-04-16</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Support opening arbitrary files.
+
+The editor previously only supported opening a &quot;project,&quot;
+i.e. a directory consisting of a chasm.toml file and a src&#x2F;
+directory. The end goal was (and still is) to abstract the idea
+of a &quot;file&quot; away from the IDE&#x2F;editor and just deal with modules.
+
+While I&#x27;m working on this, though, I want to open normal files
+and test the editor with them. I&#x27;ll probably daily-drive this
+while working the kinks out, and since the full module system
+isn&#x27;t fleshed out, I need to settle for what currently exists.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Support opening arbitrary files.
+
+The editor previously only supported opening a &quot;project,&quot;
+i.e. a directory consisting of a chasm.toml file and a src&#x2F;
+directory. The end goal was (and still is) to abstract the idea
+of a &quot;file&quot; away from the IDE&#x2F;editor and just deal with modules.
+
+While I&#x27;m working on this, though, I want to open normal files
+and test the editor with them. I&#x27;ll probably daily-drive this
+while working the kinks out, and since the full module system
+isn&#x27;t fleshed out, I need to settle for what currently exists.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5546,24 +5580,6 @@ Added webiew support in vscode and ported trace view over (non-interactive still
 Fixed comment and updated formatting.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed comment and updated formatting.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-11-09</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Hover works as expected for all related expressions in trace UI.
-
-TODO: plug in to LSP update cycle</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Hover works as expected for all related expressions in trace UI.
-
-TODO: plug in to LSP update cycle</span> -->
                     </div>
                     
                 </details>
