@@ -56,11 +56,11 @@
                         height="50px"
                         class="stroke-[.5]"
                         version="1.1"
-                        viewBox="0 0 75 19"
+                        viewBox="0 0 76 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 4, 1 8, 2 11, 3 8, 4 5, 5 8, 6 2, 7 0, 8 6, 9 1, 10 0, 11 3, 12 8, 13 5, 14 3, 15 6, 16 5, 17 2, 18 0, 19 7, 20 4, 21 0, 22 13, 23 0, 24 0, 25 9, 26 9, 27 5, 28 7, 29 3, 30 2, 31 0, 32 6, 33 5, 34 2, 35 5, 36 7, 37 0, 38 1, 39 0, 40 4, 41 1, 42 0, 43 0, 44 1, 45 1, 46 7, 47 4, 48 8, 49 6, 50 2, 51 0, 52 1, 53 8, 54 3, 55 0, 56 6, 57 5, 58 3, 59 6, 60 3, 61 6, 62 4, 63 4, 64 0, 65 2, 66 7, 67 17, 68 2, 69 2, 70 2, 71 1, 72 4, 73 3, 74 7,"
+                            points=" 0 3, 1 8, 2 11, 3 8, 4 5, 5 8, 6 2, 7 0, 8 6, 9 1, 10 0, 11 3, 12 8, 13 5, 14 3, 15 6, 16 5, 17 2, 18 0, 19 7, 20 4, 21 0, 22 13, 23 0, 24 0, 25 9, 26 9, 27 5, 28 7, 29 3, 30 2, 31 0, 32 6, 33 5, 34 2, 35 5, 36 7, 37 0, 38 1, 39 0, 40 4, 41 1, 42 0, 43 0, 44 1, 45 1, 46 7, 47 4, 48 8, 49 6, 50 2, 51 0, 52 1, 53 8, 54 3, 55 0, 56 6, 57 5, 58 3, 59 6, 60 3, 61 6, 62 4, 63 4, 64 0, 65 2, 66 7, 67 17, 68 2, 69 2, 70 2, 71 1, 72 4, 73 3, 74 7, 75 1,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,34 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-04-19</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Updated signatures to prep for logging.
+
+Couple things need to happen to support logging:
+1. We need a way for widgets to communicate with an event consumer.
+2. Prior to this commit it was done using return types, but this forces widgets
+   to pass results back up the callstack, limiting the ability to &quot;queue&quot; multiple
+   events.
+4. So we switch to a queue handle that&#x27;s passed down instead.</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated signatures to prep for logging.
+
+Couple things need to happen to support logging:
+1. We need a way for widgets to communicate with an event consumer.
+2. Prior to this commit it was done using return types, but this forces widgets
+   to pass results back up the callstack, limiting the ability to &quot;queue&quot; multiple
+   events.
+4. So we switch to a queue handle that&#x27;s passed down instead.</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5566,20 +5594,6 @@ Bugfix: only set editor decorations if the current editor language is cottage.</
 Added webiew support in vscode and ported trace view over (non-interactive still)</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added webiew support in vscode and ported trace view over (non-interactive still)</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-11-11</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Fixed comment and updated formatting.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed comment and updated formatting.</span> -->
                     </div>
                     
                 </details>
