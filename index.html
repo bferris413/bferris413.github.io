@@ -60,7 +60,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 2, 1 8, 2 11, 3 8, 4 5, 5 8, 6 2, 7 0, 8 6, 9 1, 10 0, 11 3, 12 8, 13 5, 14 3, 15 6, 16 5, 17 2, 18 0, 19 7, 20 4, 21 0, 22 13, 23 0, 24 0, 25 9, 26 9, 27 5, 28 7, 29 3, 30 2, 31 0, 32 6, 33 5, 34 2, 35 5, 36 7, 37 0, 38 1, 39 0, 40 4, 41 1, 42 0, 43 0, 44 1, 45 1, 46 7, 47 4, 48 8, 49 6, 50 2, 51 0, 52 1, 53 8, 54 3, 55 0, 56 6, 57 5, 58 3, 59 6, 60 3, 61 6, 62 4, 63 4, 64 0, 65 2, 66 7, 67 17, 68 2, 69 2, 70 2, 71 1, 72 4, 73 3, 74 7, 75 2,"
+                            points=" 0 1, 1 8, 2 11, 3 8, 4 5, 5 8, 6 2, 7 0, 8 6, 9 1, 10 0, 11 3, 12 8, 13 5, 14 3, 15 6, 16 5, 17 2, 18 0, 19 7, 20 4, 21 0, 22 13, 23 0, 24 0, 25 9, 26 9, 27 5, 28 7, 29 3, 30 2, 31 0, 32 6, 33 5, 34 2, 35 5, 36 7, 37 0, 38 1, 39 0, 40 4, 41 1, 42 0, 43 0, 44 1, 45 1, 46 7, 47 4, 48 8, 49 6, 50 2, 51 0, 52 1, 53 8, 54 3, 55 0, 56 6, 57 5, 58 3, 59 6, 60 3, 61 6, 62 4, 63 4, 64 0, 65 2, 66 7, 67 17, 68 2, 69 2, 70 2, 71 1, 72 4, 73 3, 74 7, 75 3,"
                             stroke="black"
                             stroke-linejoin="miter"
                             fill="transparent"
@@ -73,6 +73,30 @@
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >chasm-toolchain</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-04-20</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Added remaining bits for logging structure.
+
+- eprintln! stuff was converted to logging
+- added chrono for UTC timestamps
+- Unixy setups log to `XDG_STATE_HOME&#x2F;chasm&#x2F;chasm-code.log` and
+  Windows setups go to `%LOCALAPPDATA%&#x2F;Chasm&#x2F;logs&#x2F;chasm-code.log`</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added remaining bits for logging structure.
+
+- eprintln! stuff was converted to logging
+- added chrono for UTC timestamps
+- Unixy setups log to `XDG_STATE_HOME&#x2F;chasm&#x2F;chasm-code.log` and
+  Windows setups go to `%LOCALAPPDATA%&#x2F;Chasm&#x2F;logs&#x2F;chasm-code.log`</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5580,20 +5604,6 @@ Added default message if trace wasn&#x27;t loaded.</pre
 Trace view now updates on script changes.</pre
                         >
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Trace view now updates on script changes.</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >cottage</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-11-12</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Bugfix: only set editor decorations if the current editor language is cottage.</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Bugfix: only set editor decorations if the current editor language is cottage.</span> -->
                     </div>
                     
                 </details>
