@@ -195,9 +195,9 @@ fn get_latency(ServerAddr) -&gt; Latency {
 }
 
 fn do_stuff(ClientAddr, ServerAddr) -&gt; Stats {
-    // call do_more, then call do_even_more, then collect into Stats and return
+    // call get_connection_count, then call get_latency, then collect into Stats and return
 
-    do_more | do_even_more |= Stats
+    get_connection_count | get_latency |= Stats
 }
 </code></pre>
 <br>
