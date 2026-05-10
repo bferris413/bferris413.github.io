@@ -1323,6 +1323,12 @@ video {
   overflow-x: auto;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-pre-line {
   white-space: pre-line;
 }
@@ -1661,14 +1667,14 @@ h2 {
   margin-bottom: 1rem;
   border-width: 1px;
   --tw-border-opacity: 1;
-  border-color: rgb(75 85 99 / var(--tw-border-opacity));
+  border-color: rgb(37 99 235 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
   padding: 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
+  color: rgb(17 24 39 / var(--tw-text-opacity));
   border-radius: 5px;
 }
 

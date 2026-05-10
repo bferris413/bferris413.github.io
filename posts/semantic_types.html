@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interactive Digital</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    </head>
+
+    <body class="px-2">
+        <div class="py-4">
+            <div class="flex flex-row items-baseline pb-2">
+                <a href="/">
+                    <div
+                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
+                    >
+                        Interactive Digital
+                    </div>
+                </a>
+                <nav>
+                    <a
+                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
+                        href="/posts/posts.html"
+                    >
+                        <span class="text-sm text-gray-600 font-semibold"
+                            >Posts</span
+                        >
+                    </a>
+                </nav>
+            </div>
+            <hr class="md:hidden" />
+        </div>
+        <div class="post-content max-w-prose px-2"><h2>Adding Semantic Context to Types</h2>
+<aside>
+    This post explores some ideas around types containing semantic context. It's a thought
+    exercise more than an endorsement of a certain programming style. The code examples use
+    Rust syntax, but the ideas themselves aren't specific to Rust.
+</aside>
+<p>Suppose we're writing some networking code and we need to represent an IPv4 address. Which of the
+following data representations would you generally tend towards?</p>
+<pre><code class="language-rust">// 1 - Primitive types, like a fixed-size array or tuple of u8
+let ipv4_addr = [127, 0, 0, 1]; // or (127, 0, 0, 1);
+
+// 2 - The newtype pattern (or something like it) to hide the primitive
+struct Ipv4Addr([u8; 4]); // or (u8, u8, u8, u8)
+
+// 3 - Using a struct with primitive fields
+struct Ipv4Addr { octets: [u8; 4] }
+
+// 4 - Using a struct with user-defined fields
+struct Octets([u8; 4]) // or (u8, u8, u8, u8)
+struct Ipv4Addr { octets: Octets }
+
+// 5 - Using a struct with explicit fields for each octet
+struct Ipv4Addr { o1: u8, o2: u8, o3: u8, o4: u8 }
+</code></pre>
+<br>
+<p>The answer largely depends on programming pedigree, right? Dynamic-typing enthusiasts probably
+tend towards something like options 1 or 5, while the statically-typed folks might lean into option
+4 or beyond. (I'm using broad strokes here to make a point, of course there's nuance.)</p>
+<h3>What's the Difference?</h3>
+<p>The first choice (option 1) uses the type to determine structure only. Semantic information is
+pushed completely into the surrounding context, along with the notion of what you &quot;should&quot; and
+&quot;should not&quot; do with the data.</p>
+<p>The alternative is to put more or less amounts of semantic context into the type itself. Instead of
+exposing primitive data structure(s), it gets wrapped with a name bolted onto it. Everywhere the data
+goes, the name goes with it.</p>
+<p>Context isn't <em>just</em> a name, though. Most languages let you affix algorithms (&quot;methods&quot;) directly
+onto a type, indicating the range of operations intended to be performed on that type. This cuts
+both ways: styles that tend to push context out of the type and into e.g. variable names also lose
+the ability to be explicit about what a &quot;valid&quot; operation is, at least up to a certain point.
+Consider the following:</p>
+<pre><code class="language-rust">fn do_stuff(user_id: String) {
+    // ...
+}
+</code></pre>
+<br>
+<p>Even with a typed function signature, we still can't really tell what a user ID is here. Is it a
+UUID? If so, <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions">what version</a>?
+Is it formatted (with &quot;-&quot;) or not? If not a UUID, how many characters should it have? Is it hex, or
+ascii, or is it empty for some reason?</p>
+<p>And apart from structure, what should we be able to do with this thing? Here's the <a href="https://doc.rust-lang.org/std/string/struct.String.html">list of methods</a> for Rust's <code>String</code> type,
+are they relevant for a user ID? Should I be able to <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.truncate">truncate it</a>,
+or <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.pop">pop the last <code>char</code></a>?</p>
+<p>We might be able to tell in a local context, but when something like this drifts across modules in
+a 100k+ line codebase we're inevitably going to start hurting. <em>Hopefully</em> it's not something that
+gets mutated along the way and undergoes some internal state transitions...</p>
+<h3>When to Stop</h3>
+<p>But we know this. Type systems have more or less won,
+<a href="https://docs.python.org/3/library/typing.html">at</a>
+<a href="https://mypy.readthedocs.io/en/stable/getting_started.html">least</a>
+<a href="https://www.typescriptlang.org/">to</a> <a href="https://sorbet.org/">some</a>
+<a href="https://clojure.org/guides/spec">extent</a> in team-based programming.  If that's the case, and moving
+some semantic context into types is the right answer, how much is too much?</p>
+<p>To be frank, I'm not exactly sure, but I'm also pretty sold on the idea of using a type's intended
+public interface as the guiding principle here. Just because your type is backed by a four-byte
+array doesn't mean it should be <em>exposed</em> as a four-byte array. A decent defensive stance is to assume
+that anything public will be used, and so only make public what you intend to be used.</p>
+<h3>Off the Deep End</h3>
+<p>We could stop here. We probably <em>should</em> stop here. We won't stop here.</p>
+<aside>
+    Practical advice ended at the previous section. The remaining stuff is...different.
+</aside>
+<p>Suppose we're determined to push all context into the type system and we're not satisfied until:</p>
+<ol>
+<li>All types passed around in our application are user defined (by us, not externally),</li>
+<li>When we talk to external code, we wrap and unwrap our types accordingly,</li>
+<li>We only use a type if its API matches our immediate need. If the structure matches but the API
+doesn't, we have to [un]wrap it (even if it's our own type).</li>
+</ol>
+<p>For example:</p>
+<pre><code class="language-rust">// some_external_crate.rs
+fn do_more_stuff() -&gt; Ipv4Addr {
+    // ...
+}
+
+// our_code.rs
+let client_addr = do_more_stuff(); // wrong
+let client_addr = ClientAddr::from(do_more_stuff()); // right, kind of
+</code></pre>
+<br>
+<p>Ok, now what? This follows our rules, but we have that pesky variable name. If we're pushing context
+into the type, the name is redundant. Can we get rid of it? Well, it depends what we want to do. If
+we're sticking with Rust (or something like it) then our options are limited. Interesting things can
+happen if we commit ourselves to using <code>From</code>/<code>Into</code> for transformations between types (IMO an overlooked
+near-killer feature of Rust), but that's maybe a topic for another time.</p>
+<p>Instead, let's look at some prior art: <a href="https://en.wikipedia.org/wiki/Forth_(programming_language)">Forth</a>.
+In Forth, variables are more the exception than the rule. Instead of explicit assignment, data gets pushed
+to and pulled from an implicit stack, like so:</p>
+<pre><code class="language-forth">\ Push two numbers onto the stack
+2 3
+
+\ Add them together
++
+
+\ Print the result (5)
+.
+</code></pre>
+<br>
+<p>The stack exists across functions, so there's no explicit parameter passing:</p>
+<pre><code class="language-forth">\ Define a &quot;square&quot; function
+: square
+    dup
+    *
+;
+
+\ Push 5 onto the stack, call square, then pop and print the result
+5 square .
+</code></pre>
+<br>
+<p>One downside surfaces when you need to use items on the stack but in a different order than they've
+been pushed. This unfortunately is a possibility <em>whenever you modify code that changes the stack</em>.
+This doesn't happen in e.g. Rust (or most other languages) because you refer to
+variables by name, like a map.  In Forth, you'd have the manually reorder the element's stack
+position to get it where you want.  There are functions for e.g. swapping the top two elements,
+duplicating elements, swapping an element at position <code>n</code> with the top, etc.</p>
+<p>Experienced Forth programmers work to optimize the flow of functions so the inputs and outputs flow
+together nicely, but the issue is never completely obviated.  Regardless, the interesting bit here
+is that a dominating feature of Forth is the implicit stack and the general elimination of explicit
+variables (although they are still supported when required).</p>
+<h4>Combining Approaches</h4>
+<p>Can we take inspiration from Forth's stack approach to remove our own variables? What would that even
+look like?</p>
+<p>If you haven't guessed already, I'm not a fan of the stack manipulation stuff, so that would have to
+be resolved if possible. In lieu of a stack, I propose using an implicit key-value structure, much
+like existing contexts in a mainstream language.  The only differences are that, when a function
+returns, its return values are implicitly added to the caller's context instead of being explicitly
+assigned to a variable, and when a function is called, the arguments are implicitly pulled from the
+caller's context and passed to the callee.</p>
+<p>How does this work? Well, we made a bunch of ho-hum earlier about pushing as much semantic context into
+the type as possible, and this is where it comes into play. Since types now contain the information that
+would normally be carried in a variable name, we can just pass around data by referring to its type (and
+implicitly so at that, a la Forth).</p>
+<p>In a model like that, the following pseudo-code kind-of makes sense:</p>
+<aside>
+    This isn't fully baked, just off-the-cuff thought-stuff.
+</aside>
+<pre><code class="language-pseudo">/// Some connection statistics
+struct Stats {
+    Latency,
+    ConnectionCount
+}
+
+fn get_connection_count(ClientAddr) -&gt; ConnectionCount {
+    // ...
+}
+
+fn get_latency(ServerAddr) -&gt; Latency {
+    // ...
+}
+
+fn do_stuff(ClientAddr, ServerAddr) -&gt; Stats {
+    // call do_more, then call do_even_more, then collect into Stats and return
+
+    do_more | do_even_more |= Stats
+}
+</code></pre>
+<br>
+<p>If you squint and allow some looseness for the sake of ideation then this potentially makes sense.
+Variable names are gone without losing contextual information, and you get flow-like algorithms without
+a bunch of stack manipulation stuff to deal with the ordering issue.</p>
+<h4>Final Remarks</h4>
+<p>There's still some obvious things to work out, though. For one, we're assuming this hypothetical language
+makes creating types easy, and has facilities for both allowing and restricting piecemeal access to
+an underlying type if needed. For example, consider the case where a helper function is reused twice
+in the same context. Its return type can't change, and the caller can't store two of the same types
+in its context, so we'd need a way to wrap the type while still allowing normal API access to it. We'd
+also need to &quot;unwrap&quot; our outer layer when passing it to a function that expects the underlying type.</p>
+<p>At any rate, it's at least been a fun thought exercise. I might explore this more concretely, but if you're
+interested in this sort of thing feel free to reach out on GitHub. Thanks for reading!</p></div>
+    </body>
+</html>
