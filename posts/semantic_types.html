@@ -57,9 +57,10 @@ struct Ipv4Addr { octets: Octets }
 struct Ipv4Addr { o1: u8, o2: u8, o3: u8, o4: u8 }
 </code></pre>
 <br>
-<p>The answer largely depends on programming pedigree, right? Dynamic-typing enthusiasts probably
-tend towards something like options 1 or 5, while the statically-typed folks might lean into option
-4 or beyond. (I'm using broad strokes here to make a point, of course there's nuance.)</p>
+<p>The answer largely depends on programming pedigree, right? Developers who prefer lightweight
+structural modeling might gravitate toward options 1 or 5, while developers who prefer stronger
+semantics may lean toward option 4 or beyond. (I'm using broad strokes here to make a point,
+of course there's nuance.)</p>
 <h3>What's the Difference?</h3>
 <p>The first choice (option 1) uses the type to determine structure only. Semantic information is
 pushed completely into the surrounding context, along with the notion of what you &quot;should&quot; and
@@ -69,8 +70,8 @@ exposing primitive data structure(s), it gets wrapped with a name bolted onto it
 goes, the name goes with it.</p>
 <p>Context isn't <em>just</em> a name, though. Most languages let you affix algorithms (&quot;methods&quot;) directly
 onto a type, indicating the range of operations intended to be performed on that type. This cuts
-both ways: styles that tend to push context out of the type and into e.g. variable names also lose
-the ability to be explicit about what a &quot;valid&quot; operation is, at least up to a certain point.
+both ways: styles that tend to push context out of the type and into e.g. variable names also weaken
+(or lose outright) the ability to be explicit about what a &quot;valid&quot; operation is.
 Consider the following:</p>
 <pre><code class="language-rust">fn do_stuff(user_id: String) {
     // ...
@@ -80,9 +81,11 @@ Consider the following:</p>
 <p>Even with a typed function signature, we still can't really tell what a user ID is here. Is it a
 UUID? If so, <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions">what version</a>?
 Is it formatted (with &quot;-&quot;) or not? If not a UUID, how many characters should it have? Is it hex, or
-ascii, or is it empty for some reason?</p>
-<p>And apart from structure, what should we be able to do with this thing? Here's the <a href="https://doc.rust-lang.org/std/string/struct.String.html">list of methods</a> for Rust's <code>String</code> type,
-are they relevant for a user ID? Should I be able to <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.truncate">truncate it</a>,
+ASCII, or is it empty for some reason?</p>
+<p>And apart from structure, what should we be able to do with this thing? Here's the
+<a href="https://doc.rust-lang.org/std/string/struct.String.html">list of methods</a> for Rust's <code>String</code> type,
+are they relevant for a user ID? Should I be able to
+<a href="https://doc.rust-lang.org/std/string/struct.String.html#method.truncate">truncate it</a>,
 or <a href="https://doc.rust-lang.org/std/string/struct.String.html#method.pop">pop the last <code>char</code></a>?</p>
 <p>We might be able to tell in a local context, but when something like this drifts across modules in
 a 100k+ line codebase we're inevitably going to start hurting. <em>Hopefully</em> it's not something that
@@ -153,7 +156,7 @@ to and pulled from an implicit stack, like so:</p>
 <p>One downside surfaces when you need to use items on the stack but in a different order than they've
 been pushed. This unfortunately is a possibility <em>whenever you modify code that changes the stack</em>.
 This doesn't happen in e.g. Rust (or most other languages) because you refer to
-variables by name, like a map.  In Forth, you'd have the manually reorder the element's stack
+variables by name, like a map.  In Forth, you'd have to manually reorder the element's stack
 position to get it where you want.  There are functions for e.g. swapping the top two elements,
 duplicating elements, swapping an element at position <code>n</code> with the top, etc.</p>
 <p>Experienced Forth programmers work to optimize the flow of functions so the inputs and outputs flow
@@ -208,7 +211,8 @@ an underlying type if needed. For example, consider the case where a helper func
 in the same context. Its return type can't change, and the caller can't store two of the same types
 in its context, so we'd need a way to wrap the type while still allowing normal API access to it. We'd
 also need to &quot;unwrap&quot; our outer layer when passing it to a function that expects the underlying type.</p>
-<p>At any rate, it's at least been a fun thought exercise. I might explore this more concretely, but if you're
+<p>Whether or not a system like this would actually be pleasant to use is another question entirely,
+but it's at least been a fun thought exercise. I might explore this more concretely, so if you're
 interested in this sort of thing feel free to reach out on GitHub. Thanks for reading!</p></div>
     </body>
 </html>
