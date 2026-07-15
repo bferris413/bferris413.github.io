@@ -1,38 +1,20 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
-
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="post-content max-w-prose px-2"><h2>Adding Semantic Context to Types</h2>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+      <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main post-shell">
+      <article class="post-content"><h2>Adding Semantic Context to Types</h2>
 <aside>
     This post explores some ideas around types containing semantic context. It's a thought
     exercise more than an endorsement of a certain programming style. The code examples use
@@ -213,6 +195,7 @@ in its context, so we'd need a way to wrap the type while still allowing normal 
 also need to &quot;unwrap&quot; our outer layer when passing it to a function that expects the underlying type.</p>
 <p>Whether or not a system like this would actually be pleasant to use is another question entirely,
 but it's at least been a fun thought exercise. I might explore this more concretely, so if you're
-interested in this sort of thing feel free to reach out on GitHub. Thanks for reading!</p></div>
-    </body>
+interested in this sort of thing feel free to reach out on GitHub. Thanks for reading!</p></article>
+    </main>
+  </body>
 </html>

@@ -1,38 +1,20 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
-
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="post-content max-w-prose px-2"><h2>Thoughts on Rust's Dependency &quot;Problem&quot;</h2>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+      <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main post-shell">
+      <article class="post-content"><h2>Thoughts on Rust's Dependency &quot;Problem&quot;</h2>
 <p>Rust projects are sometimes criticized for their tendency to encourage dependency
 bloat. I'd like to outline a couple of reasons why I think this happens, and offer a step
 towards addressing the issue.</p>
@@ -121,6 +103,7 @@ wrangling constraints and trade-offs specific to <em>your</em> project. The appr
 above attempts to make a project's dependency management intentions more explicit but not
 objective.</p>
 <p>So that's the gist of it. Contact me on GitHub to share thoughts and criticisms. Thanks!</p>
-</div>
-    </body>
+</article>
+    </main>
+  </body>
 </html>

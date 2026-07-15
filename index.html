@@ -9,42 +9,21 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </head>
 
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                        <!-- 2396181309415692201 -- -->
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="px-2">
+    <body>
+        <header class="site-header">
+            <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+            <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+        </header>
+        <main class="site-main home-panel">
             <div
                 class="lg:mt-2 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
             >
-                Engineer, interested in networking, tooling, languages, and
-                systems.
+                <strong>Systems software engineer.</strong>
+                Networking, performance, languages, and developer tools.
             </div>
 
-            <div class="mt-8">
-                <div
-                    class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1"
-                >
+            <section class="activity-panel">
+                <div class="section-heading">
                     Activity
                 </div>
                 <div class="text-xs">
@@ -53,26 +32,2529 @@
                 </div>
                 <div>
                     <svg
-                        height="50px"
-                        class="stroke-[.5]"
-                        version="1.1"
-                        viewBox="0 0 85 19"
+                        class="activity-chart"
+                        height="80"
+                        width="100%"
+                        preserveAspectRatio="none"
+                        role="img"
+                        aria-label="Recent commit activity"
+                        viewBox="0 0 84 19"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points=" 0 1, 1 5, 2 8, 3 2, 4 0, 5 6, 6 1, 7 0, 8 3, 9 8, 10 5, 11 3, 12 6, 13 5, 14 2, 15 0, 16 7, 17 4, 18 0, 19 13, 20 0, 21 0, 22 9, 23 9, 24 5, 25 7, 26 3, 27 2, 28 0, 29 6, 30 5, 31 2, 32 5, 33 7, 34 0, 35 1, 36 0, 37 4, 38 1, 39 0, 40 0, 41 1, 42 1, 43 7, 44 4, 45 8, 46 6, 47 2, 48 0, 49 1, 50 8, 51 3, 52 0, 53 6, 54 5, 55 3, 56 6, 57 3, 58 6, 59 4, 60 4, 61 0, 62 2, 63 7, 64 17, 65 2, 66 2, 67 2, 68 1, 69 4, 70 3, 71 7, 72 9, 73 8, 74 0, 75 1, 76 1, 77 0, 78 4, 79 5, 80 1, 81 0, 82 0, 83 0, 84 1,"
-                            stroke="black"
+                            points="0 4, 1 8, 2 2, 3 0, 4 6, 5 1, 6 0, 7 3, 8 8, 9 5, 10 3, 11 6, 12 5, 13 2, 14 0, 15 7, 16 4, 17 0, 18 13, 19 0, 20 0, 21 9, 22 9, 23 5, 24 7, 25 3, 26 2, 27 0, 28 6, 29 5, 30 2, 31 5, 32 7, 33 0, 34 1, 35 0, 36 4, 37 1, 38 0, 39 0, 40 1, 41 1, 42 7, 43 4, 44 8, 45 6, 46 2, 47 0, 48 1, 49 8, 50 3, 51 0, 52 6, 53 5, 54 3, 55 6, 56 3, 57 6, 58 4, 59 4, 60 0, 61 2, 62 7, 63 17, 64 2, 65 2, 66 2, 67 1, 68 4, 69 3, 70 7, 71 9, 72 8, 73 0, 74 1, 75 1, 76 0, 77 4, 78 5, 79 1, 80 0, 81 0, 82 0, 83 3"
+                            stroke="currentColor"
+                            stroke-width="1.25"
+                            vector-effect="non-scaling-stroke"
                             stroke-linejoin="miter"
                             fill="transparent"
                             transform="scale(1, -1) translate(0, -18)"
                         />
                     </svg>
                 </div>
-                <details class="mt-2 mb-4">
+                <details class="activity-log activity-log-desktop" open>
+                    <summary>Recent commits / 300</summary>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2026-07-15</time>
+                        <pre>Changed some design elements</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>library</span>
+                        <time>2026-07-15</time>
+                        <pre>Updated quotes view and minor fixes</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>library</span>
+                        <time>2026-07-13</time>
+                        <pre>Added web version</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-15</time>
+                        <pre>Added new file save dialog.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-13</time>
+                        <pre>Moved editor contextual widgets to their own modules.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-08</time>
+                        <pre>Added j&#x2F;k keybinds for select nav.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-07</time>
+                        <pre>Added buffer save for existing files.
+
+Some refactoring was included here to make event handling
+per contextual widget more straightforward.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-07</time>
+                        <pre>Pretty print file paths in buffer select.
+
+Old: &#x2F;some&#x2F;other&#x2F;full&#x2F;path&#x2F;to&#x2F;filename.rs
+New: filename.rs - full&#x2F;path&#x2F;to</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-07</time>
+                        <pre>Buffer select draws on ctrl+tab.
+
+The list doesn&#x27;t support scrolling yet but this is good enough for now.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-06</time>
+                        <pre>Wired up buffer selection to the editor.
+
+Remaining bit is just to draw the select window.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-05</time>
+                        <pre>Added editorpane support for adding a new buffer.
+
+Still need:
+- Status bar: show file name
+- Status bar: show buffer index
+- Toggle between buffers
+- Close buffers without exiting</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-03</time>
+                        <pre>Refactoring for multiple buffers.
+
+- Moved buffer navigation stuff into its own module
+- Renamed Editor to EditorPane to more accurately signify
+what the &#x27;Editor&#x27; piece is.
+
+Now that buffers are independent of an &#x27;editor&#x27;, we can
+add support for multiple buffers per editorpane.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-06-02</time>
+                        <pre>Starting multi buffer support.
+
+First step (implemented here) is to make the buffer&#x27;s
+module&#x2F;file optional.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-05-22</time>
+                        <pre>Added initial support for normal mode number input.
+
+The first supported command is &#x27;G&#x27;, go-to-line. Adding support
+for the remaining single-sequence commands is basically straightforward,
+but some things will have to move around to support multi-sequence
+commands (like &#x27;f&#x27;).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2026-05-10</time>
+                        <pre>Updated aside styling</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-05-02</time>
+                        <pre>Updated status bar styling and prompts</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-29</time>
+                        <pre>Added command input, like :w</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-28</time>
+                        <pre>Added backwards (Vim &#x27;?&#x27;) search.
+
+Both &#x27;&#x2F;&#x27; and &#x27;?&#x27; are plaintext search. There will be a
+refinement for regex, but I&#x27;m stopping here until that&#x27;s needed.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-28</time>
+                        <pre>Centered event text</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-27</time>
+                        <pre>Added &#x27;N&#x27; for previous match</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-27</time>
+                        <pre>Display search status (input, search term) in status bar.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-27</time>
+                        <pre>Moved StatusBar widget to its own module</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-27</time>
+                        <pre>Added forward substring search with wraparound.
+
+Need to add:
+- search term visibility (currently not displayed)
+- previous match (currently only searches forward)
+- reverse search (vim &#x27;?&#x27;)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-25</time>
+                        <pre>Logging is now behind a function on the widget context.
+
+It feels like this will turn into a `log` crate implementation,
+but likely not until I have in-editor support for reading them (via
+a dedicated widget).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-25</time>
+                        <pre>More visual delete tests with x,y,d, etc.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-25</time>
+                        <pre>Added visual yank tests</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-25</time>
+                        <pre>Started adding tests for certain editor parts.
+
+First focus will be the tricky bits like visual delete.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-23</time>
+                        <pre>Fixed visual delete</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-21</time>
+                        <pre>Added yank and put&#x2F;paste</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-20</time>
+                        <pre>Added remaining bits for logging structure.
+
+- eprintln! stuff was converted to logging
+- added chrono for UTC timestamps
+- Unixy setups log to `XDG_STATE_HOME&#x2F;chasm&#x2F;chasm-code.log` and
+  Windows setups go to `%LOCALAPPDATA%&#x2F;Chasm&#x2F;logs&#x2F;chasm-code.log`</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-19</time>
+                        <pre>Back to original behavior after cmd queue addition.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-19</time>
+                        <pre>Updated signatures to prep for logging.
+
+Couple things need to happen to support logging:
+1. We need a way for widgets to communicate with an event consumer.
+2. Prior to this commit it was done using return types, but this forces widgets
+   to pass results back up the callstack, limiting the ability to &quot;queue&quot; multiple
+   events.
+4. So we switch to a queue handle that&#x27;s passed down instead.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-16</time>
+                        <pre>Support opening arbitrary files.
+
+The editor previously only supported opening a &quot;project,&quot;
+i.e. a directory consisting of a chasm.toml file and a src&#x2F;
+directory. The end goal was (and still is) to abstract the idea
+of a &quot;file&quot; away from the IDE&#x2F;editor and just deal with modules.
+
+While I&#x27;m working on this, though, I want to open normal files
+and test the editor with them. I&#x27;ll probably daily-drive this
+while working the kinks out, and since the full module system
+isn&#x27;t fleshed out, I need to settle for what currently exists.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-15</time>
+                        <pre>Fixed cursor position issue.
+
+max_cursor_x wasn&#x27;t accounting for modes, so inserts on blank
+newlines weren&#x27;t moving the x position beyond the visible text.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-15</time>
+                        <pre>Change quit keybind to ctrl+q:</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-15</time>
+                        <pre>Added buffer save (ctrl+s)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-15</time>
+                        <pre>Added cut (ctrl+x).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-13</time>
+                        <pre>Added paste from clipboard (ctrl+v).
+
+Need a check to make sure it&#x27;s ascii, but pending bugs it&#x27;s decent.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-12</time>
+                        <pre>Removed unwrap.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-09</time>
+                        <pre>Added copy to clipboard.
+
+Another break from Vim defaults, I&#x27;m using ctrl+c to copy. Couple
+reasons:
+
+- I want copy with Vim-like visual select,
+- I want the copy destination to be distinct from yank&#x2F;delete register,
+- Terminal apps tend to grab &lt;meta&gt;, and I don&#x27;t want to contend with
+them on e.g. macOS.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-06</time>
+                        <pre>Fixed where visual mode would activate on &#x27;v&#x27; even if modifiers were present</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-04-05</time>
+                        <pre>Moved editor stuff into its own module tree.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-30</time>
+                        <pre>Added &lt;tab&gt; support</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-30</time>
+                        <pre>Fixed issue with visual_delete.
+
+End line start indices were incorrectly using the selection start line
+column index even if the end line was different from the start line.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-29</time>
+                        <pre>Removed redundant params from fn invert().</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-29</time>
+                        <pre>Fixed issue with sequences like &#x27;v$&#x27;.
+
+&#x27;$&#x27; wasn&#x27;t including the logical newline when in visual mode, so
+lines weren&#x27;t being merged. This further complicated the logic in
+`fn visual_delete`...but that&#x27;s a future-me problem =).
+
+I think I can move on the copy&#x2F;paste, saving buffers, etc.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-28</time>
+                        <pre>Added undo&#x2F;redo for visual delete. Remaining:
+
+- Clean up visual delete
+- Fix cursor restore
+- &quot;tab&quot; support
+- copy&#x2F;paste</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-17</time>
+                        <pre>All operations have undo&#x2F;redo except &#x27;visual delete&#x27;.
+
+Remaining steps:
+- Implement undo&#x2F;redo for visual delete,
+- Fix cursor to&#x2F;from positions (some redo ops
+don&#x27;t correctly account for previous cursor).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-16</time>
+                        <pre>Started a very rough undo&#x2F;redo implementation.
+
+This turned out to be a lot of work because:
+1. I need to track the inverse of every operation,
+2. I need control flow to represent that
+3. I wrote the current version without giving that kind of
+structure any thought at all =).
+
+Not an issue, it&#x27;s forming up but there&#x27;s quite a bit of shaping still
+to do.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-14</time>
+                        <pre>Fixed panic when visual delete an range with empty lines.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-08</time>
+                        <pre>Added Vim &#x27;b&#x27;.
+
+Ok, motion is &quot;done,&quot; and I just need undo&#x2F;redo stacks to complete
+basic editing.
+
+Once that&#x27;s done I&#x27;ll add basic support for saving and creating modules.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-06</time>
+                        <pre>Added Vim &#x27;e&#x27;.
+
+Similar to &#x27;w&#x27;, we don&#x27;t delineate between characters and symbols.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-03-06</time>
+                        <pre>Added a primitive version of Vim&#x27;s &#x27;w&#x27;.
+
+My version doesn&#x27;t care about symbols, it just skips to
+the beginning of the next word, determined only by whitespace.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Added normal &#x27;A&#x27;
+
+The last few navigation command I&#x27;ll implement are word-movements (w, e,
+b, etc.). Once those are done, _hopefully_ the last absolutely required
+bit is the undo and redo stacks, which at a mental glance doesn&#x27;t seem
+trivial.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Added &#x27;o&#x27; and &#x27;O&#x27; in visual mode.
+
+This swaps the cursor position to the other end of the selection.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Added visual &#x27;s&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Added &#x27;x&#x27; for visual mode</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Added visual delete.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-28</time>
+                        <pre>Fixed a couple movement issues.
+
+1. Forward delete hasn&#x27;t been merging newlines since the newline fix.
+2. Beginning&#x2F;end of file movement didn&#x27;t adjust cursor x like j&#x2F;k and
+   ctrl+d&#x2F;u.
+
+These were discovered while implementing visual delete.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-26</time>
+                        <pre>Fixed cursor render and highlight position.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-26</time>
+                        <pre>Added visual mode.
+
+Right now only selection highlight works. I need to:
+- Add support for commands to honor it (s, d, c, etc.)
+- Fix a bug regarding cursor&#x2F;selection z-level</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-25</time>
+                        <pre>Added &#x27;o&#x27; and &#x27;O&#x27;</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-25</time>
+                        <pre>Added support for normal &#x27;a&#x27; and &#x27;s&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-24</time>
+                        <pre>Added small editing changes.
+
+- The internal lines representation contained &#x27;\n&#x27;, removed it.
+- Added normal-mode &#x27;x&#x27; (deleted forward).
+- Added normal-mode &#x27;shift+i&#x27; (first non-whitespace char).
+
+Also, the editor only supports ascii chars. I&#x27;ll need to support
+true UTF-8 in all movements.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-24</time>
+                        <pre>Added keybind to navigate to end-of-file (shift+g).
+
+Navigation commands get a bit harder now because I&#x27;ll have to
+implement at least some of whatever modal editors do to support
+command sequences.
+
+Since we&#x27;re in a somewhat usable state now, I&#x27;ll probably circle back
+to implementing more general functionality like creating modules,
+compiling via keybinds, and navigating different views of the editor.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-24</time>
+                        <pre>Added small movement commands while in insert mode.
+
+Ctrl+j&#x2F;k&#x2F;l&#x2F;h are a bit unconventional, may use it for
+micro-adjustements.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-23</time>
+                        <pre>Added beginning of insert mode.
+
+This immmediately revealed a cursor problem, namely that I can&#x27;t
+style it with a vertical bar without using the actual terminal
+cursor (I&#x27;ve been styling the normal-mode cursor with a highlighted
+cell, not the real terminal cursor). I&#x27;ll need to refactor a bit to
+support that, but for now I&#x27;m just using a different color.
+
+On the other hand, I was able to implement some basic commands:
+- Switch to insert mode from normal via &#x27;i&#x27;,
+- Switch to normal mode from insert via &#x27;esc&#x27;,
+- Insert chars when in normal mode,
+- &quot;Forward deletion&quot; (delete-key deletion, as opposed to backspace).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-22</time>
+                        <pre>Fixed bug where widgets were using stale frame sizes.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-22</time>
+                        <pre>Added cursor x position memory.
+
+Explicit horizontal movements store their final x position. When
+making vertical movements, the cursor attempts to honor this stored
+x position while clamping to the line length. The stored x position
+is updated when another horizontal movement is made.
+
+If this is confusing, open a text editor (I used Vim as a reference for
+the observed behavior), move the cursor to the end of the line, then
+navigate up&#x2F;down. If the moved-to line is longer than the moved-from
+one, the cursor will be at the same x position. If it&#x27;s shorter, it
+will be clamped to the moved-to line&#x27;s length. This will apply no matter
+how many times you move up&#x2F;down. Moving horizontally will reset the
+&quot;stored&quot; position.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-22</time>
+                        <pre>Added basic horizontal cursor display and movement.
+
+- h&#x2F;l for left&#x2F;right
+- 0&#x2F;$ for beginning&#x2F;end of line</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-21</time>
+                        <pre>Added a cursor_y position and assocated behavior.
+
+- The editor now tracks cursor (y only) movement
+- The viewport scrolls 1:1 if the cursor goes outside
+the current view
+- Added keybinds for cursor up&#x2F;down (j&#x2F;k&#x2F;uparrow&#x2F;downarrow),
+viewport up&#x2F;down (shift+), and fastscrollup&#x2F;down (ctrl+).
+
+Next steps will be cursor_x movement across the columns,
+and &#x27;insert&#x27; mode.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-20</time>
+                        <pre>Added a scrollbar</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-20</time>
+                        <pre>Added Y&#x2F;N shortcuts to YesNoModals</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-20</time>
+                        <pre>Filling in editor components.
+
+1. Added modal for app quitting,
+2. Added editor with file load and simple scroll,
+
+I&#x27;m still messing with event handling and call&#x2F;returns. It&#x27;s
+not clear yet how I&#x27;ll let child views control which views
+are visible. Bunch of stuff to read&#x2F;figure out.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-19</time>
+                        <pre>Added basic app elements.
+
+UI development paradigms are generally foreign to me, so
+I&#x27;ll be doing some exploration while implementing basic features.
+
+Right now there&#x27;s a status bar and module picker. Next is the basic
+editor and module creation.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-16</time>
+                        <pre>Added project scaffolding.
+
+I need root directory for the editor to hook into. It&#x27;s
+primitive at the moment, the only requirements being:
+
+1. There must exist a file, chasm.toml, at the specified dir,
+2. There must be a src&#x2F; directory within the specified dir.
+
+It&#x27;s just enough to signal &quot;project dir&quot; without defining much
+about it (yet).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-15</time>
+                        <pre>Added ratatui and crossterm scaffolding for editor.
+
+The goal here is to experiment with a TUI-based editor
+for chasm assembly projects.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-02-14</time>
+                        <pre>Started assembly editor project</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2026-02-08</time>
+                        <pre>Applied uniform border to code</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2026-01-27</time>
+                        <pre>Updated single line styling.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2026-01-27</time>
+                        <pre>Small changes to formatting.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2026-01-25</time>
+                        <pre>Updated some verbiage in Project 5.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2026-01-25</time>
+                        <pre>Added Project 5 - Linker and module system.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-23</time>
+                        <pre>Added doc comments explaining rationale</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-23</time>
+                        <pre>First cut at an object file.
+
+The file format is more-or-less ad-hoc. I wanted something that was
+going to be human-readable while not being fully textual. I ended up
+with the following:
+
+1. A binary prelude containing some magic bytes, the version number,
+   and the length of the header,
+2. A human readable header containing the struct fields of
+   AssemblyModule,
+3. The module&#x27;s code as binary.
+
+I&#x27;m fine-ish with it as first pass, but may just end up with a fully
+binary format and some kind of chasm &#x27;objdump&#x27; program to read it. We&#x27;ll
+see.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-19</time>
+                        <pre>Added public labels.
+
+The syntax is &#x27;@pub label&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-19</time>
+                        <pre>Cleaned up a couple error messages, removed import</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-17</time>
+                        <pre>Removed redundant tokenization for single-symbol tokens.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-17</time>
+                        <pre>Added application support for multiple files.
+
+- Previously &#x27;chasm assemble&#x27; took a single file, it now takes a list
+- &#x27;chasm assemble&#x27; now automatically invokes the linker on the given
+  files.
+- Added &#x27;--no-link` flag to opt out of linking. When provided,
+  &#x27;assemble&#x27; will write the modules to their respective binary files as
+  before.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-17</time>
+                        <pre>Fixed bug where definition references were always 32-bit.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-16</time>
+                        <pre>Renamed patch_size to ref_size.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-16</time>
+                        <pre>Added support for branch patches across modules.
+
+- All labels are considered public.
+I&#x27;ll take the next few rounds of commits to do some cleanup, but
+immediately afterwards I&#x27;ll delineate between public and private labels.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-16</time>
+                        <pre>First cut at imports and cross-module references.
+
+- Updated definition references ($thing) to require a width.
+Deciding on syntax for this was difficult and the current solution is
+unsatisfying, I have a mental note to revisit it: $32:thing.
+
+- Added support for definition references across modules:
+  $32:modname::thing
+
+- Added support for label references across modules: &amp;module::label.
+Label references are more palatable because the width is always the
+size of a pointer (currently 32-bit since we&#x27;re targeting Cortex M
+first).
+
+There&#x27;s pieces laying around the shop, but all the plumbing and
+implementation is present. Some of the proverbial mess needs attention,
+and I also need to add the final support for applying branch patches.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-05</time>
+                        <pre>Discovered variable-width sizing in emitted assembly, fixing.
+
+- This commit addresses the declaration side, although perhaps not
+  strictly needed.
+- Next commit will fix the use&#x2F;caller side, where the assembler
+  must know the length of the imported reference.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-05</time>
+                        <pre>Added linker patch for thumb addr pseudo op</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-04</time>
+                        <pre>Added linker patch support for branch instructions.
+
+While implementing this, I realized that current branching
+only supports local references, and thus no linker patching
+is needed.
+
+As soon as I add reference support across modules, this will change.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-03</time>
+                        <pre>Implemented linker patching for plain label offsets.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2026-01-01</time>
+                        <pre>Updates to support linker work.
+
+- Differentiate between linker patches and assembler patches,
+- All address references used during assembly will generate a linker
+  patch,
+  - This needs some work around automation, adding is manual, tedious
+    and error-prone,
+- Added linker tests for basic main&#x2F;lib module behavior.
+
+Next commit with actually apply linker patches when linking.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-30</time>
+                        <pre>Updated import references to fail codegen if the module wasn&#x27;t imported.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-30</time>
+                        <pre>Started defining linker semantics and constraints.
+
+1. Initial support is for executables only.
+2. All modules must be included at link-time.
+3. One and only one module must be designated &quot;main&quot;.
+4. The main module is the root. Modules provided to the linker
+that aren&#x27;t directly or indirectly imported into main are ignored.
+
+None of this is meant to mirror conventional C-toolchain linkers
+(although some parts may, and some parts may be wildly different).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-29</time>
+                        <pre>Added linker project boilerplate.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-29</time>
+                        <pre>Added assembler support for module references.
+
+Next step is linking and resolving references across modules.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-25</time>
+                        <pre>Intermediate commit</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-23</time>
+                        <pre>Linker prep: added  pseudo instruction for exported definitions</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-23</time>
+                        <pre>Added basic import statement</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-12-19</time>
+                        <pre>Added Project 4 - function calls</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-19</time>
+                        <pre>Updated emulator scripts to use cgdb</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-16</time>
+                        <pre>Added mov! pseudo instruction.
+
+The syntax is `mov!(reg, hex_literal)`, where hex_literal is a
+32, 16, or 8-bit hex literal. The different bit widths result
+in different instructions being generated:
+
+u32 =&gt; movw(lower16), movt(upper16),
+u16 =&gt; movw,
+u8  =&gt; movs</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-15</time>
+                        <pre>Added define pseudo instruction.
+
+- Syntax is `define!(identifier, hex literal)`
+- After definition, `$identifier` evaluates to the hex literal
+- The definition itself doesn&#x27;t appear during code generation</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-14</time>
+                        <pre>Added some unit tests for pop error paths</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-13</time>
+                        <pre>Added POP {regs...} - T1 encoding</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-12</time>
+                        <pre>Added PUSH {regs*} - T1 encoding.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-12-11</time>
+                        <pre>Fixed clarification on project 2 references.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-10</time>
+                        <pre>Removed debug prints from BL codegen.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-10</time>
+                        <pre>Added basic qemu setup for toolchain-centric changes.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-12-09</time>
+                        <pre>Added BL instruction after some...difficulties.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-11-29</time>
+                        <pre>Added LLM dislaimer (no programmatic usage).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-11-29</time>
+                        <pre>Added Project 4 - button press LED toggle.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-27</time>
+                        <pre>Added BX instruction.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-21</time>
+                        <pre>Added EORS reg reg.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-19</time>
+                        <pre>Consolidated some token fetching logic.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-19</time>
+                        <pre>Added pad-with-to! pseudo instruction.
+
+The only supported form is `pad-with-to!(&lt;byte: u8&gt;, &lt;target: u32&gt;)`, which fills
+the output with &lt;byte&gt; from the current address up to, but not including
+&lt;target&gt;.
+
+An soon-to-be-implemented extension will support &lt;target&gt; as a label
+reference.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-19</time>
+                        <pre>Added support for pseudo-instructions.
+
+These take the format instruction!(operand). The intent is
+to provide support for common operations that don&#x27;t neccessarily
+correspond to a specific assembler mnemonic, or wouldn&#x27;t be
+found in the ARM technical reference.
+
+The first supported pseudo is `thumb-addr!(&amp;ref)`, which expects a
+label reference and relaces it with &lt;label-address&gt; | 1.
+
+An obvious objection to this pseudo is that it&#x27;s too specific. A more
+general pseudo like `math!(&amp;ref | 1)` would be applicable to a variety
+of usecases. I agree, but a) I wanted something I could use immediately,
+and b) I didn&#x27;t want to get tangled up in a more general-purpose
+implementation when it wasn&#x27;t strictly neccessary.
+
+It&#x27;s possible that thumb-addr! gets removed in lieu of something more
+general, but this is fine for now.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-18</time>
+                        <pre>Added support for branching forward.
+
+Adding support involved generating code for forward references with &#x27;dummy&#x27;
+values, and then making a second pass over all unresolved references
+to patch the generated binary.
+
+The implication of doing so is that we can now support if&#x2F;else logic.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-17</time>
+                        <pre>Added &#x27;.&#x27; to README.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-17</time>
+                        <pre>Added support for standalone label refs &#x27;&amp;label&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-17</time>
+                        <pre>Added support for label references.
+
+- Branch-related syntax went from &#x27;B @label&#x27; to &#x27;B &amp;label&#x27;.
+- The actual benefit is that we can use &amp;label elsewhere to
+refer to arbitrary addresses.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-11-09</time>
+                        <pre>Made LDR and STR use [R*] syntax.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-10-29</time>
+                        <pre>Bunch of small styling changes.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-10-26</time>
+                        <pre>Added project 2 - red LED.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-25</time>
+                        <pre>Added BEQ (t1 encoding)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-25</time>
+                        <pre>Added AND(register)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-24</time>
+                        <pre>Added encoding and instruction:
+
+LDR(immediate) - t3 encoding,
+ORRS(register) - t1 encoding,
+STR(immediate) - t1 encoding.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-24</time>
+                        <pre>Added LDR(immediate) - t1 encoding</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-23</time>
+                        <pre>Added MOVT</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-23</time>
+                        <pre>Added movw - first 32bit instruction</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-10-15</time>
+                        <pre>Added Project 1 - chasm conversion.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-15</time>
+                        <pre>Added chasm project README.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-15</time>
+                        <pre>Added metal-arm&#x2F;0 as a test.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-15</time>
+                        <pre>Added support for comments, via &#x27;;&#x27;</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-14</time>
+                        <pre>Added support for &#x27;B @label&#x27; (backwards only)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-14</time>
+                        <pre>Added labels, like @label</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-13</time>
+                        <pre>Added ADDS Rdn, #imm8</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-12</time>
+                        <pre>Support for MOVS Rd, #imm8 (hex)</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-08</time>
+                        <pre>Added tokenize, parse, and codegen for 8-32bit hex literals.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-06</time>
+                        <pre>Added assembler scaffolding</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-10-06</time>
+                        <pre>Changed comment char in Project 0 program.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-06</time>
+                        <pre>Changed comment char to &#x27;;&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-10-04</time>
+                        <pre>Added project 0 - machine code and flash.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-10-04</time>
+                        <pre>Added project README.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-01</time>
+                        <pre>Added CLI help</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-10-01</time>
+                        <pre>Added a few CLI args.
+
+- --reverse (-r): bin -&gt; text instead of text -&gt; bin
+- --row-len (-l): specify number of bytes per row (line break after n hex bytes)
+- --spaced (-s): spaces between hex bytesspaced: bool,
+- --offsets (-o): Print hex byte offsets in left column.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-09-30</time>
+                        <pre>Added tests for existing functionality.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-09-29</time>
+                        <pre>Added basic text -&gt; binary support, including,
+
+- All whitespace is stripped from the text input,
+- Comments (preceding #) are stripped,
+- Output to file or stdout.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-09-29</time>
+                        <pre>Added hx project.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>metal-arm</span>
+                        <time>2025-09-23</time>
+                        <pre>Initial commit</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>chasm-toolchain</span>
+                        <time>2025-09-16</time>
+                        <pre>Initial commit</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-08-26</time>
+                        <pre>Updated markdown parsing to include inline HTML.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-08-20</time>
+                        <pre>Paid the long-coming clippy tax.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-08-19</time>
+                        <pre>Made --to-html a global arg.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-08-19</time>
+                        <pre>Fixed git issues.
+
+- We were including submodules in attempted diffs.
+- We weren&#x27;t pulling files from the working directory and repo
+  correctly. Sometimes we would do a repo read when we really needed the
+  working directory, and vice-versa.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-08-18</time>
+                        <pre>Fixed spacing issue where multiple diffs weren&#x27;t separated by newline.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-08-09</time>
+                        <pre>Added Rust dependency post.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-24</time>
+                        <pre>Fixed issue where extra padding was applied to add&#x2F;remove items.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-23</time>
+                        <pre>Version bump.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-23</time>
+                        <pre>Bugfix: filenames were printed even if there wasn&#x27;t a diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-21</time>
+                        <pre>Updated tag.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-21</time>
+                        <pre>Added tuple&#x2F;field diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-21</time>
+                        <pre>Added unit&#x2F;field diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-21</time>
+                        <pre>Added unit&#x2F;tuple diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-18</time>
+                        <pre>Added HTLM output escapes.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-18</time>
+                        <pre>Variants now elide information.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-18</time>
+                        <pre>Updated TODO with completed and upcoming items</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-18</time>
+                        <pre>Started updating struct diff logic.
+
+- This fixes the issue where order mattered when diffing structs
+with named fields.
+- Tuple structs and name structs are handled.
+- Still need support for diffs like tuple -&gt; named and vice versa.
+- Also discovered an issue where enum variants with tuple&#x2F;field
+types aren&#x27;t elided like other container types.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-16</time>
+                        <pre>Updated TODO and some comments.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-09</time>
+                        <pre>Added visual cue when eliding members.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-07</time>
+                        <pre>Refactored to use shared signature parsing.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-05</time>
+                        <pre>Elide whitespace in trait item diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-04</time>
+                        <pre>Elide whitespace from enum diffs in the same vein.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-04</time>
+                        <pre>Updated impl_ and struct_ change construction.
+
+* Impls now elide whitespace like structs.
+* Fixed a bug with structs where completely new members
+caused an infinite loop.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-03</time>
+                        <pre>Fixed an issue with struct parsing.
+
+* The shared parsing functions were referencing &quot;new&quot; structs only.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-07-02</time>
+                        <pre>Refactored struct&#x27;s View implementation to:
+* Elide whitespace not pertaining to any struct diffs (eliminating diffs as long as the struct&#x27;s definition),
+* Share a bunch of code between old&#x2F;new parsing.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-06-28</time>
+                        <pre>Made changes to HTML formatting.
+
+I&#x27;ll slowly try to make the &#x27;feel&#x27; of the UI familiar, or at least
+not completey foreign, to folks familiar with the GitHub diff UI.
+It&#x27;s not there yet, but something actually useful is forming...</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-06-27</time>
+                        <pre>Added basic HTML output.
+
+CSS grid is used for formatting, but honestly a table would
+be easier to work with. GitHub apparently uses a table for
+their diffs, so I&#x27;ll likely take that as my cue&#x2F;allowance
+to do the same.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-06-25</time>
+                        <pre>Adding plumbing for --to-html output option.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-23</time>
+                        <pre>More styling updates.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-23</time>
+                        <pre>Some styling updates, edited post.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-22</time>
+                        <pre>Updated a bunch of random stuff, prepped for first post.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-08</time>
+                        <pre>-</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-08</time>
+                        <pre>Moved nav bar next to header.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-01</time>
+                        <pre>Deploying with (empty) posts support.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-01</time>
+                        <pre>Updated and tested publish&#x2F;deploy scripts.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-06-01</time>
+                        <pre>Updated local deploy script.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-31</time>
+                        <pre>Added new deployment layout and directory structure.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-30</time>
+                        <pre>Updated templates dir</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-30</time>
+                        <pre>Testing posts build.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-30</time>
+                        <pre>Got post index page working.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-30</time>
+                        <pre>Added basic support for posts&#x2F; index.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-05-26</time>
+                        <pre>Fixed home location when near Bristol.
+
+My ISP comes out of Bristol, TN or Bristol, VA. I had a check
+in place to correct Bristol, TN to my current home, but not
+for VA (Bristol straddles the TN&#x2F;VA border). I added the check.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-25</time>
+                        <pre>Updated README.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-19</time>
+                        <pre>Updated install instructions.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-19</time>
+                        <pre>Updated wrongly-formatted license.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-19</time>
+                        <pre>Updated .toml.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-19</time>
+                        <pre>Updated README, adding publishing stuff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-18</time>
+                        <pre>Fixed issue where appendln was inserting newlines incorrectly.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-16</time>
+                        <pre>Switched to relative path when displaying overview.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-16</time>
+                        <pre>Added basic --fancy output (but removed the flag).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-16</time>
+                        <pre>Starting --fancy diff output (somewhat akin to &#x27;git diff&#x27;-style).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-15</time>
+                        <pre>Fixed bug where add&#x2F;remove impl diffs were displaying function bodies.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-13</time>
+                        <pre>Fixed bug where impls weren&#x27;t working on traits.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-13</time>
+                        <pre>Updated struct diffs to omit fields that weren&#x27;t changed.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-12</time>
+                        <pre>Updated enum diffs to omit variants that weren&#x27;t changed.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-12</time>
+                        <pre>Removed useless design block.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-12</time>
+                        <pre>Trying to get impl items to omit items that didn&#x27;t have a diff.
+
+For example, skip printing methods that don&#x27;t have a signature change.
+I&#x27;ll apply this to struct members, enum variants, and traits, but
+the algorithm needs more thought.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-09</time>
+                        <pre>More finely-grained diff for enum variants, specifically around &#x27;fields&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-08</time>
+                        <pre>Used function diffs in trait items.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-08</time>
+                        <pre>Removed old column formatting.
+
+Display-based output is managed by View now.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-07</time>
+                        <pre>Added View to Use</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-07</time>
+                        <pre>Deleted impl Display on TraitDiff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-07</time>
+                        <pre>Converted trait diffs to View.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-06</time>
+                        <pre>Converted enum diffs to View.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-06</time>
+                        <pre>Converted structs to use View instead of Display.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-05-06</time>
+                        <pre>Removed display from impls structs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-17</time>
+                        <pre>Implemented impl blocks.
+
+- Need to remove { .. } on impl functions.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-17</time>
+                        <pre>Removed display from Function[s]Diff</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-17</time>
+                        <pre>Finished function inputs and block omissions.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-17</time>
+                        <pre>Giant commit for a a bunch of formatting changes.
+
+- Added colored output on terminals.
+- Starting with functions, output formatting is delegated to a separate
+struct. The goal is to output a single type that can then be formatted
+based on the chosen &quot;backend.&quot; Text output is currently supported,
+but HTML is planned for use in GitHub-like PRs.
+- Need to finish function inputs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-15</time>
+                        <pre>Deleted Vis and just using syn::Visibility.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-15</time>
+                        <pre>Updated TODO, starting ViewableDiff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-14</time>
+                        <pre>Use original source for impls.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-14</time>
+                        <pre>Added original source for function and traits.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-13</time>
+                        <pre>Use original source for enum diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-13</time>
+                        <pre>Use original source for struct diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-13</time>
+                        <pre>Added original source to each overview and diff.
+
+This enables us to:
+- use the author&#x27;s original formatting when presenting the diff,
+- selectively highlight the original source based on the diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-13</time>
+                        <pre>Impl display implemented, need to fix:
+
+- Impl displays full block, need to remove fn bodies,
+- Formatting</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-13</time>
+                        <pre>Filled out impl diff (functions only).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-04</time>
+                        <pre>Added boilerplate for impl diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-02</time>
+                        <pre>Added ~ on modified trait&#x2F;struct&#x2F;enum&#x2F;fn</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-04-02</time>
+                        <pre>Filled in &#x27;diff &lt;c1&gt; &lt;c2&gt;&#x27; capability.
+
+- Commits can be diffed like &#x27;dover diff &lt;tree-ish&gt; &lt;tree-ish&gt;&#x27;
+- Intent is to emulate the general cases of &#x27;git diff &lt;...&gt;&#x27;</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-31</time>
+                        <pre>Fixed side-by-side formatting
+
+Existence changes (+&#x2F;-) for top-level types like functions
+and structs were being printed in the left column only,
+instead of following the &quot;left old, right new&quot; columnar
+format.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-28</time>
+                        <pre>Added diff subcommand in place of just &#x27;dover&#x27;.
+
+eg: dover diff
+I want to capitalize on the muscle memory for &#x27;git diff&#x27;.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-27</time>
+                        <pre>Formatting and git search changes.
+
+- Formatting was appending a bunch of newlines to the final output, fixed.
+- Enabled search through parent directories if a git repo wasn&#x27;t found in
+currentdir.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-26</time>
+                        <pre>Removed redundant overview formatting when set was empty.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-26</time>
+                        <pre>Added recent additions to overview print.
+
+- Enums
+- Traits
+- Freestanding functionswq</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-26</time>
+                        <pre>Updated TODO.
+
+Next is impl blocks.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-26</time>
+                        <pre>Changed function formatting.
+
+Removed function blocks from display since they&#x27;re irrelevant.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-25</time>
+                        <pre>Added freestanding function diffs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-14</time>
+                        <pre>Added function diff boilerplate.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-09</time>
+                        <pre>Refactored OverviewDiff display.
+
+- Display now doesn&#x27;t show headers for diffs that aren&#x27;t present.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-08</time>
+                        <pre>Added support for diffing trait modifications.
+
+- (prior support was just for existence)
+- Updated todo.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-08</time>
+                        <pre>Added coarse trait diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-05</time>
+                        <pre>Added Trait scaffolding.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-03-02</time>
+                        <pre>Updated TODO. Next tasks include:
+
+* impl blocks for structs and enums,
+* freestanding functions,
+* trait signatures</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>budget</span>
+                        <time>2025-03-02</time>
+                        <pre>Added category importance (UI) and default port (backend).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-28</time>
+                        <pre>Added enum and variant diffing.
+
+Sample output:
+--------------------------------------------------------------------
+enum L7Protocol&lt;T: Clone&gt; {                        enum L7Protocol {
+    Http { t: T },                                     Https,
+    Https,                                             Dns,
+    STUN,                                              Smtp,
+}                                                  }
+
+variants:
+- Http { t : T }                                   + Dns
+- STUN                                             + Smtp
+
+generic parameters:
+- T : Clone
+--------------------------------------------------------------------</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-28</time>
+                        <pre>Added scripts&#x2F; and test_files.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-23</time>
+                        <pre>Added enum and variant scaffolding.
+
+Some shared structs&#x2F;functions were moved from structs.rs
+into lib.rs (like struct Vis, get_source, etc.).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-23</time>
+                        <pre>Added coarse fields diff.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-02-23</time>
+                        <pre>Formatted commit messages with pre tag.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-23</time>
+                        <pre>Added formatting goals from previous commit.
+
+Given two files containing (side-by-side):
+```
+use cake::cheese;                                     use cake::cheese::eggs;
+                                                      use rice;
+
+pub struct Thing&lt;T, U, V: Clone, W, X&gt;(T, U, V)       struct Thing&lt;T, U&gt;(T, U)
+where                                                 where
+    X: Cake,                                            U: Cake,
+    U: Powder,                                          T: Eggs;
+    W: Rice,
+    Y: Milk;
+```
+
+We can get a diff like:
+```
+Use
+¯¯¯
+- cake::cheese
++ cake::cheese::eggs
++ rice
+
+Structs
+¯¯¯¯¯¯¯
+pub struct Thing&lt;T, U, V: Clone, W, X&gt;(            struct Thing&lt;T, U&gt;(
+    T,                                                 T,
+    U,                                                 U,
+    V,                                             )
+)                                                  where
+where                                                  U: Cake,
+    X: Cake,                                           T: Eggs;
+    U: Powder,
+    W: Rice,
+    Y: Milk;
+
+visibility:
+- pub                                              + (none)
+
+generic parameters:
+- V : Clone
+- W
+- X
+
+where clause:
+- X : Cake                                         + U : Cake
+- U : Powder                                       + T : Eggs
+- W : Rice
+- Y : Milk
+```
+
+TODO:
+  - struct fields
+  - Formatting will likely change to something capable of layouts
+    (ratatui).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-22</time>
+                        <pre>Working on struct visualization.
+
+* Using `prettyplease` for formatting
+* Need to decide what to use for side-by-side layout. Options:
+  * ratatui, if I can use it without replacing the screen,
+  * self written, if it doesn&#x27;t get too painful.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-21</time>
+                        <pre>Working on visualizing more complex diffs.
+
+Sample struct output (WIP):
+
+Structs
+¯¯¯¯¯¯¯
+    pub struct Thing&lt;T, U, V: Clone&gt;(T, U, V)            pub struct Thing&lt;T, U, K: Milk + Eggs&gt;(T, U, K)
+    where
+        X: Cake,
+        U: Powder;
+
+    Generics
+    ¯¯¯¯¯¯¯¯
+    - V: Clone                                           + K: Milk + Eggs
+    - where
+        - X: Cake,
+        - U: Powder
+
+    Fields
+    ¯¯¯¯¯¯
+    - V                                                  + K</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-17</time>
+                        <pre>Added coarse-grained where clause diffing.
+
+&#x27;where&#x27; clauses are diffed by existence (for now), similar to generic
+types.
+
+Also like generics, the plan is to introduce per-type&#x2F;lifetime diffs on
+the constraints, but that&#x27;s a future problem. The immediate goal is to
+get an end-to-end diff of all main components (struct args, return
+types, etc), before tackling more specific diff problems.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-13</time>
+                        <pre>Added coarse-grained generic diffing.
+
+Generic diffs currently only check existence. That is, if the
+exact generic type isn&#x27;t found in another struct&#x27;s declaration,
+it&#x27;s counted as added or removed.
+
+The next step is to include modifications to a type (like T: Debug +
+Clone), and to be able to say &quot;T was modified, added Clone constraint&quot;).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-11</time>
+                        <pre>Filled out struct templates for Generics[Diff].</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-10</time>
+                        <pre>Added struct&#x2F;field diffing.
+
+Technically this only supports unit&#x2F;tuple structs, but with the
+struct variant refactor from a recent previous commit, &#x27;standard&#x27;
+structs are likely supported as well.
+
+Next up are enums, traits, and impl blocks.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-09</time>
+                        <pre>Added fields to Struct struct.
+
+- Removed struct variants.
+- diff&#x2F;overview will be done on struct, vis, and a struct&#x27;s fields.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-09</time>
+                        <pre>Changed Vis formatting.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-07</time>
+                        <pre>Added structs diff.
+
+Formatting isn&#x27;t perfect, but the model is correct enough.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-07</time>
+                        <pre>Updated enum signature in git.rs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-07</time>
+                        <pre>Updated diff method and applied to Use statements.
+
+* The diff return type for containers will be `Option&lt;T&gt;`.
+* Diffs will be &#x27;member&#x27; based, e.g
+  * Use members are a single use statement (non-nested),
+  * Struct members are (currently) vis and fields,
+  * Field members are (name, type) pairs,
+  * etc.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-04</time>
+                        <pre>Refactored modules.
+
+* Overview goes into its own module.
+* Overview &quot;members&quot; (structs, use statements, etc.) go into submodules
+  of overview.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-03</time>
+                        <pre>Added TODO to repo.
+
+This has been going since the start of the project, but it&#x27;s worth
+adding to the repo in case I need a timeline of added&#x2F;completed.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-03</time>
+                        <pre>Added non-diff overview for a list of .rs files.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-02</time>
+                        <pre>Included early use of git.
+
+- Running &#x27;dover&#x27; in a repo root will diff unstaged changes against
+  HEAD.
+- Running &#x27;dover files &lt;file1&gt; &lt;file2&gt; will diff two files on the
+  filesystem.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-02-02</time>
+                        <pre>Added diff behavior between two files.
+
+Sample output:
+src&#x2F;lib.rs
+¯¯¯¯¯¯¯¯¯¯
+Imports:
+  anyhow::Context
+  anyhow::Result
+  std::fmt::Display
+  std::fs
+  std::ops::Deref
+  std::path::Path
+  std::path::PathBuf
+  syn::File
+  syn::Item
+  syn::ItemFn
+  syn::ItemUse
+  syn::UseTree
+
+test_files&#x2F;lib_copy.rs
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Imports:
+  anyhow::Context
+  anyhow::Result
+  std::collections::HashSet
+  std::fmt::Display
+  std::fs
+  syn::File
+  syn::Item
+  syn::ItemFn
+  syn::ItemUse
+  syn::UseTree
+
+src&#x2F;lib.rs -&gt; test_files&#x2F;lib_copy.rs
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Imports:
+  + std::collections::HashSet
+  - std::ops::Deref
+  - std::path::Path
+  - std::path::PathBuf</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-01-29</time>
+                        <pre>Added support for use statements.
+
+Uses are flattened, de-aliased, de-duplicated, and collected into
+a HashSet.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-01-28</time>
+                        <pre>First commit of &quot;diff overview&quot; AKA dover.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>dover</span>
+                        <time>2025-01-28</time>
+                        <pre>Initial commit</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-18</time>
+                        <pre>Updated job description
+
+This seems like something that will be tweaked forever...</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-11</time>
+                        <pre>Fixed full-width link issue.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-11</time>
+                        <pre>Updated spacing and removed border.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-09</time>
+                        <pre>Fixed spacing on mobile.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-07</time>
+                        <pre>Updated some verbiage in the job description.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-07</time>
+                        <pre>Updated dev watch script.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2025-01-06</time>
+                        <pre>Expanded the site, included a little work history.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2024-12-26</time>
+                        <pre>Updated to include last location.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-25</time>
+                        <pre>Updated TODO and categorized certain &#x27;milestone&#x27; goals for the project.
+
+The purpose has always been to make programming &#x27;better&#x27; by shortening the feedback loop when
+reading and writing code. The intended features operate at at least two &#x27;meta-layers&#x27; of programming work:
+* The function level, like when you&#x27;re reading&#x2F;writing a function.
+* The module&#x2F;architectural level, like how different modules compose to form the entire application.
+The core features are:
+
+* Interactive Trace View
+(function-level)
+- Is implemented in VSCode Cottage extension (with some TODOs for polish)
+- Like printf debugging, but the timeline is 2d and interactive.
+- Interaction involves the user hovering over values. The view responds by
+showing the values for associated cells.
+- This can be thought of as a replay editor in which all the steps are available immediately.
+
+* Execution Graph
+(module-level, but some function-level as well)
+- Is not implemented
+- Will show a graph-like view (a la Sprotty and ElkJS) of data paths
+- Zoomable to different layers of the application (mitigates the massive picture of
+&#x27;boxes and arrows&#x27; of certain prior attempts from other projects)
+- Collapsable to show only a single piece of data&#x2F;function.
+
+* Inline Forever
+(function-level)
+- Is not implemented
+- Inline function calls to a certain depth to show a more complete view of code
+
+* Call Trace
+(module and function-level)
+- Is not implemented
+- Simple execution trace showing what actually happened (like bash&#x27;s &#x27;set -x&#x27; or lisp&#x27;s (trace) macro).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-21</time>
+                        <pre>Removed yet more debug logs in extension.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-19</time>
+                        <pre>Made select styling in code comparable to trace view.
+* Code used border outline, trace used bg color.
+* Code now uses the same bg color.
+This more or less unifies styling between trace and code views.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-18</time>
+                        <pre>Fixed issue where decorations wouldn&#x27;t display on extension load.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-17</time>
+                        <pre>Fixed issue where a document&#x27;s activeTextEditor wasn&#x27;t being null-checked.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-17</time>
+                        <pre>Updated hover support.
+* Hover in code sends events to webview, and webview sets styles accordingly.
+* Longstanding exception when opening webview depending on if a cottage file is open or not, needs fixed.
+* Updated TODO.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-17</time>
+                        <pre>Removed many debug logs from extension.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-17</time>
+                        <pre>Hover now responds to cursor movement.
+* TODO: Pass hover to webview
+* TODO: Remove onhover in webview and receive message from client
+* TODO: Remove debug logs.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-16</time>
+                        <pre>Added boilerplate for tracking cursor movements.
+* Goal is the repurpose &#x27;hover&#x27; in trace view to reflect cursor movements in editor, instead of responding to hover in trace view.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2024-12-12</time>
+                        <pre>Removed UTC time from commit date.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>cottage</span>
+                        <time>2024-12-12</time>
+                        <pre>Updated TODO and cottage test script.</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2024-12-11</time>
+                        <pre>Fixed styling.
+* Graph wasn&#x27;t scaling correctly with the updated commit size (too much
+  history).</pre>
+                    </div>
+                    
+                    <div class="activity-log-entry">
+                        <span>bferris413.github.io</span>
+                        <time>2024-12-08</time>
+                        <pre>Fixed styling, it&#x27;ll probably need more work but it&#x27;s not ultra-small anymore.</pre>
+                    </div>
+                    
+                </details>
+                <details class="activity-log activity-log-mobile">
                     <summary class="text-xs text-gray-400">
                         (last 300 commits)
                     </summary>
 
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >bferris413.github.io</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-07-15</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Changed some design elements</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Changed some design elements</span> -->
+                    </div>
+                    
+                    <div class="mb-2">
+                        <span class="underline text-sm"
+                            >library</span
+                        >
+                        <span class="text-gray-400 text-xs font-bold"
+                            >2026-07-15</span
+                        >
+                        <br />
+                        <pre class="text-xs overflow-x-auto text-slate-700">
+Updated quotes view and minor fixes</pre
+                        >
+                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated quotes view and minor fixes</span> -->
+                    </div>
                     
                     <div class="mb-2">
                         <span class="underline text-sm"
@@ -5578,51 +8060,12 @@ Fixed styling, it&#x27;ll probably need more work but it&#x27;s not ultra-small 
                         <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed styling, it&#x27;ll probably need more work but it&#x27;s not ultra-small anymore.</span> -->
                     </div>
                     
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-12-08</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Added --save-commits option to save fetched commits (useful for debug&#x2F;UI experiments)</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Added --save-commits option to save fetched commits (useful for debug&#x2F;UI experiments)</span> -->
-                    </div>
-                    
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >bferris413.github.io</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >2024-12-06</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-Functionality and template updates.
-* Commits are now bucketed by week to give a more stable feel.
-* Changed the number of max tracked commits from 100 to 500.
-* Adjusted the activity graph to account for the increased number of commits.
-* Added a brief info specifying the number of displayed commits (I may yet make this &lt;details&gt;).</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Functionality and template updates.
-* Commits are now bucketed by week to give a more stable feel.
-* Changed the number of max tracked commits from 100 to 500.
-* Adjusted the activity graph to account for the increased number of commits.
-* Added a brief info specifying the number of displayed commits (I may yet make this &lt;details&gt;).</span> -->
-                    </div>
-                    
                 </details>
-            </div>
+            </section>
 
-            <!-- <hr class="mt-2 max-w-prose"> -->
-
-            <div
-                class="mt-8 tracking-[-0.03em] text-lg leading-none font-semibold mb-2"
-            >
-                Work History
+            <section class="experience-panel">
+            <div class="section-heading">
+                Work history
             </div>
 
             <a
@@ -5740,6 +8183,7 @@ Functionality and template updates.
                     (C#, F#).
                 </div>
             </details>
-        </div>
+            </section>
+        </main>
     </body>
 </html>

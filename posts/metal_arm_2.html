@@ -1,38 +1,20 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
-
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="post-content max-w-prose px-2"><h2>Metal ARM x02 - Red LED (Lab Notes)</h2>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+      <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main post-shell">
+      <article class="post-content"><h2>Metal ARM x02 - Red LED (Lab Notes)</h2>
 <aside>
   Metal ARM is a series of projects for learning native toolchain development and
   embedded programming "from scratch." For additional context, see
@@ -151,6 +133,7 @@ know if it's relevant in the practical sense (<em>edit from the future: it is</e
 spend some time aligning at least that bit.</p>
 <p>Also, the repetition of the sequence of load/store operations piqued my interest, so I might try to
 introduce function calls. If that goes smoothly, I still want to cycle through RGB colors, but to do
-that I'll need to use one of the system timers, so that may happen, too.</p></div>
-    </body>
+that I'll need to use one of the system timers, so that may happen, too.</p></article>
+    </main>
+  </body>
 </html>

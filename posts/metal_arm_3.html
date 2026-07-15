@@ -1,38 +1,20 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
-
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="post-content max-w-prose px-2"><h2>Metal ARM x03 - Toggle LED (Lab Notes)</h2>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+      <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main post-shell">
+      <article class="post-content"><h2>Metal ARM x03 - Toggle LED (Lab Notes)</h2>
 <aside>
   Metal ARM is a series of projects for learning native toolchain development and
   embedded programming "from scratch." For additional context, see
@@ -220,6 +202,7 @@ same setup code is kind of onerous, and I felt the same in this project. In the 
 like to add chasm support for function calls and some kind of <code>include</code> statement. This implies
 multiple source files, and would be the first foray into a primitive linking step.</p>
 <p>Depending on how that goes I'll either wrap it up <em>or</em> try to cover an embedded feature. Not having
-any debug printing has been kind of painful, so maybe investigating and implementing that is next.</p></div>
-    </body>
+any debug printing has been kind of painful, so maybe investigating and implementing that is next.</p></article>
+    </main>
+  </body>
 </html>
