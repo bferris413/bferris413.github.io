@@ -1,76 +1,39 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="../static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
-
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="lg:mt-4 px-2">
-            <h2>Posts</h2>
-            {% if posts %}
-                {% set_global cur_year = 0 %}
-                {% set_global cur_month = "" %}
-                <ul class="list-none">
-                    {% for post in posts %}
-                        {% if post.created_at_year != cur_year %}
-                            {% set_global cur_year = post.created_at_year %}
-                            <div
-                                class="mt-4 tracking-[-0.03em] text-gray-800 leading-none font-semibold mb-2"
-                            >
-                                {{ cur_year }}
-                            </div>
-                            <hr class="max-w-prose" />
-                        {% endif %}
-                        {% if post.created_at_month != cur_month %}
-                            {% set_global cur_month = post.created_at_month %}
-                            <div
-                                class="mt-4 tracking-[-0.03em] text-sm text-gray-800 leading-none font-semibold mb-4"
-                            >
-                                {{ cur_month }}
-                            </div>
-                        {% endif %}
-                        <li class="mb-2">
-                            <a
-                                class="underline leading-none font-medium tracking-[-0.03em] text-gray-700 visited:text-purple-600"
-                                href="/posts/{{ post.html_filename }}"
-                                >#{{ post.number }} {{ post.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                <span
-                    class="text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
-                    >No posts yet!</span
-                >
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital — Readouts</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+      <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main archive-panel">
+      <h1>Posts</h1>
+      {% if posts %}
+        {% set_global cur_year = 0 %}
+        {% set_global cur_month = "" %}
+        <ul>
+          {% for post in posts %}
+            {% if post.created_at_year != cur_year %}
+              {% set_global cur_year = post.created_at_year %}
+              <li class="archive-year">{{ cur_year }}</li>
             {% endif %}
-        </div>
-    </body>
+            {% if post.created_at_month != cur_month %}
+              {% set_global cur_month = post.created_at_month %}
+              <li class="archive-month">{{ cur_month }}</li>
+            {% endif %}
+            <li><a href="/posts/{{ post.html_filename }}"><span>#{{ post.number }}</span>{{ post.title }} <b>→</b></a></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No posts yet.</p>
+      {% endif %}
+    </main>
+  </body>
 </html>

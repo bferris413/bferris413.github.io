@@ -9,42 +9,21 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </head>
 
-    <body class="px-2">
-        <div class="py-4">
-            <div class="flex flex-row items-baseline pb-2">
-                <a href="/">
-                    <div
-                        class="text-[calc(50vw/8)] tracking-[-0.03em] leading-none font-semibold"
-                    >
-                        Interactive Digital
-                    </div>
-                </a>
-                <nav>
-                    <a
-                        class="text-blue-600 visited:text-purple-600 px-2 py-0.5 ml-4 after:content-['↗']"
-                        href="/posts/posts.html"
-                    >
-                        <span class="text-sm text-gray-600 font-semibold"
-                            >Posts</span
-                        >
-                        <!-- {{ posts_hash }} -- -->
-                    </a>
-                </nav>
-            </div>
-            <hr class="md:hidden" />
-        </div>
-        <div class="px-2">
+    <body>
+        <header class="site-header">
+            <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+            <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+        </header>
+        <main class="site-main home-panel">
             <div
                 class="lg:mt-2 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
             >
-                Engineer, interested in networking, tooling, languages, and
-                systems.
+                <strong>Systems software engineer.</strong>
+                Networking, performance, languages, and developer tools.
             </div>
 
-            <div class="mt-8">
-                <div
-                    class="tracking-[-0.03em] text-lg leading-none font-semibold mb-1"
-                >
+            <section class="activity-panel">
+                <div class="section-heading">
                     Activity
                 </div>
                 <div class="text-xs">
@@ -55,22 +34,37 @@
                 </div>
                 <div>
                     <svg
-                        height="50px"
-                        class="stroke-[.5]"
-                        version="1.1"
+                        class="activity-chart"
+                        height="80"
+                        width="100%"
+                        preserveAspectRatio="none"
+                        role="img"
+                        aria-label="Recent commit activity"
                         viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <polyline
-                            points="{% for coord in activity_stats.coords %} {{ coord.x }} {{ coord.y }},{% endfor %}"
-                            stroke="black"
+                            points="{% for coord in activity_stats.coords %}{{ coord.x }} {{ coord.y }}{% if not loop.last %}, {% endif %}{% endfor %}"
+                            stroke="currentColor"
+                            stroke-width="1.25"
+                            vector-effect="non-scaling-stroke"
                             stroke-linejoin="miter"
                             fill="transparent"
                             transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})"
                         />
                     </svg>
                 </div>
-                <details class="mt-2 mb-4">
+                <details class="activity-log activity-log-desktop" open>
+                    <summary>Recent commits / {{ui_commits | length}}</summary>
+                    {% for commit in ui_commits %}
+                    <div class="activity-log-entry">
+                        <span>{{ commit.repo_name }}</span>
+                        <time>{{ commit.author_date }}</time>
+                        <pre>{{ commit.commit_msg }}</pre>
+                    </div>
+                    {% endfor %}
+                </details>
+                <details class="activity-log activity-log-mobile">
                     <summary class="text-xs text-gray-400">
                         (last {{ui_commits | length}} commits)
                     </summary>
@@ -91,14 +85,11 @@
                     </div>
                     {% endfor %}
                 </details>
-            </div>
+            </section>
 
-            <!-- <hr class="mt-2 max-w-prose"> -->
-
-            <div
-                class="mt-8 tracking-[-0.03em] text-lg leading-none font-semibold mb-2"
-            >
-                Work History
+            <section class="experience-panel">
+            <div class="section-heading">
+                Work history
             </div>
 
             <a
@@ -216,6 +207,7 @@
                     (C#, F#).
                 </div>
             </details>
-        </div>
+            </section>
+        </main>
     </body>
 </html>
