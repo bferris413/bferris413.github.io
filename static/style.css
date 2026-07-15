@@ -1462,8 +1462,13 @@ body {
   max-width: 760px;
   margin-bottom: 12px;
   color: #27302b;
-  font: 800 clamp(2rem, 4vw, 3.5rem)/.95 Inter, sans-serif;
-  letter-spacing: -.065em;
+  font: 800 clamp(1.65rem, 3vw, 2.6rem)/1 Inter, sans-serif;
+  letter-spacing: -.05em;
+}
+
+.headline-bracket {
+  color: #7b817a;
+  font-weight: 600;
 }
 
 .section-heading {
@@ -1539,6 +1544,32 @@ body {
 
 .activity-log-mobile {
   display: none !important;
+}
+
+/* Keep the activity log visually separate without a rule below the graph. */
+
+.activity-log {
+  border-top: 0;
+}
+
+@media (max-width: 720px) {
+  .activity-panel, .activity-log-mobile {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .activity-chart, .activity-log-mobile pre {
+    max-width: 100%;
+  }
+}
+
+.experience-panel a, .experience-panel a:visited, .experience-panel a span, .experience-panel .text-slate-500, .experience-panel details, .experience-panel details summary {
+  color: #343c36 !important;
+}
+
+.home-panel .experience-panel a span {
+  color: #343c36 !important;
 }
 
 .experience-panel {
@@ -1628,6 +1659,38 @@ body {
 .archive-panel li span, .archive-panel li b {
   color: #586159;
   font-size: .75rem;
+}
+
+.archive-panel h1 {
+  margin: 0 0 12px;
+  font: 800 clamp(1.65rem, 3vw, 2.6rem)/1 Inter, sans-serif;
+  letter-spacing: -.05em;
+}
+
+.archive-panel li.archive-year {
+  margin: 34px 0 0;
+}
+
+.post-breadcrumb {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 18px;
+  color: #586159;
+  font: .7rem/1 "IBM Plex Mono", monospace;
+  letter-spacing: .08em;
+}
+
+.post-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-breadcrumb a:hover {
+  color: #27302b;
+}
+
+.post-content > h2:first-child {
+  margin-top: 0;
 }
 
 .post-shell {
@@ -1929,15 +1992,22 @@ h2 {
   margin-bottom: 1rem;
   border-width: 1px;
   --tw-border-opacity: 1;
-  border-color: rgb(37 99 235 / var(--tw-border-opacity));
+  border-color: rgb(148 163 184 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
   padding: 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
+  color: rgb(51 65 85 / var(--tw-text-opacity));
   border-radius: 5px;
+}
+
+.post-content code[class^="language-"] {
+  background: #e8e7e1;
+  color: #343c36;
+  font-size: .85rem;
+  line-height: 1.55;
 }
 
 .after\:content-\[\'\2197\'\]::after {
