@@ -14,6 +14,13 @@
       <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
     </header>
     <main class="site-main post-shell">
+      <nav class="post-breadcrumb" aria-label="Post metadata">
+        <a href="/posts/posts.html">Posts</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ post_month }} {{ post_year }}</span>
+        <span aria-hidden="true">/</span>
+        <span>#{{ post_number }}</span>
+      </nav>
       <article class="post-content">{{ content | safe }}</article>
     </main>
   </body>

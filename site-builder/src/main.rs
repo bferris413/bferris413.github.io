@@ -410,6 +410,9 @@ async fn populate_individual_post_template(
         let post_html_from_md =
             &markdown::to_html_with_options(&post.md_content, &options).unwrap();
         context.insert("content", post_html_from_md);
+        context.insert("post_number", &post.post_number);
+        context.insert("post_month", &post.created_at_month);
+        context.insert("post_year", &post.created_at_year);
         let full_post_html = tera.render("post.html", &context)?;
         individual_post_html.push((post.filename.clone(), full_post_html));
     }
