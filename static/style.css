@@ -1471,6 +1471,12 @@ body {
   font-weight: 600;
 }
 
+.home-panel > div:first-child strong {
+  margin-bottom: 6px;
+  font: 700 clamp(1.35rem, 2.4vw, 2.15rem)/1.05 Inter, sans-serif;
+  letter-spacing: -.035em;
+}
+
 .section-heading {
   margin: 0 0 10px;
   color: #27302b;
@@ -1559,7 +1565,12 @@ body {
     max-width: 100%;
   }
 
-  .activity-chart, .activity-log-mobile pre {
+  .activity-chart {
+    width: min(100%, 280px);
+    max-width: 100%;
+  }
+
+  .activity-log-mobile pre {
     max-width: 100%;
   }
 }
