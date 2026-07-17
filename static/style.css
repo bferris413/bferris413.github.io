@@ -1453,8 +1453,6 @@ body {
   grid-column: 1 / -1;
   padding-bottom: 8px;
   color: #586159;
-  font-size: 1rem;
-  line-height: 1.7;
 }
 
 .home-panel > div:first-child strong {
@@ -2033,9 +2031,5 @@ h2 {
 @media (min-width: 1024px) {
   .lg\:mt-2 {
     margin-top: 0.5rem;
-  }
-
-  .lg\:text-\[0\.95rem\] {
-    font-size: 0.95rem;
   }
 }
