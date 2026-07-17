@@ -1,105 +1,81 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Interactive Digital</title>
-        <link rel="stylesheet" type="text/css" href="static/style.css" />
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </head>
 
-    <body>
-        <header class="site-header">
-            <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
-            <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
-        </header>
-        <main class="site-main home-panel">
-            <div
-                class="lg:mt-2 text-sm lg:text-[0.95rem] max-w-prose text-slate-700 font-[450]"
-            >
-                <strong>Systems software</strong>
-                Networking, performance, compiler toolchains, embedded systems, and developer tools.
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Digital</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="site-mark" href="/">INTERACTIVE<br />DIGITAL</a>
+        <nav aria-label="Primary navigation"><a href="/posts/posts.html">Posts</a></nav>
+    </header>
+    <main class="site-main home-panel">
+        <div class="lg:mt-2 text-sm max-w-prose text-slate-700 font-[450]">
+            Networking, performance, compiler toolchains, embedded systems, and developer tools.
+        </div>
+
+        <section class="activity-panel">
+            <div class="section-heading">
+                Activity
             </div>
-
-            <section class="activity-panel">
-                <div class="section-heading">
-                    Activity
+            <div class="text-xs">
+                (last seen near {% if activity_stats.geo_data %}
+                {{activity_stats.geo_data.city}}, {{
+                activity_stats.geo_data.state_code | replace(from="US-",
+                to="") }}) {% else %} ??) {% endif %}
+            </div>
+            <div>
+                <svg class="activity-chart" height="80" width="100%" preserveAspectRatio="none" role="img"
+                    aria-label="Recent commit activity" viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polyline
+                        points="{% for coord in activity_stats.coords %}{{ coord.x }} {{ coord.y }}{% if not loop.last %}, {% endif %}{% endfor %}"
+                        stroke="currentColor" stroke-width="1.25" vector-effect="non-scaling-stroke"
+                        stroke-linejoin="miter" fill="transparent"
+                        transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})" />
+                </svg>
+            </div>
+            <details class="activity-log activity-log-desktop" open>
+                <summary class="text-gray-400">Recent commits / {{ui_commits | length}}</summary>
+                {% for commit in ui_commits %}
+                <div class="activity-log-entry">
+                    <span>{{ commit.repo_name }}</span>
+                    <time>{{ commit.author_date }}</time>
+                    <pre>{{ commit.commit_msg }}</pre>
                 </div>
-                <div class="text-xs">
-                    (last seen near {% if activity_stats.geo_data %}
-                    {{activity_stats.geo_data.city}}, {{
-                    activity_stats.geo_data.state_code | replace(from="US-",
-                    to="") }}) {% else %} ??) {% endif %}
-                </div>
-                <div>
-                    <svg
-                        class="activity-chart"
-                        height="80"
-                        width="100%"
-                        preserveAspectRatio="none"
-                        role="img"
-                        aria-label="Recent commit activity"
-                        viewBox="0 0 {{activity_stats.len}} {{activity_stats.max + 2}}"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <polyline
-                            points="{% for coord in activity_stats.coords %}{{ coord.x }} {{ coord.y }}{% if not loop.last %}, {% endif %}{% endfor %}"
-                            stroke="currentColor"
-                            stroke-width="1.25"
-                            vector-effect="non-scaling-stroke"
-                            stroke-linejoin="miter"
-                            fill="transparent"
-                            transform="scale(1, -1) translate(0, -{{activity_stats.max + 1}})"
-                        />
-                    </svg>
-                </div>
-                <details class="activity-log activity-log-desktop" open>
-                    <summary>Recent commits / {{ui_commits | length}}</summary>
-                    {% for commit in ui_commits %}
-                    <div class="activity-log-entry">
-                        <span>{{ commit.repo_name }}</span>
-                        <time>{{ commit.author_date }}</time>
-                        <pre>{{ commit.commit_msg }}</pre>
-                    </div>
-                    {% endfor %}
-                </details>
-                <details class="activity-log activity-log-mobile">
-                    <summary class="text-xs text-gray-400">
-                        (last {{ui_commits | length}} commits)
-                    </summary>
+                {% endfor %}
+            </details>
+            <details class="activity-log activity-log-mobile">
+                <summary class="text-xs text-gray-400">
+                    Recent commits / {{ui_commits | length}}
+                </summary>
 
-                    {% for commit in ui_commits %}
-                    <div class="mb-2">
-                        <span class="underline text-sm"
-                            >{{ commit.repo_name }}</span
-                        >
-                        <span class="text-gray-400 text-xs font-bold"
-                            >{{ commit.author_date }}</span
-                        >
-                        <br />
-                        <pre class="text-xs overflow-x-auto text-slate-700">
-{{ commit.commit_msg }}</pre
-                        >
-                        <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->
-                    </div>
-                    {% endfor %}
-                </details>
-            </section>
+                {% for commit in ui_commits %}
+                <div class="mb-2">
+                    <span class="underline text-sm">{{ commit.repo_name }}</span>
+                    <span class="text-gray-400 text-xs font-bold">{{ commit.author_date }}</span>
+                    <br />
+                    <pre class="text-xs overflow-x-auto text-slate-700">
+{{ commit.commit_msg }}</pre>
+                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">{{ commit.commit_msg }}</span> -->
+                </div>
+                {% endfor %}
+            </details>
+        </section>
 
-            <section class="experience-panel">
+        <section class="experience-panel">
             <div class="section-heading">
                 Work history
             </div>
 
-            <a
-                class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                href="https://aembit.io"
-            >
-                <img
-                    class="inline-block h-10"
-                    src="static/aembit-full-icon.svg"
-                />
+            <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://aembit.io">
+                <img class="inline-block h-10" src="static/aembit-full-icon.svg" />
                 <br />
                 <span class="text-sm text-gray-600 font-semibold">Aembit</span>
             </a>
@@ -111,18 +87,13 @@
 
             <hr class="mt-2 mb-6 max-w-prose" />
 
-            <a
-                class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                href="https://maxisiq.com"
-            >
+            <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://maxisiq.com">
                 <img class="inline-block h-6" src="static/iomaxis-logo.svg" />
                 <br />
                 <span class="text-sm text-gray-600 font-semibold">IOMAXIS</span>
             </a>
 
-            <details
-                class="mt-2 text-sm max-w-prose text-slate-500 font-medium"
-            >
+            <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
                 <summary>
                     I worked as an engineer for four years with IOMAXIS,
                     including two years as a technical lead (Rust, Networking,
@@ -130,11 +101,9 @@
                 </summary>
                 <div class="mt-2">
                     I led a small team (3-5 engineers) building a new
-                    <a
-                        class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                        href="https://duckduckgo.com/?t=ffab&q=cross+domain+solution&ia=web"
-                        >cross-domain solution</a
-                    >. I worked on all parts of the project (design, networking,
+                    <a class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+                        href="https://duckduckgo.com/?t=ffab&q=cross+domain+solution&ia=web">cross-domain solution</a>.
+                    I worked on all parts of the project (design, networking,
                     implementation, build/deploy pipelines), but was also
                     responsible for mentorship, team-building, and overall
                     technical project direction.
@@ -151,21 +120,15 @@
             <hr class="mt-2 mb-6 max-w-prose" />
 
             <div>
-                <a
-                    class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                    href="https://www.nasa.gov/goddard/"
-                >
+                <a class="text-blue-600 visited:text-purple-600 after:content-['↗']"
+                    href="https://www.nasa.gov/goddard/">
                     <img class="inline-block h-12" src="static/nasa-logo.svg" />
                     <br />
-                    <span class="text-sm text-gray-600 font-semibold"
-                        >Goddard Space Flight Center</span
-                    >
+                    <span class="text-sm text-gray-600 font-semibold">Goddard Space Flight Center</span>
                 </a>
             </div>
 
-            <details
-                class="mt-2 text-sm max-w-prose text-slate-500 font-medium"
-            >
+            <details class="mt-2 text-sm max-w-prose text-slate-500 font-medium">
                 <summary>
                     I spent two years at NASA Goddard, including two internships
                     (Linux, Java, Python, Jenkins, Docker).
@@ -181,21 +144,14 @@
             <hr class="mt-2 mb-8 max-w-prose" />
 
             <div>
-                <a
-                    class="text-blue-600 visited:text-purple-600 after:content-['↗']"
-                    href="https://www.cdpehs.com/"
-                >
+                <a class="text-blue-600 visited:text-purple-600 after:content-['↗']" href="https://www.cdpehs.com/">
                     <img class="inline-block h-8" src="static/cdp-logo.png" />
                     <br />
-                    <span class="text-sm text-gray-600 font-semibold"
-                        >Custom Data Processing</span
-                    >
+                    <span class="text-sm text-gray-600 font-semibold">Custom Data Processing</span>
                 </a>
             </div>
 
-            <details
-                class="mt-2 mb-4 text-sm max-w-prose text-slate-500 font-medium"
-            >
+            <details class="mt-2 mb-4 text-sm max-w-prose text-slate-500 font-medium">
                 <summary>
                     I worked nights in CDP Operations for two years while
                     finishing my degree (C#, F#).
@@ -207,7 +163,8 @@
                     (C#, F#).
                 </div>
             </details>
-            </section>
-        </main>
-    </body>
+        </section>
+    </main>
+</body>
+
 </html>

@@ -37,6 +37,7 @@ const REPO_COMMITS: &str =
     "https://api.github.com/repos/{owner}/{repo}/commits?per_page={per_page}&page={page}";
 const IP_GEO: &str = "https://api.ipgeolocation.io/ipgeo?apiKey={api_key}";
 const MAX_GRAPH_HISTORY: usize = 300;
+const ACTIVITY_GRAPH_WEEKS: usize = 52 * 2;
 const PER_PAGE: usize = 100;
 
 #[derive(Debug, Parser)]
@@ -90,8 +91,15 @@ async fn main() -> Result<()> {
 
     let template_dir = args.project_dir.join("templates");
     let tera = initialize_tera(&template_dir).await?;
-    let site_content =
-        populate_templates(&tera, &commits[..max_history], geo_data, &posts, posts_hash).await?;
+    let site_content = populate_templates(
+        &tera,
+        &commits[..max_history],
+        &commits,
+        geo_data,
+        &posts,
+        posts_hash,
+    )
+    .await?;
 
     write_output(&site_content, &args.project_dir, &args.out_dir).await?;
     eprintln!("Site built successfully");
@@ -295,8 +303,11 @@ async fn fetch_geo_data(token: &str) -> Result<GeoData> {
     let api = IP_GEO.replace("{api_key}", token);
     let client = Client::new();
     let response = client.get(api).send().await?;
+    let status = response.status();
+    let body = response.text().await?;
+    eprintln!("IP geolocation response status: {status}");
 
-    let geo_data: GeoData = response.json().await?;
+    let geo_data: GeoData = serde_json::from_str(&body)?;
     Ok(geo_data)
 }
 
@@ -376,16 +387,23 @@ struct SiteContent {
     posts_html: Vec<(String, String)>,
 }
 
-// populate_templates(&tera, &commits[..max_history], geo_data, &posts).await?;
 async fn populate_templates(
     tera: &Tera,
-    commits: &[RepoCommit],
+    recent_commits: &[RepoCommit],
+    graph_commits: &[RepoCommit],
     geo_data: Option<GeoData>,
     posts: &[Post],
     posts_hash: u64,
 ) -> Result<SiteContent> {
     let site_content = SiteContent {
-        index_html: populate_index_template(tera, commits, geo_data, posts_hash).await?,
+        index_html: populate_index_template(
+            tera,
+            recent_commits,
+            graph_commits,
+            geo_data,
+            posts_hash,
+        )
+        .await?,
         posts_index_html: populate_post_index_template(tera, posts).await?,
         posts_html: populate_individual_post_template(tera, posts).await?,
     };
@@ -430,16 +448,17 @@ async fn populate_post_index_template(tera: &Tera, posts: &[Post]) -> Result<Str
 
 async fn populate_index_template(
     tera: &Tera,
-    commits: &[RepoCommit],
+    recent_commits: &[RepoCommit],
+    graph_commits: &[RepoCommit],
     mut geo_data: Option<GeoData>,
     posts_hash: u64,
 ) -> Result<String> {
-    let ui_commits: Vec<_> = commits.iter().map(|rc| UiCommit::from(rc)).collect();
+    let ui_commits: Vec<_> = recent_commits.iter().map(|rc| UiCommit::from(rc)).collect();
     if let Some(ref mut geo_data) = geo_data {
         correct_near_home(geo_data);
     }
 
-    let mut activity_stats = get_activity_stats(commits);
+    let mut activity_stats = get_activity_stats(graph_commits);
     activity_stats.geo_data = geo_data;
 
     let mut context = Context::new();
@@ -564,8 +583,17 @@ async fn authd_get<T: DeserializeOwned>(url: &str, token: &str) -> Result<Vec<T>
         .bearer_auth(token)
         .send()
         .await?;
+    let status = response.status();
+    let body = response.text().await?;
+    eprintln!("GitHub API response status ({status}) from {url}");
 
-    let t: Vec<T> = response.json().await?;
+    let t: Vec<T> = match serde_json::from_str(&body) {
+        Ok(value) => value,
+        Err(error) => {
+            eprintln!("GitHub API response could not be decoded");
+            return Err(error.into());
+        }
+    };
     Ok(t)
 }
 
@@ -579,23 +607,18 @@ fn order_by_date_rev(first: &RepoCommit, second: &RepoCommit) -> Ordering {
 }
 
 fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
-    let mut date_commits = map_commits(commits);
-    fill_date_gaps(&mut date_commits);
-
-    let max = *date_commits
-        .iter()
-        .max_by(|c1, c2| c1.1.cmp(c2.1))
-        .unwrap()
-        .1;
-    let coords: Vec<_> = date_commits
-        .into_iter()
+    let date_commits = map_commits(commits);
+    let this_week = WeekNumber::from(OffsetDateTime::now_utc().date());
+    let first_week = WeekNumber(this_week.0 - ACTIVITY_GRAPH_WEEKS as i32 + 1);
+    let coords: Vec<_> = (first_week.0..=this_week.0)
         .enumerate()
-        .map(|(index, (_date, count))| Point {
+        .map(|(index, week)| Point {
             x: index as u32,
-            y: count,
+            y: date_commits.get(&WeekNumber(week)).copied().unwrap_or(0),
         })
         .collect();
     let len = coords.len();
+    let max = coords.iter().map(|point| point.y).max().unwrap_or(0);
 
     ActivityStats {
         max,
@@ -605,47 +628,11 @@ fn get_activity_stats(commits: &[RepoCommit]) -> ActivityStats {
     }
 }
 
-/// Fills gaps between dates, up to but not including today, with <missing week number> -> 0.
-fn fill_date_gaps(date_commits: &mut BTreeMap<WeekNumber, u32>) {
-    let mut missing_weeks = vec![];
-    let mut dates = date_commits.keys();
-    let (mut w1, mut w2) = (dates.next(), dates.next());
-
-    if w1.is_none() {
-        return;
-    }
-
-    while let Some(next_plotted_week) = w2 {
-        let mut working_week = w1.unwrap().0 + 1;
-        while working_week != next_plotted_week.0 {
-            missing_weeks.push((working_week, 0));
-            working_week += 1;
-        }
-        w1 = w2;
-        w2 = dates.next();
-    }
-
-    let this_week = WeekNumber::from(OffsetDateTime::now_utc().date());
-    let last_plotted_week = date_commits.last_key_value().unwrap().0;
-    let mut maybe_missing_week = last_plotted_week.0 + 1;
-
-    while maybe_missing_week < this_week.0 {
-        missing_weeks.push((maybe_missing_week, 0));
-        maybe_missing_week += 1;
-    }
-
-    date_commits.extend(
-        missing_weeks
-            .into_iter()
-            .map(|(week, n)| (WeekNumber(week), n)),
-    );
-}
-
 /// Collects commits into <commit date> -> <commit count>.
 fn map_commits(commits: &[RepoCommit]) -> BTreeMap<WeekNumber, u32> {
     let mut date_commits = BTreeMap::new();
     for rc in commits {
-        let date = rc.commit.commit.author.date.date();
+        let date = rc.commit.commit.committer.date.date();
         let week = WeekNumber::from(date);
         date_commits
             .entry(week)
@@ -888,19 +875,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn date_gaps() {
-        let mut date_commits = BTreeMap::from_iter([
-            (WeekNumber(0), 1),
-            (WeekNumber(1), 1),
-            (WeekNumber(2), 1),
-            (WeekNumber(7), 1),
-            (WeekNumber(8), 1),
-            (WeekNumber(10), 1),
-            (WeekNumber(11), 1),
-            (WeekNumber(14), 1),
-        ]);
+    fn activity_graph_uses_a_two_year_window() {
+        let stats = get_activity_stats(&[]);
 
-        fill_date_gaps(&mut date_commits);
-        dbg!(date_commits);
+        assert_eq!(stats.len, ACTIVITY_GRAPH_WEEKS);
+        assert!(stats.coords.iter().all(|point| point.y == 0));
     }
 }
