@@ -1552,6 +1552,10 @@ body {
 
 /* Keep the activity log visually separate without a rule below the graph. */
 
+.activity-panel {
+  border-left: 0;
+}
+
 .activity-log {
   border-top: 0;
 }
