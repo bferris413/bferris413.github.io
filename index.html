@@ -33,7 +33,7 @@
                     aria-label="Recent commit activity" viewBox="0 0 104 19"
                     xmlns="http://www.w3.org/2000/svg">
                     <polyline
-                        points="0 8, 1 11, 2 8, 3 5, 4 8, 5 2, 6 0, 7 6, 8 1, 9 0, 10 3, 11 8, 12 5, 13 3, 14 6, 15 5, 16 2, 17 0, 18 7, 19 4, 20 0, 21 13, 22 0, 23 0, 24 9, 25 9, 26 5, 27 7, 28 3, 29 2, 30 0, 31 6, 32 5, 33 2, 34 5, 35 7, 36 0, 37 1, 38 0, 39 4, 40 1, 41 0, 42 0, 43 1, 44 1, 45 7, 46 4, 47 8, 48 6, 49 2, 50 0, 51 1, 52 8, 53 3, 54 0, 55 6, 56 5, 57 3, 58 6, 59 3, 60 6, 61 4, 62 4, 63 0, 64 2, 65 7, 66 17, 67 2, 68 2, 69 2, 70 1, 71 4, 72 3, 73 7, 74 9, 75 8, 76 0, 77 1, 78 1, 79 0, 80 4, 81 5, 82 1, 83 0, 84 0, 85 0, 86 6, 87 8, 88 0, 89 0, 90 1, 91 0, 92 0, 93 0, 94 0, 95 0, 96 6, 97 0, 98 0, 99 0, 100 0, 101 0, 102 0, 103 0"
+                        points="0 11, 1 8, 2 5, 3 8, 4 2, 5 0, 6 6, 7 1, 8 0, 9 3, 10 8, 11 5, 12 3, 13 6, 14 5, 15 2, 16 0, 17 7, 18 4, 19 0, 20 13, 21 0, 22 0, 23 9, 24 9, 25 5, 26 7, 27 3, 28 2, 29 0, 30 6, 31 5, 32 2, 33 5, 34 7, 35 0, 36 1, 37 0, 38 4, 39 1, 40 0, 41 0, 42 1, 43 1, 44 7, 45 4, 46 8, 47 6, 48 2, 49 0, 50 1, 51 8, 52 3, 53 0, 54 6, 55 5, 56 3, 57 6, 58 3, 59 6, 60 4, 61 4, 62 0, 63 2, 64 7, 65 17, 66 2, 67 2, 68 2, 69 1, 70 4, 71 3, 72 7, 73 9, 74 8, 75 0, 76 1, 77 1, 78 0, 79 4, 80 5, 81 1, 82 0, 83 0, 84 0, 85 6, 86 8, 87 0, 88 0, 89 1, 90 0, 91 0, 92 0, 93 0, 94 0, 95 6, 96 0, 97 0, 98 0, 99 0, 100 0, 101 0, 102 3, 103 0"
                         stroke="currentColor" stroke-width="1.25" vector-effect="non-scaling-stroke"
                         stroke-linejoin="miter" fill="transparent"
                         transform="scale(1, -1) translate(0, -18)" />
@@ -41,6 +41,24 @@
             </div>
             <details class="activity-log activity-log-desktop" open>
                 <summary class="text-gray-400">Recent commits / 300</summary>
+                
+                <div class="activity-log-entry">
+                    <span>chasm-toolchain</span>
+                    <time>2026-11-12</time>
+                    <pre>Fixed saved logic betwen buffer&#x2F;pane</pre>
+                </div>
+                
+                <div class="activity-log-entry">
+                    <span>chasm-toolchain</span>
+                    <time>2026-11-12</time>
+                    <pre>Minimal theme</pre>
+                </div>
+                
+                <div class="activity-log-entry">
+                    <span>chasm-toolchain</span>
+                    <time>2026-11-12</time>
+                    <pre>Updated theme support traits&#x2F;impls</pre>
+                </div>
                 
                 <div class="activity-log-entry">
                     <span>dover</span>
@@ -2468,32 +2486,39 @@ a HashSet.</pre>
                     <pre>Initial commit</pre>
                 </div>
                 
-                <div class="activity-log-entry">
-                    <span>bferris413.github.io</span>
-                    <time>2025-01-18</time>
-                    <pre>Updated job description
-
-This seems like something that will be tweaked forever...</pre>
-                </div>
-                
-                <div class="activity-log-entry">
-                    <span>bferris413.github.io</span>
-                    <time>2025-01-11</time>
-                    <pre>Fixed full-width link issue.</pre>
-                </div>
-                
-                <div class="activity-log-entry">
-                    <span>bferris413.github.io</span>
-                    <time>2025-01-11</time>
-                    <pre>Updated spacing and removed border.</pre>
-                </div>
-                
             </details>
             <details class="activity-log activity-log-mobile">
                 <summary class="text-xs text-gray-400">
                     Recent commits / 300
                 </summary>
 
+                
+                <div class="mb-2">
+                    <span class="underline text-sm">chasm-toolchain</span>
+                    <span class="text-gray-400 text-xs font-bold">2026-11-12</span>
+                    <br />
+                    <pre class="text-xs overflow-x-auto text-slate-700">
+Fixed saved logic betwen buffer&#x2F;pane</pre>
+                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed saved logic betwen buffer&#x2F;pane</span> -->
+                </div>
+                
+                <div class="mb-2">
+                    <span class="underline text-sm">chasm-toolchain</span>
+                    <span class="text-gray-400 text-xs font-bold">2026-11-12</span>
+                    <br />
+                    <pre class="text-xs overflow-x-auto text-slate-700">
+Minimal theme</pre>
+                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Minimal theme</span> -->
+                </div>
+                
+                <div class="mb-2">
+                    <span class="underline text-sm">chasm-toolchain</span>
+                    <span class="text-gray-400 text-xs font-bold">2026-11-12</span>
+                    <br />
+                    <pre class="text-xs overflow-x-auto text-slate-700">
+Updated theme support traits&#x2F;impls</pre>
+                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated theme support traits&#x2F;impls</span> -->
+                </div>
                 
                 <div class="mb-2">
                     <span class="underline text-sm">dover</span>
@@ -6454,37 +6479,6 @@ First commit of &quot;diff overview&quot; AKA dover.</pre>
                     <pre class="text-xs overflow-x-auto text-slate-700">
 Initial commit</pre>
                     <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Initial commit</span> -->
-                </div>
-                
-                <div class="mb-2">
-                    <span class="underline text-sm">bferris413.github.io</span>
-                    <span class="text-gray-400 text-xs font-bold">2025-01-18</span>
-                    <br />
-                    <pre class="text-xs overflow-x-auto text-slate-700">
-Updated job description
-
-This seems like something that will be tweaked forever...</pre>
-                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated job description
-
-This seems like something that will be tweaked forever...</span> -->
-                </div>
-                
-                <div class="mb-2">
-                    <span class="underline text-sm">bferris413.github.io</span>
-                    <span class="text-gray-400 text-xs font-bold">2025-01-11</span>
-                    <br />
-                    <pre class="text-xs overflow-x-auto text-slate-700">
-Fixed full-width link issue.</pre>
-                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Fixed full-width link issue.</span> -->
-                </div>
-                
-                <div class="mb-2">
-                    <span class="underline text-sm">bferris413.github.io</span>
-                    <span class="text-gray-400 text-xs font-bold">2025-01-11</span>
-                    <br />
-                    <pre class="text-xs overflow-x-auto text-slate-700">
-Updated spacing and removed border.</pre>
-                    <!-- <span class="text-slate-500 text-sm font-medium whitespace-pre-line">Updated spacing and removed border.</span> -->
                 </div>
                 
             </details>
